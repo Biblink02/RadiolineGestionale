@@ -1,0 +1,58 @@
+services:
+  nginx:
+    image: 'jc21/nginx-proxy-manager:latest'
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '81:81'
+      - '443:443'
+    volumes:
+      - ./data:/data
+      - ./letsencrypt:/etc/letsencrypt
+    networks:
+      default:
+        ipv4_address: "${CONTAINER_SERVICE_PROXY_IP_ADDRESS}"
+        aliases:
+          - "${CONTAINER_NAME}-docker.local"
+    deploy:
+      resources:
+        limits:
+          memory: 500M
+    memswap_limit: 4G
+
+
+  app:
+    image: "sindriainc/nginx-php:6.0.0-8.2"
+    restart: "always"
+    expose:
+      - "80"
+    environment:
+      - "HOST_USER_UID=${HOST_USER_UID}"
+      - "NGINX_PHP_PM_MAX_CHILDREN=${NGINX_PHP_PM_MAX_CHILDREN}"
+    volumes:
+      - "./src:/var/www/app"
+      - "./docker:/scripts"
+    networks:
+      default:
+        ipv4_address: "${CONTAINER_SERVICE_APP_IP_ADDRESS}"
+        aliases:
+          - "${CONTAINER_NAME}-docker.local"
+    command: "bash /scripts/startup-wrapper.sh"
+    # Resource limits for app service
+    deploy:
+      resources:
+        limits:
+          memory: 1250M
+    memswap_limit: 6G
+
+networks:
+  default:
+    name: "vpc_${CONTAINER_NAME}"
+    driver: "bridge"
+    ipam:
+      config:
+        - subnet: "${CONTAINER_NETWORK_SUBNET}"
+
+volumes:
+  database:
+  app_storage:

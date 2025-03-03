@@ -1,0 +1,70 @@
+services:
+  app:
+    image: "sindriainc/nginx-php:6.0.0-local-8.2"
+    depends_on:
+      - "database"
+    restart: "no"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      - "HOST_USER_UID=${HOST_USER_UID}"
+      - "NGINX_PHP_PM_MAX_CHILDREN=${NGINX_PHP_PM_MAX_CHILDREN}"
+    volumes:
+      - "./src:/var/www/app"
+      - "./docker:/scripts"
+    hostname: "${CONTAINER_NAME}-docker.local"
+    ports:
+      - "8100:80"
+    networks:
+      default:
+        ipv4_address: "${CONTAINER_SERVICE_APP_IP_ADDRESS}"
+        aliases:
+          - "${CONTAINER_NAME}-docker.local"
+    command: "bash /scripts/startup-wrapper_local.sh"
+
+  frontend:
+    image: "node:20"
+    depends_on:
+      - "app"
+    working_dir: "/var/www/docker"
+    volumes:
+      - "./src:/var/www/docker"
+    ports:
+      - "3100:3100" # vite hot reload
+    command: >
+      bash -c "npm install
+      && npm run dev"
+    networks:
+      default:
+        ipv4_address: "${CONTAINER_SERVICE_FRONTEND_IP_ADDRESS}"
+        aliases:
+          - "${CONTAINER_NAME}-nodejs.local"
+
+  database:
+    image: "mariadb:11.1"
+    ports:
+      - "${DATABASE_BIND_PORT}:3306"
+    environment:
+      MARIADB_ROOT_PASSWORD: ${DATABASE_ROOT_PASSWORD}
+      MARIADB_USER: ${DATABASE_USER}
+      MARIADB_PASSWORD: ${DATABASE_PASSWORD}
+      MARIADB_DATABASE: ${DATABASE_NAME}
+    volumes:
+      - "database:/var/lib/mysql"
+    networks:
+      default:
+        ipv4_address: "${CONTAINER_SERVICE_DATABASE_IP_ADDRESS}"
+        aliases:
+          - "${CONTAINER_NAME}-database.local"
+
+networks:
+  default:
+    name: "vpc_${CONTAINER_NAME}"
+    driver: "bridge"
+    ipam:
+      config:
+        - subnet: "${CONTAINER_NETWORK_SUBNET}"
+
+volumes:
+  database:
+  app_storage:
