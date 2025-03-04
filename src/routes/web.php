@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TempPageController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -12,6 +13,8 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
+
+Route::get('/ciao', [TempPageController::class, 'index']);
 
 Route::middleware([
     'auth:sanctum',
