@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class Loan extends Model
@@ -29,13 +29,13 @@ class Loan extends Model
         return $this->morphTo('info');
     }
 
-    public function radios(): HasMany
+    public function radios(): BelongsToMany
     {
-        return $this->hasMany(Radio::class);
+        return $this->belongsToMany(Radio::class);
     }
 
-    public function clients(): HasMany
+    public function clients(): BelongsToMany
     {
-        return $this->hasMany(Client::class);
+        return $this->belongsToMany(Client::class);
     }
 }
