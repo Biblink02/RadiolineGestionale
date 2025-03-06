@@ -15,7 +15,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('loan_id')->constrained('loans')->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('radio_id')->constrained('radios')->cascadeOnDelete()->cascadeOnUpdate();
-            $table->enum('status', LoanRadioStatusEnum::toArray());
+            $table->enum('status', LoanRadioStatusEnum::toArray())->default(LoanRadioStatusEnum::LOANED);
             $table->timestamps();
         });
     }

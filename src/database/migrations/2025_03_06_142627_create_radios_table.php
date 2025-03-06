@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('radios', function (Blueprint $table) {
             $table->id();
             $table->string('identifier')->unique();
-            $table->enum('status', RadioStatusEnum::toArray());
+            $table->enum('status', RadioStatusEnum::toArray())->default(RadioStatusEnum::AVAILABLE);
             $table->timestamps();
         });
     }

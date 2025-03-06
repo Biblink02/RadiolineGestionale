@@ -15,9 +15,9 @@ return new class extends Migration
         Schema::create('loans', function (Blueprint $table) {
             $table->id();
             $table->timestamp('loan_date');
-            $table->enum('status', LoanStatusEnum::toArray());
-            $table->timestamp('return_date')->nullable();
-            $table->timestamp('returned_at')->nullable();
+            $table->enum('status', LoanStatusEnum::toArray())->default(LoanStatusEnum::PENDING);
+            $table->date('return_date')->nullable();
+            $table->date('returned_at')->nullable();
             $table->string('pdf_url')->nullable();
             $table->timestamps();
         });
