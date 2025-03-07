@@ -31,11 +31,12 @@ class Loan extends Model
 
     public function radios(): BelongsToMany
     {
-        return $this->belongsToMany(Radio::class);
+        return $this->belongsToMany(Radio::class)->withPivot('status')->withTimestamps();
     }
 
     public function clients(): BelongsToMany
     {
         return $this->belongsToMany(Client::class);
+
     }
 }

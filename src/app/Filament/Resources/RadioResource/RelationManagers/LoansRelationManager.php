@@ -1,30 +1,26 @@
 <?php
 
-namespace App\Filament\Resources\LoanResource\RelationManagers;
+namespace App\Filament\Resources\RadioResource\RelationManagers;
 
 use App\Enums\LoanRadioStatusEnum;
-use App\Filament\Resources\RadioResource\RadioResourceViewBuilder;
-use Filament\Forms;
+use App\Filament\Resources\LoanResource\LoanResourceViewBuilder;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
-use Filament\Tables;
 use Filament\Tables\Actions\AttachAction;
 use Filament\Tables\Actions\CreateAction;
 use Filament\Tables\Actions\DetachAction;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class RadiosRelationManager extends RelationManager
+class LoansRelationManager extends RelationManager
 {
-    protected static string $relationship = 'radios';
+    protected static string $relationship = 'loans';
 
     public function form(Form $form): Form
     {
-        return RadioResourceViewBuilder::getForm($form, fields: [
+        return LoanResourceViewBuilder::getForm($form, fields: [
             Select::make('pivot.status')
                 ->label('Loan Status')
                 ->options(LoanRadioStatusEnum::class)
@@ -33,11 +29,11 @@ class RadiosRelationManager extends RelationManager
     }
 
     public function table(Table $table): Table
-    {   //TODO nome status nella pivot da problemi
-        return RadioResourceViewBuilder::getTable(
+    {
+        return LoanResourceViewBuilder::getTable(
             $table,
             columns: [TextColumn::make('pivot.status')->label('Loan Status'),],
-            headerActions: [CreateAction::make(), AttachAction::make()->preloadRecordSelect()->recordTitleAttribute('identifier')],
+            headerActions: [CreateAction::make(), AttachAction::make()->recordTitleAttribute('id')->preloadRecordSelect()],
             actions: [EditAction::make(), DetachAction::make()],
         );
     }
