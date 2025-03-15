@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\RadioResource\RelationManagers;
 
-use App\Enums\LoanRadioStatusEnum;
+use App\Enums\LoanRadioStateEnum;
 use App\Filament\Resources\LoanResource\LoanResourceViewBuilder;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Form;
@@ -21,10 +21,10 @@ class LoansRelationManager extends RelationManager
     public function form(Form $form): Form
     {
         return LoanResourceViewBuilder::getForm($form, fields: [
-            Select::make('pivot.status')
-                ->label('Loan Status')
-                ->options(LoanRadioStatusEnum::class)
-                ->default(LoanRadioStatusEnum::LOANED)
+            Select::make('state')
+                ->label('Loan State')
+                ->options(LoanRadioStateEnum::class)
+                ->default(LoanRadioStateEnum::LOANED)
         ]);
     }
 
@@ -32,8 +32,22 @@ class LoansRelationManager extends RelationManager
     {
         return LoanResourceViewBuilder::getTable(
             $table,
-            columns: [TextColumn::make('pivot.status')->label('Loan Status'),],
-            headerActions: [CreateAction::make(), AttachAction::make()->recordTitleAttribute('id')->preloadRecordSelect()],
+            columns: [TextColumn::make('state')->label('Loan State'),],
+            headerActions: [
+                CreateAction::make(),
+                AttachAction::make()
+                    ->recordTitleAttribute('id')
+                    ->preloadRecordSelect()
+                    ->form(fn (AttachAction $action): array => [
+                        $action
+                            ->getRecordSelect()
+                            ->required(),
+                        Select::make('state')
+                            ->label('Loan State')
+                            ->options(LoanRadioStateEnum::class)
+                            ->default(LoanRadioStateEnum::LOANED),
+                    ])
+            ],
             actions: [EditAction::make(), DetachAction::make()],
         );
     }

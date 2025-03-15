@@ -2,8 +2,10 @@
 
 namespace App\Filament\Resources\LoanResource\RelationManagers;
 
-use App\Enums\LoanRadioStatusEnum;
+use App\Enums\LoanRadioStateEnum;
+use App\Enums\RadioStatusEnum;
 use App\Filament\Resources\RadioResource\RadioResourceViewBuilder;
+use App\Models\Radio;
 use Filament\Forms;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Form;
@@ -25,19 +27,36 @@ class RadiosRelationManager extends RelationManager
     public function form(Form $form): Form
     {
         return RadioResourceViewBuilder::getForm($form, fields: [
-            Select::make('pivot.status')
-                ->label('Loan Status')
-                ->options(LoanRadioStatusEnum::class)
-                ->default(LoanRadioStatusEnum::LOANED)
+            Select::make('state')
+                ->label('Loan State')
+                ->options(LoanRadioStateEnum::class)
+                ->default(LoanRadioStateEnum::LOANED)
         ]);
     }
 
     public function table(Table $table): Table
-    {   //TODO nome status nella pivot da problemi
+    {
         return RadioResourceViewBuilder::getTable(
             $table,
-            columns: [TextColumn::make('pivot.status')->label('Loan Status'),],
-            headerActions: [CreateAction::make(), AttachAction::make()->preloadRecordSelect()->recordTitleAttribute('identifier')],
+            columns: [TextColumn::make('state')->label('Loan State'),],
+            headerActions: [
+                CreateAction::make(),
+                AttachAction::make()
+                    ->recordTitleAttribute('identifier')
+                    ->recordSelectOptionsQuery(fn ($query) => $query->where('status', RadioStatusEnum::AVAILABLE))
+                    ->preloadRecordSelect()
+                    ->form(fn (AttachAction $action): array => [
+                        $action
+                            ->getRecordSelect()
+                            ->searchable()
+                            ->required(),
+                        Select::make('state')
+                            ->label('Loan State')
+                            ->options(LoanRadioStateEnum::class)
+                            ->default(LoanRadioStateEnum::LOANED),
+                    ])
+
+            ],
             actions: [EditAction::make(), DetachAction::make()],
         );
     }

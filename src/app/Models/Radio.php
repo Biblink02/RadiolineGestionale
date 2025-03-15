@@ -27,6 +27,6 @@ class Radio extends Model
 
     public function loans(): BelongsToMany
     {
-        return $this->belongsToMany(Loan::class)->withPivot('status')->withTimestamps();
+        return $this->belongsToMany(Loan::class)->withPivot('state')->withTimestamps();
     }
 }

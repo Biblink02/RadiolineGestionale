@@ -2,8 +2,9 @@
 
 namespace App\Enums;
 
-enum LoanRadioStatusEnum: string
+enum LoanRadioStateEnum: string
 {
+    case SCHEDULED = 'scheduled'; //The radio loan is scheduled
     case LOANED = 'loaned'; // The radio is currently loaned out.
     case RETURNED = 'returned'; // The radio has been returned in good condition.
     case LOST = 'lost'; // The radio was lost during the loan period.
