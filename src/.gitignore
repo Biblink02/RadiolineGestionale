@@ -26,3 +26,4 @@ yarn-error.log
 /public/js/
 /components.d.ts
 /package-lock.json
+/storage/framework/views/
