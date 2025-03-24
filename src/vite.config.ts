@@ -4,6 +4,7 @@ import laravel from 'laravel-vite-plugin'
 import tailwindcss from "@tailwindcss/vite";
 import Components from 'unplugin-vue-components/vite';
 import {PrimeVueResolver} from '@primevue/auto-import-resolver';
+import { imagetools } from 'vite-imagetools'
 
 interface Params {
     mode: string
@@ -19,6 +20,14 @@ export default ({ mode }: Params) => {
                 input: ['./resources/ts/app.ts', './resources/css/app.css'],
                 ssr: './resources/ts/ssr.ts',
                 refresh: true,
+            }),
+            imagetools({
+                defaultDirectives: () => {
+                    return new URLSearchParams({
+                        format: 'webp',
+                        quality: '40',
+                    })
+                },
             }),
             vue({
                 template: {

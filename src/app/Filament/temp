@@ -27,3 +27,5 @@ Permettere di filtrare le radio per stato, modello o altri attributi per trovare
 
 
 aggiungi controlli del tipo la radio è gia schedulata per un loan per una certa data quindi non puo essere inserito in un altro loan durante quella data
+
+un loan puo associare radio in un range basato su identifier della radio -> esempio: da loan associo radio da identifier "a" a "b3" (tanto le stringhe sono confrontabili) ti toglie le radio non available o gia schedulate per quella data e ti segnala il numero effettivo di radio associabili tra quelle

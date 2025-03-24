@@ -12,7 +12,7 @@ class Client extends Model
 
     protected $primaryKey = 'id';
     protected $guarded = [
-        'uuid',
+        'id',
         'created_at',
         'updated_at',
     ];
@@ -34,6 +34,6 @@ class Client extends Model
 
     public function documents(): HasMany
     {
-        return $this->hasMany(Document::class);
+            return $this->hasMany(Document::class);
     }
 }

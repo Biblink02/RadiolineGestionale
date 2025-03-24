@@ -11,7 +11,7 @@ class Loan extends Model
 
     protected $primaryKey = 'id';
     protected $guarded = [
-        'uuid',
+        'id',
         'created_at',
         'updated_at',
     ];
