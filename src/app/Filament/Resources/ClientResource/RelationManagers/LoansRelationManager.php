@@ -28,7 +28,7 @@ class LoansRelationManager extends RelationManager
     {
         return LoanResourceViewBuilder::getTable(
             $table,
-            headerActions: [CreateAction::make(), AttachAction::make()],
+            headerActions: [CreateAction::make(), AttachAction::make()->preloadRecordSelect()],
             actions: [EditAction::make(), DetachAction::make()],
         );
     }

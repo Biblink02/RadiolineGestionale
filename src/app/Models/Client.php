@@ -29,7 +29,7 @@ class Client extends Model
 
     public function loans(): BelongsToMany
     {
-        return $this->belongsToMany(Loan::class);
+        return $this->belongsToMany(Loan::class)->withTimestamps();
     }
 
     public function documents(): HasMany

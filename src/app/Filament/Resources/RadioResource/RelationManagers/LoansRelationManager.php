@@ -2,9 +2,7 @@
 
 namespace App\Filament\Resources\RadioResource\RelationManagers;
 
-use App\Enums\LoanRadioStateEnum;
 use App\Filament\Resources\LoanResource\LoanResourceViewBuilder;
-use Filament\Forms\Components\Select;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables\Actions\AttachAction;
@@ -20,12 +18,7 @@ class LoansRelationManager extends RelationManager
 
     public function form(Form $form): Form
     {
-        return LoanResourceViewBuilder::getForm($form, fields: [
-            Select::make('state')
-                ->label('Loan State')
-                ->options(LoanRadioStateEnum::class)
-                ->default(LoanRadioStateEnum::LOANED)
-        ]);
+        return LoanResourceViewBuilder::getForm($form);
     }
 
     public function table(Table $table): Table
@@ -42,10 +35,6 @@ class LoansRelationManager extends RelationManager
                         $action
                             ->getRecordSelect()
                             ->required(),
-                        Select::make('state')
-                            ->label('Loan State')
-                            ->options(LoanRadioStateEnum::class)
-                            ->default(LoanRadioStateEnum::LOANED),
                     ])
             ],
             actions: [EditAction::make(), DetachAction::make()],

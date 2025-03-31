@@ -2,11 +2,15 @@
 
 namespace App\Filament\Resources;
 
+use App\Actions\CreatePdf;
 use App\Filament\Resources\LoanResource\LoanResourceViewBuilder;
 use App\Filament\Resources\LoanResource\Pages;
 use App\Filament\Resources\LoanResource\RelationManagers;
 use App\Models\Loan;
+use Filament\Forms\Components\Actions;
+use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables\Table;
 
@@ -20,7 +24,20 @@ class LoanResource extends Resource
 
     public static function form(Form $form): Form
     {
-        return LoanResourceViewBuilder::getForm($form);
+        return LoanResourceViewBuilder::getForm($form,
+            fields: [Actions::make([
+                Action::make('generatePdf')
+                    ->button()
+                    ->label('Generate PDF')
+                    ->action(function (Loan $loan) {
+                        CreatePdf::createPdf($loan);
+                        Notification::make()
+                            ->title('PDF generato con successo!')
+                            ->success()
+                            ->send();
+                    }),
+            ])->fullWidth(),
+            ]);
     }
 
     public static function table(Table $table): Table

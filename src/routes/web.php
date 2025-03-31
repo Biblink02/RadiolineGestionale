@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PdfController;
 use App\Http\Controllers\TempPageController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -15,7 +16,7 @@ Route::get('/', function () {
 });
 
 Route::get('/ciao', [TempPageController::class, 'index']);
-
+Route::get('/pdf/{path}',[PdfController::class, 'getPdf'])->name('pdf');
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),

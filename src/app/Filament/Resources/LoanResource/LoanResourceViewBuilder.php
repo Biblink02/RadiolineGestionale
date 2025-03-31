@@ -2,7 +2,10 @@
 
 namespace App\Filament\Resources\LoanResource;
 
+use App\Actions\CreatePdf;
 use App\Enums\LoanStatusEnum;
+use Filament\Forms\Components\Actions;
+use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
@@ -20,12 +23,15 @@ class LoanResourceViewBuilder
     {
         return $form
             ->schema([
+                TextInput::make('identifier')
+                    ->nullable()
+                    ->string(),
                 DatePicker::make('loan_date')
                     ->required()
                     ->default(now()),
                 Select::make('status')
                     ->options(LoanStatusEnum::class)
-                    ->default(LoanStatusEnum::PENDING),
+                    ->default(LoanStatusEnum::ACTIVE),
                 DatePicker::make('return_date')
                     ->after('loan_date'),
                 DatePicker::make('returned_at'),
@@ -47,6 +53,8 @@ class LoanResourceViewBuilder
         return $table
             ->columns([
                 TextColumn::make('id')
+                    ->searchable(),
+                TextColumn::make('identifier')
                     ->searchable(),
                 TextColumn::make('loan_date')
                     ->date()

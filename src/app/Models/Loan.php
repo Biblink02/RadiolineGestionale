@@ -18,6 +18,7 @@ class Loan extends Model
 
     protected $fillable = [
         'loan_date',
+        'identifier',
         'status',
         'return_date',
         'returned_at',
@@ -31,12 +32,12 @@ class Loan extends Model
 
     public function radios(): BelongsToMany
     {
-        return $this->belongsToMany(Radio::class)->withPivot('state')->withTimestamps();
+        return $this->belongsToMany(Radio::class)->withTimestamps();
     }
 
     public function clients(): BelongsToMany
     {
-        return $this->belongsToMany(Client::class);
+        return $this->belongsToMany(Client::class)->withTimestamps();
 
     }
 }

@@ -2,7 +2,6 @@
 
 namespace App\Filament\Resources\LoanResource\RelationManagers;
 
-use App\Enums\LoanRadioStateEnum;
 use App\Enums\RadioStatusEnum;
 use App\Filament\Resources\RadioResource\RadioResourceViewBuilder;
 use App\Models\Radio;
@@ -30,12 +29,7 @@ class RadiosRelationManager extends RelationManager
 
     public function form(Form $form): Form
     {
-        return RadioResourceViewBuilder::getForm($form, fields: [
-            Select::make('state')
-                ->label('Loan State')
-                ->options(LoanRadioStateEnum::class)
-                ->default(LoanRadioStateEnum::LOANED)
-        ]);
+        return RadioResourceViewBuilder::getForm($form);
     }
 
     public function table(Table $table): Table
@@ -69,19 +63,12 @@ class RadiosRelationManager extends RelationManager
                                         ->multiple()
                                         ->required(false)
                                         ->label('Radio'),
-                                    Select::make('state')
-                                        ->label('Loan State')
-                                        ->options(LoanRadioStateEnum::class)
-                                        ->default(LoanRadioStateEnum::LOANED),
                                 ]),
                         ])
                             ->skippable()
                     ])
                     ->after(function (AttachAction $action, array $data): void {
-                        // Verifica se i campi della pagina "Attach Multiple" sono stati compilati
                         if (!empty($data['from']) && !empty($data['to'])) {
-                            // Esegui la query per prendere tutte le radio con identifier compreso nell'intervallo
-                            // e con lo status AVAILABLE.
                             $from = $data['from'];
                             $to = $data['to'];
                             $radios = Radio::query()
@@ -95,11 +82,8 @@ class RadiosRelationManager extends RelationManager
                                 ]);
                             }
                         } else {
-                            // Altrimenti, usa la selezione multipla dalla pagina "Attach One".
-                            // Assicurati che la chiave 'record_id' corrisponda a quella restituita dal getRecordSelect().
                             $selectedRadios = $data['record_id'] ?? [];
-
-                            // Associa le radio selezionate al loan.
+                            if (empty($selectedRadios)) return;
                             $action->getRecord()->radios()->attach($selectedRadios, [
                                 'state' => $data['state'],
                             ]);
