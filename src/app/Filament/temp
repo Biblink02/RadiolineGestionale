@@ -1,3 +1,27 @@
+Fai un comando che quando un loan inizia e non è ancora finito mette tutte le sue radio a LOANED
+In after di App\Filament\Resources\LoanResource\RelationManagers\RadiosRelationManager metti le radio a loaned solo se la data noleggio è today.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Allora le radio hanno uno stato, cosi come il loan e la pivot table.
 Quando si fa un nuovo loan:
     - le radio che vengono fuori come collegabili devono essere available
