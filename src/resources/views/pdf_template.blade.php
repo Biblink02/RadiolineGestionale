@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <title>Documento Loan</title>
+    <title>Prestito</title>
     <style>
         body {
             font-family: DejaVu Sans, sans-serif;
@@ -41,7 +41,8 @@
     <div class="intestazione">
         <h2>Medjugorje Service d.o.o</h2>
         <p>Pape Ivana Pavla II 14, 88266 Medjugorje, BiH</p>
-        <p>Tel: 00387 063 741548 - Email: mdjservice00@gmail.com</p>
+        <a href="tel:00387063741548">Tel: 00387 063 741548</a>
+        <a href="mailto:mdjservice00@gmail.com">Email: mdjservice00@gmail.com</a>
     </div>
     <hr>
     <h3>RADIO RENT SERVICE</h3>
@@ -72,7 +73,6 @@
     @endforeach
     </tbody>
 </table>
-
 
 </body>
 </html>

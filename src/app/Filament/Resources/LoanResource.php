@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources;
 
-use App\Actions\CreatePdf;
+use App\Actions\Custom\CreatePdf;
 use App\Filament\Resources\LoanResource\LoanResourceViewBuilder;
 use App\Filament\Resources\LoanResource\Pages;
 use App\Filament\Resources\LoanResource\RelationManagers;

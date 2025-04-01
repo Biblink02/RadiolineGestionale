@@ -2,10 +2,7 @@
 
 namespace App\Filament\Resources\LoanResource;
 
-use App\Actions\CreatePdf;
 use App\Enums\LoanStatusEnum;
-use Filament\Forms\Components\Actions;
-use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
@@ -35,8 +32,7 @@ class LoanResourceViewBuilder
                 DatePicker::make('return_date')
                     ->after('loan_date'),
                 DatePicker::make('returned_at'),
-                FileUpload::make('pdf_url')
-                    ->default(null),
+                FileUpload::make('pdf_url'),
                 ...($fields ?? []),
             ]);
     }
@@ -67,7 +63,9 @@ class LoanResourceViewBuilder
                     ->date()
                     ->sortable(),
                 TextColumn::make('pdf_url')
-                    ->searchable(),
+                    ->searchable()
+                    ->url(fn($record) => url('/pdf/' . $record->pdf_url), true)
+                    ->formatStateUsing(fn($state) => 'View PDF'),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
