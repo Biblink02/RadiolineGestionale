@@ -13,11 +13,15 @@ use Filament\Forms\Form;
 use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\Redirect;
 
 class LoanResource extends Resource
 {
     protected static ?string $model = Loan::class;
 
+    protected $listeners = [
+        'example' => '$refresh',
+    ];
     protected static ?string $navigationIcon = 'phosphor-hand-deposit-duotone';
 
     protected static ?int $navigationSort = 1;
@@ -35,6 +39,7 @@ class LoanResource extends Resource
                             ->title('PDF generato con successo!')
                             ->success()
                             ->send();
+                        redirect(static::getUrl('edit', ['record' => $loan->id,]));
                     }),
             ])->fullWidth(),
             ]);

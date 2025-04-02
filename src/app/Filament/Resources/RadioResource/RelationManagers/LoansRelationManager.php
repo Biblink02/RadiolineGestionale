@@ -25,7 +25,6 @@ class LoansRelationManager extends RelationManager
     {
         return LoanResourceViewBuilder::getTable(
             $table,
-            columns: [TextColumn::make('state')->label('Loan State'),],
             headerActions: [
                 CreateAction::make(),
                 AttachAction::make()

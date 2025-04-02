@@ -4,6 +4,8 @@ namespace App\Enums;
 
 enum LoanStatusEnum : string
 {
+    case SCHEDULED = 'scheduled'; // The loan is scheduled
+    case WAITING = 'waiting'; // The loan is scheduled
     case ACTIVE = 'active'; // The loan is currently ongoing
     case COMPLETED = 'completed'; // The loan has been returned successfully
     case OVERDUE = 'overdue'; // The loan has exceeded the return date

@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\LoanResource;
 
 use App\Enums\LoanStatusEnum;
+use Carbon\Carbon;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
@@ -25,7 +26,13 @@ class LoanResourceViewBuilder
                     ->string(),
                 DatePicker::make('loan_date')
                     ->required()
-                    ->default(now()),
+                    ->default(now())
+                    ->reactive()
+                    ->afterStateUpdated(function ($state, callable $set) {
+                        // Utilizziamo Carbon per verificare se la data è oggi
+                        $date = Carbon::parse($state);
+                        $set('status', $date->isToday() ? LoanStatusEnum::ACTIVE->value : LoanStatusEnum::SCHEDULED->value);
+                    }),
                 Select::make('status')
                     ->options(LoanStatusEnum::class)
                     ->default(LoanStatusEnum::ACTIVE),
@@ -55,7 +62,8 @@ class LoanResourceViewBuilder
                 TextColumn::make('loan_date')
                     ->date()
                     ->sortable(),
-                TextColumn::make('status'),
+                TextColumn::make('status')
+                    ->sortable(),
                 TextColumn::make('return_date')
                     ->date()
                     ->sortable(),

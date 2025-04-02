@@ -4,6 +4,8 @@ namespace App\Actions\Custom;
 
 use App\Models\Loan;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class CreatePdf
 {
@@ -22,11 +24,9 @@ class CreatePdf
         $pdf = Pdf::loadHTML($html)->setPaper('A4', 'portrait');
 
         // STEP 2: Elimina il PDF precedente se esiste (salvato in pdf_url)
-        $oldFilePath = storage_path('app/public/' . $loan->pdf_url);
-        if (!empty($loan->pdf_url)) {
-            if (file_exists($oldFilePath)) {
-                unlink($oldFilePath);
-            }
+        if(!empty($loan->pdf_url)) {
+            Log::info("PDF created at {$loan->pdf_url}");
+            Storage::disk('public')->delete($loan->pdf_url);
         }
 
         // STEP 3: Genera il nuovo nome e salva il PDF nel filesystem
@@ -37,6 +37,9 @@ class CreatePdf
 
         // STEP 4: Aggiorna il campo pdf_url nel record del loan
         $loan->pdf_url = $fileName;
+        if (empty($loan->loan_date)) {
+            $loan->loan_date = now();
+        }
         $loan->save();
     }
 
@@ -49,7 +52,7 @@ class CreatePdf
 
         // Se sia clients che identifier sono vuoti, genera un nome casuale
         if (!$hasClients && !$hasIdentifier) {
-            return str_replace(' ', '_', 'loan_' . $loan->created_at . '.pdf');
+            return str_replace(' ', '_', 'loan_' . now() . '.pdf');
         }
 
         $nameParts = [];
