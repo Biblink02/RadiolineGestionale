@@ -1,22 +1,23 @@
 <?php
 
+use App\Http\Controllers\ClientCodeController;
+use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\PdfController;
-use App\Http\Controllers\TempPageController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
 
-Route::get('/ciao', [TempPageController::class, 'index']);
+Route::get('/contact-us', [ContactUsController::class, 'index']);
 Route::get('/pdf/{path}',[PdfController::class, 'getPdf'])->name('pdf');
+Route::post('/api/request/client-code', [ClientCodeController::class, 'sendClientCode']);
+
+
+
+
+
+
+
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),

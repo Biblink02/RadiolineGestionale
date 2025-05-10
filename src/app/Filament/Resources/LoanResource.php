@@ -66,4 +66,5 @@ class LoanResource extends Resource
             'edit' => Pages\EditLoan::route('/{record}/edit'),
         ];
     }
+
 }

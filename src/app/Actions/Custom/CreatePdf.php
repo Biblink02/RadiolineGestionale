@@ -14,7 +14,7 @@ class CreatePdf
         // Prepara i dati da passare alla view
         $data = [
             'loan' => $loan,
-            'radios' => $loan->radios,
+            'radios' => $loan->radios()->orderBy('identifier')->get(),
         ];
 
         // Genera l'HTML dalla view

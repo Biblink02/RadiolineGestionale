@@ -83,7 +83,7 @@ class RadiosRelationManager extends RelationManager
     }
 
     /**
-     * Aggiorna lo stato a LOANED per le radio già attachate manualmente.
+     * Aggiorna lo stato a LOANED per le radio, basato su id.
      *
      * @param array $selectedRadioIds
      */

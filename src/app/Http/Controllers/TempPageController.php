@@ -7,7 +7,7 @@ use Inertia\Inertia;
 
 class TempPageController extends Controller
 {
-    public function index(Request $req){
+    public function index(){
         return Inertia::render('Temp');
     }
 }
