@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\ClientProfileTypeEnum;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -16,7 +17,7 @@ class ClientCodeRequest extends FormRequest
     {
         return [
             // Discriminator for profile variant
-            'profileType'    => ['required', 'string', Rule::in(['A','G','H','L','R'])],
+            'profileType'    => ['required', 'string', Rule::in(ClientProfileTypeEnum::toArray())],
 
             // Common fields
             'message'        => ['nullable', 'string', 'max:1000'],

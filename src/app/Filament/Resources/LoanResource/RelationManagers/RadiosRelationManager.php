@@ -6,6 +6,7 @@ use App\Enums\LoanStatusEnum;
 use App\Enums\RadioStatusEnum;
 use App\Filament\Resources\RadioResource\RadioResourceViewBuilder;
 use App\Models\Radio;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Wizard;
 use Filament\Forms\Components\Wizard\Step;
@@ -16,6 +17,7 @@ use Filament\Tables\Actions\CreateAction;
 use Filament\Tables\Actions\DetachAction;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\Log;
 
 class RadiosRelationManager extends RelationManager
 {
@@ -38,7 +40,15 @@ class RadiosRelationManager extends RelationManager
                     ->preloadRecordSelect()
                     ->form(fn(AttachAction $action): array => [
                         Wizard::make([
-                            Step::make('Attach Multiple')
+                            Step::make('Attach multiple')
+                                ->schema([
+                                    Textarea::make('multiple')
+                                        ->label('Noleggia radio:')
+                                        // Nota: questi campi non sono colonne reali del model,
+                                        // li usi solo per filtrare la query.
+                                        ->placeholder('Inserisci id radio e vai a capo'),
+                                ]),
+                            Step::make('Attach on interval')
                                 ->schema([
                                     TextInput::make('from')
                                         ->label('Noleggia "Available" da')
@@ -67,11 +77,17 @@ class RadiosRelationManager extends RelationManager
 
                         // --- 1. Aggiorna lo stato delle radio già attachate (manualmente) ---
                         $selectedRadios = $data['recordId'] ?? [];
+
                         if (!empty($selectedRadios) && $isActive) {
                             $this->updateSelectedRadiosStatus($selectedRadios);
                         }
 
-                        // --- 2. Processa l'intervallo da/to ---
+                        // --- 2. Aggiungo le radio dalla textarea
+                        $selectMultipleRadios = explode("\n", $data['multiple'] ?? "");
+                        if(!empty($selectMultipleRadios)){
+                            $this->attachAndUpdateRadios($selectMultipleRadios, $isActive);
+                        }
+                        // --- 3. Processa l'intervallo da/to ---
                         if (!empty($data['from']) && !empty($data['to'])) {
                             $this->attachAndUpdateRadiosByRange($data['from'], $data['to'], $isActive);
                         }
@@ -113,6 +129,27 @@ class RadiosRelationManager extends RelationManager
         $radios = Radio::query()
             ->whereBetween('identifier', [$from, $to])
             ->where('status', RadioStatusEnum::AVAILABLE)
+            ->get();
+
+        foreach ($radios as $radio) {
+            // Controlla in memoria se la radio non è già presente
+            if (!in_array($radio->id, $attachedRadioIds)) {
+                $this->ownerRecord->radios()->attach($radio->id);
+                // Aggiorna l'array per evitare duplicazioni nel ciclo
+                $attachedRadioIds[] = $radio->id;
+            }
+            if ($isActive && $radio->status === RadioStatusEnum::AVAILABLE->value) {
+                $radio->status = RadioStatusEnum::LOANED;
+                $radio->save();
+            }
+        }
+    }
+
+    private function attachAndUpdateRadios(array $radiosId, bool $isActive): void {
+        // Pre-carica gli ID delle radio già attachate in un'unica query
+        $attachedRadioIds = $this->ownerRecord->radios()->pluck('radio_id')->toArray();
+        $radios = Radio::query()
+            ->whereIn("identifier", $radiosId)
             ->get();
 
         foreach ($radios as $radio) {
