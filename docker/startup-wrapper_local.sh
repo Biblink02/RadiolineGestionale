@@ -3,7 +3,7 @@ sudo apk add php82-xmlreader
 
 composer install
 php artisan migrate --force
-
+php artisan db:seed
 php artisan storage:link
 
 chmod +x /scripts/scheduler.sh

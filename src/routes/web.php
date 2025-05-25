@@ -1,11 +1,22 @@
 <?php
 
-use App\Http\Controllers\HomePageController;
-use Illuminate\Foundation\Application;
+use App\Http\Controllers\ClientCodeController;
+use App\Http\Controllers\ContactUsController;
+use App\Http\Controllers\PdfController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/',[HomePageController::class, 'index']);
+
+Route::get('/contact-us', [ContactUsController::class, 'index']);
+Route::get('/pdf/{path}',[PdfController::class, 'getPdf'])->name('pdf');
+Route::post('/api/request/client-code', [ClientCodeController::class, 'sendClientCode']);
+
+
+
+
+
+
+
 
 Route::middleware([
     'auth:sanctum',

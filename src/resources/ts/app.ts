@@ -1,6 +1,6 @@
 import './bootstrap.ts';
 import '../css/app.css';
-
+import 'primeicons/primeicons.css'
 import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
@@ -20,7 +20,17 @@ createInertiaApp({
             .use(PrimeVue, {
                 theme: {
                     preset: Material
-                }
+                },
+                options: {
+                    //TODO
+                    darkModeSelector: false || 'none',
+                    cssLayer: {
+                        name: 'primevue',
+                        // Enable PrimeVue CSS layer and configure the tailwind styles to have higher specificity with layering
+                        order: 'tailwind-base, primevue, tailwind-utilities',
+                    },
+                },
+
             })
             .mount(el);
     },

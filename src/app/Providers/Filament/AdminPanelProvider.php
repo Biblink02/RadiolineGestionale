@@ -25,8 +25,9 @@ class AdminPanelProvider extends PanelProvider
         return $panel
             ->default()
             ->id('admin')
-            ->path('admin')
+            ->path('admin') // Imposta il pannello sulla root
             ->login()
+            // Puoi eventualmente configurare ulteriori opzioni per il login
             ->colors([
                 'primary' => Color::Amber,
             ])

@@ -22,3 +22,8 @@ yarn-error.log
 /.nova
 /.vscode
 /.zed
+/public/css/
+/public/js/
+/components.d.ts
+/package-lock.json
+/storage/framework/views/
