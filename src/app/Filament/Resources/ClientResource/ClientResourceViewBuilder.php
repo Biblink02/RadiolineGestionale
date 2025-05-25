@@ -12,6 +12,7 @@ use Filament\Tables\Table;
 
 class ClientResourceViewBuilder
 {
+    // TODO metti nuovoi cliente con le selezioni guste
     public static function getForm(Form $form, ?array $fields = null): Form
     {
         return $form
