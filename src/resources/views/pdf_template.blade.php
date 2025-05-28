@@ -102,7 +102,7 @@
             padding: 5px;
             text-align: left;
         }
-        /* Impostazioni per la larghezza delle colonne: 10% per N., 20% per ID. e 70% per NOME */
+        /* Impostazioni per la larghezza delle colonne: 10% per N., 20% per ID. e 70% per NAME */
         .inner-table th:nth-child(1),
         .inner-table td:nth-child(1) {
             width: 10%;
@@ -226,7 +226,7 @@
                         <tr>
                             <th>N.</th>
                             <th>ID.</th>
-                            <th>NOME</th>
+                            <th>NAME</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -248,7 +248,7 @@
                         <tr>
                             <th>N.</th>
                             <th>ID.</th>
-                            <th>NOME</th>
+                            <th>NAME</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -285,7 +285,7 @@
                         <tr>
                             <th>N.</th>
                             <th>ID.</th>
-                            <th>NOME</th>
+                            <th>NAME</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -307,7 +307,7 @@
                         <tr>
                             <th>N.</th>
                             <th>ID.</th>
-                            <th>NOME</th>
+                            <th>NAME</th>
                         </tr>
                         </thead>
                         <tbody>
