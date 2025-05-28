@@ -32,6 +32,7 @@ services:
     volumes:
       - "./src:/var/www/app"
       - "./docker:/scripts"
+      - "./config/php.ini:/etc/php82/php.ini"  # Mount custom php.ini
     networks:
       default:
         ipv4_address: "${CONTAINER_SERVICE_APP_IP_ADDRESS}"

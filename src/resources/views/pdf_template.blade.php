@@ -94,7 +94,7 @@
         .inner-table th,
         .inner-table td {
             border: 1px solid #000;
-            padding: 3px;
+            padding: 4px;
             text-align: left;
             font-size: 10px;
         }
@@ -210,11 +210,11 @@
 <!-- Suddivisione delle radio -->
 @php
     // Prima pagina: 25 per colonna (50 totali)
-    $firstPageCapacity = 50; // 50 radio
+    $firstPageCapacity = 46; // 50 radio
     $firstPage = $radios->take($firstPageCapacity);
 
     // Radio rimanenti
-    $otherPagesCapacity = 84;
+    $otherPagesCapacity = 80;
     $remaining = $radios->slice($firstPageCapacity);
     // Pagine successive: 42 per colonna (84 totali)
     $remainingPages = $remaining->chunk($otherPagesCapacity);
