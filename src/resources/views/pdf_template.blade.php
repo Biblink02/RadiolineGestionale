@@ -1,20 +1,21 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Radio Rent Service</title>
     <style>
         body {
             font-family: DejaVu Sans, sans-serif;
-            font-size: 12px;
-            margin: 0;
+            font-size: 11px;
+            margin: 5px;
             padding: 0;
         }
         /* Header con Flexbox */
         .header {
-            padding: 10px;
+            padding: 5px;
             background-color: #fff;
             border-bottom: 1px solid #000;
+            margin-bottom: 5px;
         }
         .header-container {
             display: flex;
@@ -25,7 +26,7 @@
             flex: 0 0 auto;
         }
         .header-logo img {
-            height: 60px;
+            height: 50px;
         }
         .header-company {
             flex: 1;
@@ -38,53 +39,47 @@
         .header-company h2,
         .header-company p,
         .header-contact p {
-            margin: 2px 0;
+            margin: 1px 0;
         }
         /* Titolo principale */
         .title-section {
             text-align: center;
             font-weight: bold;
-            font-size: 18px;
-            margin: 10px 0;
+            font-size: 16px;
+            margin: 5px 0;
         }
         /* Tabelle per dati del prestito */
         .loan-info-table, .section-table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 5px;
+            margin-bottom: 3px;
         }
         .loan-info-table td, .section-table td {
             border: 1px solid #000;
-            padding: 5px;
+            padding: 3px;
             vertical-align: top;
+            font-size: 10px;
         }
-        .loan-info-table td {
-            width: 33%;
-        }
-        /* Note */
-        .notes {
-            margin: 10px 0;
-        }
-        .notes p {
-            margin: 0;
-            padding: 5px;
-            border: 1px solid #000;
-            min-height: 50px;
+        /* Abbreviation explanation */
+        .abbreviation-note {
+            font-size: 8px;
+            color: #666;
+            margin: 3px 0;
         }
         /* Informazioni per il gruppo */
         .info-group {
-            margin: 10px 0;
-            font-size: 12px;
+            margin: 5px 0;
+            font-size: 10px;
         }
         .info-group-title {
             font-weight: bold;
-            margin-bottom: 5px;
+            margin-bottom: 3px;
         }
         /* Tabelle radio affiancate tramite tabella contenitore */
         .tables-container {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 10px;
+            margin-top: 5px;
         }
         .tables-container td {
             vertical-align: top;
@@ -99,8 +94,9 @@
         .inner-table th,
         .inner-table td {
             border: 1px solid #000;
-            padding: 5px;
+            padding: 3px;
             text-align: left;
+            font-size: 10px;
         }
         /* Impostazioni per la larghezza delle colonne: 10% per N., 20% per ID. e 70% per NAME */
         .inner-table th:nth-child(1),
@@ -142,6 +138,8 @@
         </div>
         <div class="header-contact">
             <p>tel. 00387 063 741548</p>
+            <p>mob. WhatsApp 00387 063 144 027</p>
+            <p>00387 063 247 485</p>
             <p>Email: <a href="mailto:mdjservice00@gmail.com">mdjservice00@gmail.com</a></p>
         </div>
     </div>
@@ -152,58 +150,74 @@
     RADIO RENT SERVICE
 </div>
 
-<!-- Dati prestito -->
-<table class="loan-info-table">
-    <tr>
-        <td><strong>DATA:</strong> {{ $loan->loan_date ?? '' }}</td>
-        <td><strong>N. PROGRESSIVO:</strong> {{ $loan->id ?? '' }}</td>
-        <td><strong>CANALE:</strong> <!-- Inserisci il canale se disponibile --></td>
-    </tr>
-</table>
-
-<!-- Sezione Agenzia / Capo gruppo / Guida -->
+<!-- Prima riga -->
 <table class="section-table">
     <tr>
-        <td><strong>Agenzia</strong><br>mail / WhatsApp</td>
-        <td><strong>Capo gruppo</strong></td>
-        <td><strong>Guida</strong></td>
+        <td style="width: 20%;"><strong>DATE: </strong></td>
+        <td style="width: 25%;"><strong>BOOKING NUMBER: </strong> {{ $loan->id ?? '' }}</td>
+        <td style="width: 55%;"><strong>A/G/L/H*: </strong></td>
     </tr>
 </table>
 
-<!-- Sezione Date Consegna / Ritiro / Alloggio -->
+<!-- Seconda riga -->
 <table class="section-table">
     <tr>
-        <td><strong>CONSEGNA</strong></td>
-        <td><strong>RITIRO</strong></td>
-        <td><strong>ALLOGGIO</strong></td>
+        <td style="width: 30%;"><strong>CUSTOMER CODE: </strong><!--TODO--></td>
+        <td style="width: 50%;"><strong>MAIL: </strong></td>
+        <td style="width: 20%;"><strong>CHANNEL: </strong></td>
     </tr>
 </table>
 
-<!-- Note -->
-<div class="notes">
-    <p><strong>NOTE:</strong></p>
+<!-- Terza riga -->
+<table class="section-table">
+    <tr>
+        <td style="width: 40%;"><strong>MOBILE PHONE: </strong></td>
+        <td style="width: 20%;"><strong>RADIO QUANTITY: </strong>{{ count($radios ?? []) }}</td>
+        <td style="width: 40%;"><strong>ACCOMMODATION: </strong></td>
+    </tr>
+</table>
+
+<!-- Quarta riga -->
+<table class="section-table">
+    <tr>
+        <td style="width: 35%;"><strong>DELIVERY DATE: </strong></td>
+        <td style="width: 35%;"><strong>RADIO RETURN: </strong><!--TODO forse--></td>
+        <td style="width: 30%;"><strong>RENTAL DAYS: </strong><!--TODO forse--></td>
+    </tr>
+</table>
+
+<!-- Quinta riga -->
+<table class="section-table">
+    <tr>
+        <td style="width: 30%;"><strong>POWER BANK: </strong></td>
+        <td style="width: 30%;"><strong>SPARE BATTERIES: </strong></td>
+        <td style="width: 40%;"><strong>REFERENCE: </strong></td>
+    </tr>
+</table>
+
+<!-- Abbreviation explanation -->
+<div class="abbreviation-note">
+    * Agency / Guide / Leader / Hotel
 </div>
 
 <!-- Informazioni per il gruppo -->
 <div class="info-group">
-    <div class="info-group-title">Informazioni per il gruppo:</div>
-    <ul style="margin:0; padding-left:15px;">
-        <li>Sulle radio e sul trasmettitore, sono scritte le istruzioni per l’uso e la durata delle batterie.</li>
-        <li>In caso di danneggiamento o perdita della radio, sarà addebitato un costo di KM 80.</li>
-    </ul>
+    <p style="margin:0; padding-left:5px; line-height: 1.3;">
+        <strong>Attention:</strong> The radios include instructions for use in four languages. The earphone remains with the pilgrim. In case of damage or loss of the radio, a fee of KM 100 will be charged. In case of loss of spare batteries, a fee of KM 4 per battery will be charged.
+    </p>
 </div>
 
 <!-- Suddivisione delle radio -->
 @php
-    // Prima pagina: 15 per colonna (30 totali)
-    $firstPagePerColumn = 15;
-    $firstPageCapacity = $firstPagePerColumn * 2; // 30 radio
+    // Prima pagina: 25 per colonna (50 totali)
+    $firstPageCapacity = 50; // 50 radio
     $firstPage = $radios->take($firstPageCapacity);
 
     // Radio rimanenti
+    $otherPagesCapacity = 84;
     $remaining = $radios->slice($firstPageCapacity);
-    // Pagine successive: 33 per colonna (66 totali)
-    $remainingPages = $remaining->chunk(66);
+    // Pagine successive: 42 per colonna (84 totali)
+    $remainingPages = $remaining->chunk($otherPagesCapacity);
 
     // Contatore globale per la numerazione
     $globalIndex = 0;
@@ -213,8 +227,9 @@
 @if($firstPage->count() > 0)
     @php
         $pageCount = $firstPage->count();
-        // Se non piena, distribuisci equamente; altrimenti usa 15 per colonna
-        $leftCount = ($pageCount < $firstPageCapacity) ? ceil($pageCount / 2) : $firstPagePerColumn;
+        $perColumn = $firstPageCapacity/2;
+        // Se non piena, distribuisci equamente; altrimenti usa $perColumn per colonna
+        $leftCount = ($pageCount < $firstPageCapacity) ? ceil($pageCount / 2) : $perColumn;
     @endphp
     <div class="page">
         <table class="tables-container">
@@ -272,8 +287,8 @@
 @foreach($remainingPages as $page)
     @php
         $pageCount = $page->count();
-        $perColumn = 33;
-        $leftCount = ($pageCount < 66) ? ceil($pageCount / 2) : $perColumn;
+        $perColumn = $otherPagesCapacity/2;
+        $leftCount = ($pageCount < $otherPagesCapacity) ? ceil($pageCount / 2) : $perColumn;
     @endphp
     <div class="page">
         <table class="tables-container">
@@ -329,7 +344,7 @@
 
 <!-- Footer -->
 <div class="footer">
-    Servizio Assistenza: Whatsapp | Patrizio: ____________ | Thomas: ____________
+    Customer Service: WhatsApp | Patrizio: ____________ | Thomas: ____________
 </div>
 
 </body>
