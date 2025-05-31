@@ -5,7 +5,6 @@ namespace App\Enums;
 enum RadioStatusEnum : string
 {
     case AVAILABLE = 'available'; // The radio is available for loan.
-    case LOANED = 'loaned'; // The radio is currently loaned to a user.
     case UNLOANABLE = 'unloanable'; // The radio cannot be loaned.
 
 

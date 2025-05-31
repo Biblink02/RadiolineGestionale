@@ -14,5 +14,16 @@ enum ClientProfileTypeEnum: string
     {
         return array_column(self::cases(), 'value');
     }
-}
 
+    public static function getDescription(ClientProfileTypeEnum $enum): string
+    {
+        return match ($enum) {
+            self::A => 'Agency Profile',
+            self::G => 'Guide Profile',
+            self::H => 'Hotel Profile',
+            self::L => 'Laic Organizer Profile',
+            self::R => 'Religious Accompanist Profile',
+            default => 'Unknown Profile',
+        };
+    }
+}

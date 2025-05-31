@@ -17,8 +17,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        /*
-        if (env('APP_ENV') === 'local') {
+
+        if (env('APP_ENV') === 'local' && empty(User::find(1))) {
             User::factory()->create([
                 'name' => 'a',
                 'email' => 'alby.bot.24@gmail.com',
@@ -31,22 +31,22 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
+        if(empty(Radio::find(1000))){
+            // Crea le radio con identifier da 1001 a 9999
+            $data = [];
+            $now = now(); // oppure Carbon::now();
 
+            for ($i = 1000; $i <= 9999; $i++) {
+                $data[] = [
+                    'identifier' => $i,
+                    'status'     => ($i <= 2999) ? RadioStatusEnum::AVAILABLE : RadioStatusEnum::UNLOANABLE,
+                    'created_at' => $now,
+                    'updated_at' => $now,
+                ];
+            }
 
-        // Crea le radio con identifier da 1001 a 9999
-        $data = [];
-        $now = now(); // oppure Carbon::now();
+            Radio::insert($data);
 
-        for ($i = 1001; $i <= 9999; $i++) {
-            $data[] = [
-                'identifier' => $i,
-                'status'     => ($i <= 2999) ? RadioStatusEnum::AVAILABLE : RadioStatusEnum::UNLOANABLE,
-                'created_at' => $now,
-                'updated_at' => $now,
-            ];
         }
-
-        Radio::insert($data);
-        */
     }
 }

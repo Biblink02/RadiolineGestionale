@@ -32,17 +32,18 @@ class MarkWaitingLoans extends Command
         $today = Carbon::today();
 
         // Recupera i prestiti con status 'scheduled' e loan_date uguale a oggi
-        $loans = Loan::where('status', LoanStatusEnum::SCHEDULED)
+        $scheduledLoans = Loan::where('status', LoanStatusEnum::SCHEDULED)
             ->whereDate('loan_date', $today)
             ->get();
 
         // Aggiorna ogni prestito a 'active'
-        foreach ($loans as $loan) {
+        foreach ($scheduledLoans as $loan) {
             $loan->status = LoanStatusEnum::WAITING;
             $loan->save();
+            $this->info("Loan ID " . $loan->id . " marked as SCHEDULED.");
         }
 
         // Mostra un messaggio di conferma in console
-        $this->info("Aggiornati " . $loans->count() . " prestiti da 'scheduled' a 'waiting'.");
+        $this->info("Scheduled loans due today (" . $scheduledLoans->count() . ") set to 'WAITING'.");
     }
 }

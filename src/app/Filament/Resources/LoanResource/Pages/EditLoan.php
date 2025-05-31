@@ -17,13 +17,4 @@ class EditLoan extends EditRecord
             Actions\DeleteAction::make(),
         ];
     }
-    protected function afterSave(): void
-    {
-        // Se 'returned_at' è stato settato, imposta a 'available' solo le radio nella relazione che sono 'loaned'
-        if (!empty($this->record->returned_at)) {
-            $this->record->radios()
-                ->where('status', RadioStatusEnum::LOANED->value)
-                ->update(['status' => RadioStatusEnum::AVAILABLE->value]);
-        }
-    }
 }
