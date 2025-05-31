@@ -1,6 +1,0 @@
-
-TODO settare automaticamente i dispositivi in available quando il returned at del loan è settato (oppure con un pulsante?)
-TODO settare automaticamente la colonna pivot di laons radios in returned quando il returned at del loan è settato (oppure con un pulsante?)
-TODO vedi se mettere file sul documento
-TODO cambiare nome allo status nella pivot table? (conflitto filament)
-
