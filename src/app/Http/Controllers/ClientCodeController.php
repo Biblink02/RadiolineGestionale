@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Mail\ClientCode;
 use App\Http\Requests\ClientCodeRequest;
 use App\Models\Client;
 use App\Enums\ClientProfileTypeEnum;
@@ -19,7 +20,6 @@ class ClientCodeController extends Controller
         $client->profile_type = ClientProfileTypeEnum::from($parameters['profileType']);
         $client->message = $parameters['message'] ?? null;
         $client->accept_privacy = $parameters['acceptPrivacy'];
-        $email = null;
         switch ($parameters['profileType']) {
             case ClientProfileTypeEnum::A->value: // Agency Profile
                 $client->agency_name = $parameters['agencyName'];
@@ -90,6 +90,6 @@ class ClientCodeController extends Controller
     private function sendMailWithCode(string $email, int $clientId): void
     {
         Log::info('Sending mail with client code: ' . $clientId);
-        Mail::to($email)->send(new OrderSummary(order: $order));
+        Mail::to($email)->send(new ClientCode($clientId));
     }
 }
