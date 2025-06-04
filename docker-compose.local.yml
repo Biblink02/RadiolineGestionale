@@ -12,6 +12,7 @@ services:
     volumes:
       - "./src:/var/www/app"
       - "./docker:/scripts"
+      - "./config/php.ini:/etc/php82/php.ini"  # Mount custom php.ini
     hostname: "${CONTAINER_NAME}-docker.local"
     ports:
       - "8100:80"

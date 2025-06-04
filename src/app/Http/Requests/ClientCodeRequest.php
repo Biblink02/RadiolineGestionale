@@ -3,7 +3,9 @@
 namespace App\Http\Requests;
 
 use App\Enums\ClientProfileTypeEnum;
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rule;
 
 class ClientCodeRequest extends FormRequest
@@ -15,6 +17,7 @@ class ClientCodeRequest extends FormRequest
 
     public function rules(): array
     {
+        Log::info("RULES CLIENT CODE REQUEST");
         return [
             // Discriminator for profile variant
             'profileType'    => ['required', 'string', Rule::in(ClientProfileTypeEnum::toArray())],
@@ -24,40 +27,46 @@ class ClientCodeRequest extends FormRequest
             'acceptPrivacy'  => ['accepted'],
 
             // Travel Agency (“A”)
-            'agencyName'      => ['required_if:profileType,A', 'string', 'max:255'],
-            'agencyCountry'   => ['required_if:profileType,A', 'string', 'size:2'],
-            'agencyEmail'     => ['required_if:profileType,A', 'email',  'max:255'],
-            'agencyRefName'   => ['required_if:profileType,A', 'string', 'max:255'],
-            'agencyRefSurname'=> ['required_if:profileType,A', 'string', 'max:255'],
-            'agencyMobile'    => ['required_if:profileType,A', 'string', 'max:20'],
+            'A_name'         => ['required_if:profileType,A', 'string', 'max:255'],
+            'A_country'      => ['required_if:profileType,A', 'string', 'size:2'],
+            'A_email'        => ['required_if:profileType,A', 'email',  'max:255'],
+            'A_ref_name'     => ['required_if:profileType,A', 'string', 'max:255'],
+            'A_ref_surname'  => ['required_if:profileType,A', 'string', 'max:255'],
+            'A_mobile'       => ['required_if:profileType,A', 'string', 'max:20'],
 
             // Guide (“G”)
-            'guideName'     => ['required_if:profileType,G', 'string', 'max:255'],
-            'guideSurname'  => ['required_if:profileType,G', 'string', 'max:255'],
-            'guideCountry'  => ['required_if:profileType,G', 'string', 'size:2'],
-            'guideEmail'    => ['required_if:profileType,G', 'email',  'max:255'],
-            'guideMobile'   => ['required_if:profileType,G', 'string', 'max:20'],
+            'G_name'         => ['required_if:profileType,G', 'string', 'max:255'],
+            'G_surname'      => ['required_if:profileType,G', 'string', 'max:255'],
+            'G_country'      => ['required_if:profileType,G', 'string', 'size:2'],
+            'G_email'        => ['required_if:profileType,G', 'email',  'max:255'],
+            'G_mobile'       => ['required_if:profileType,G', 'string', 'max:20'],
 
             // Accommodation Provider (“H”)
-            'hotelName'      => ['required_if:profileType,H', 'string', 'max:255'],
-            'hotelEmail'     => ['required_if:profileType,H', 'email',  'max:255'],
-            'hotelRefName'   => ['required_if:profileType,H', 'string', 'max:255'],
-            'hotelRefSurname'=> ['required_if:profileType,H', 'string', 'max:255'],
-            'hotelMobile'    => ['required_if:profileType,H', 'string', 'max:20'],
+            'H_name'         => ['required_if:profileType,H', 'string', 'max:255'],
+            'H_email'        => ['required_if:profileType,H', 'email',  'max:255'],
+            'H_ref_name'     => ['required_if:profileType,H', 'string', 'max:255'],
+            'H_ref_surname'  => ['required_if:profileType,H', 'string', 'max:255'],
+            'H_mobile'       => ['required_if:profileType,H', 'string', 'max:20'],
 
             // Lay Organizer (“L”)
-            'laicName'       => ['required_if:profileType,L', 'string', 'max:255'],
-            'laicSurname'    => ['required_if:profileType,L', 'string', 'max:255'],
-            'laicCountry'    => ['required_if:profileType,L', 'string', 'size:2'],
-            'laicEmail'      => ['required_if:profileType,L', 'email',  'max:255'],
-            'laicMobile'     => ['required_if:profileType,L', 'string', 'max:20'],
+            'L_name'         => ['required_if:profileType,L', 'string', 'max:255'],
+            'L_surname'      => ['required_if:profileType,L', 'string', 'max:255'],
+            'L_country'      => ['required_if:profileType,L', 'string', 'size:2'],
+            'L_email'        => ['required_if:profileType,L', 'email',  'max:255'],
+            'L_mobile'       => ['required_if:profileType,L', 'string', 'max:20'],
 
             // Religious Accompanist (“R”)
-            'relName'        => ['required_if:profileType,R', 'string', 'max:255'],
-            'relSurname'     => ['required_if:profileType,R', 'string', 'max:255'],
-            'relCountry'     => ['required_if:profileType,R', 'string', 'size:2'],
-            'relEmail'       => ['required_if:profileType,R', 'email',  'max:255'],
-            'relMobile'      => ['required_if:profileType,R', 'string', 'max:20'],
+            'R_name'         => ['required_if:profileType,R', 'string', 'max:255'],
+            'R_surname'      => ['required_if:profileType,R', 'string', 'max:255'],
+            'R_country'      => ['required_if:profileType,R', 'string', 'size:2'],
+            'R_email'        => ['required_if:profileType,R', 'email',  'max:255'],
+            'R_mobile'       => ['required_if:profileType,R', 'string', 'max:20'],
         ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        Log::info("Validation failed", $validator->errors()->toArray());
+        return response(status: 400);
     }
 }

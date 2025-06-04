@@ -2,69 +2,74 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Mail\ClientCode;
 use App\Http\Requests\ClientCodeRequest;
 use App\Models\Client;
 use App\Enums\ClientProfileTypeEnum;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class ClientCodeController extends Controller
 {
-    public function sendClientCode(ClientCodeRequest $request): JsonResponse
+    public function sendClientCode(ClientCodeRequest $request)
     {
+        Log::info("QUAAA PRIMA");
         $parameters = $request->validated();
+        Log::info("QUAAA VALIDATED");
 
         $client = new Client();
-        $client->profile_type = ClientProfileTypeEnum::from($parameters['profileType']);
-        $client->message = $parameters['message'] ?? null;
+        $client->profile_type   = ClientProfileTypeEnum::from($parameters['profileType']);
+        $client->message        = $parameters['message'] ?? null;
         $client->accept_privacy = $parameters['acceptPrivacy'];
-        $email = null;
+
         switch ($parameters['profileType']) {
             case ClientProfileTypeEnum::A->value: // Agency Profile
-                $client->agency_name = $parameters['agencyName'];
-                $client->agency_country = $parameters['agencyCountry'];
-                $client->agency_email = $parameters['agencyEmail'];
-                $client->agency_ref_name = $parameters['agencyRefName'];
-                $client->agency_ref_surname = $parameters['agencyRefSurname'];
-                $client->agency_mobile = $parameters['agencyMobile'];
-                $email = $parameters['agencyEmail'];
+                $client->A_name         = $parameters['A_name'];
+                $client->A_country      = $parameters['A_country'];
+                $client->A_email        = $parameters['A_email'];
+                $client->A_ref_name     = $parameters['A_ref_name'];
+                $client->A_ref_surname  = $parameters['A_ref_surname'];
+                $client->A_mobile       = $parameters['A_mobile'];
+                $email = $parameters['A_email'];
                 break;
 
             case ClientProfileTypeEnum::G->value: // Guide Profile
-                $client->guide_name = $parameters['guideName'];
-                $client->guide_surname = $parameters['guideSurname'];
-                $client->guide_country = $parameters['guideCountry'];
-                $client->guide_email = $parameters['guideEmail'];
-                $client->guide_mobile = $parameters['guideMobile'];
-                $email = $parameters['guideEmail'];
+                $client->G_name     = $parameters['G_name'];
+                $client->G_surname  = $parameters['G_surname'];
+                $client->G_country  = $parameters['G_country'];
+                $client->G_email    = $parameters['G_email'];
+                $client->G_mobile   = $parameters['G_mobile'];
+                $email = $parameters['G_email'];
                 break;
 
             case ClientProfileTypeEnum::H->value: // Hotel Profile
-                $client->hotel_name = $parameters['hotelName'];
-                $client->hotel_email = $parameters['hotelEmail'];
-                $client->hotel_ref_name = $parameters['hotelRefName'];
-                $client->hotel_ref_surname = $parameters['hotelRefSurname'];
-                $client->hotel_mobile = $parameters['hotelMobile'];
-                $email = $parameters['hotelEmail'];
+                $client->H_name         = $parameters['H_name'];
+                $client->H_email        = $parameters['H_email'];
+                $client->H_ref_name     = $parameters['H_ref_name'];
+                $client->H_ref_surname  = $parameters['H_ref_surname'];
+                $client->H_mobile       = $parameters['H_mobile'];
+                $email = $parameters['H_email'];
                 break;
 
             case ClientProfileTypeEnum::L->value: // Laic Organizer Profile
-                $client->laic_name = $parameters['laicName'];
-                $client->laic_surname = $parameters['laicSurname'];
-                $client->laic_country = $parameters['laicCountry'];
-                $client->laic_email = $parameters['laicEmail'];
-                $client->laic_mobile = $parameters['laicMobile'];
-                $email = $parameters['laicEmail'];
+                $client->L_name     = $parameters['L_name'];
+                $client->L_surname  = $parameters['L_surname'];
+                $client->L_country  = $parameters['L_country'];
+                $client->L_email    = $parameters['L_email'];
+                $client->L_mobile   = $parameters['L_mobile'];
+                $email = $parameters['L_email'];
                 break;
 
             case ClientProfileTypeEnum::R->value: // Religious Accompanist Profile
-                $client->rel_name = $parameters['relName'];
-                $client->rel_surname = $parameters['relSurname'];
-                $client->rel_country = $parameters['relCountry'];
-                $client->rel_email = $parameters['relEmail'];
-                $client->rel_mobile = $parameters['relMobile'];
-                $email = $parameters['relEmail'];
+                $client->R_name     = $parameters['R_name'];
+                $client->R_surname  = $parameters['R_surname'];
+                $client->R_country  = $parameters['R_country'];
+                $client->R_email    = $parameters['R_email'];
+                $client->R_mobile   = $parameters['R_mobile'];
+                $email = $parameters['R_email'];
                 break;
 
             default:
@@ -74,22 +79,21 @@ class ClientCodeController extends Controller
         // Save the client to the database
         $client->save();
 
-        // Call sendMailWithCode function with the created client ID
-        $this->sendMailWithCode($email, $client->id);
-
-        // Return a successful response with the client ID
-        return response()->json(['client_id' => $client->id, 'message' => 'Client profile created and code sent successfully.']);
+        // TODO send email with code
+        // $this->sendMailWithCode($email, $client->id);
+        return back()->with('success', 'Request submitted successfully!');
     }
 
     /**
      * Simulate sending an email with the client code (ID).
      *
-     * @param int $clientId
+     * @param string $email
+     * @param int    $clientId
      * @return void
      */
     private function sendMailWithCode(string $email, int $clientId): void
     {
         Log::info('Sending mail with client code: ' . $clientId);
-        Mail::to($email)->send(new OrderSummary(order: $order));
+        Mail::to($email)->send(new ClientCode($clientId));
     }
 }

@@ -1,12 +1,13 @@
 import './bootstrap.ts';
 import '../css/app.css';
 import 'primeicons/primeicons.css'
-import { createApp, h } from 'vue';
-import { createInertiaApp } from '@inertiajs/vue3';
-import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
-import { ZiggyVue } from '../../vendor/tightenco/ziggy';
+import {createApp, h} from 'vue';
+import {createInertiaApp} from '@inertiajs/vue3';
+import {resolvePageComponent} from 'laravel-vite-plugin/inertia-helpers';
+import {ZiggyVue} from '../../vendor/tightenco/ziggy';
 import PrimeVue from 'primevue/config';
 import Material from '@primeuix/themes/material';
+import ToastService from 'primevue/toastservice';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
@@ -19,19 +20,16 @@ createInertiaApp({
             .use(ZiggyVue)
             .use(PrimeVue, {
                 theme: {
-                    preset: Material
+                    preset: Material,
+                    options: {
+                        darkModeSelector: false,
+                        cssLayer: {
+                            name: 'primevue',
+                        },
+                    }
                 },
-                options: {
-                    //TODO
-                    darkModeSelector: false || 'none',
-                    cssLayer: {
-                        name: 'primevue',
-                        // Enable PrimeVue CSS layer and configure the tailwind styles to have higher specificity with layering
-                        order: 'tailwind-base, primevue, tailwind-utilities',
-                    },
-                },
-
             })
+            .use(ToastService)
             .mount(el);
     },
     progress: {

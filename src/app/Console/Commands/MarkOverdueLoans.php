@@ -40,9 +40,9 @@ class MarkOverdueLoans extends Command
         foreach ($overdueLoans as $loan) {
             $loan->status = LoanStatusEnum::OVERDUE->value;
             $loan->save();
-            $this->info("Loan ID {$loan->id} marked as overdue.");
+            $this->info("Loan ID " . $loan->id . " marked as overdue.");
         }
 
-        $this->info('All overdue loans have been updated.');
+        $this->info("All overdue loans (" . count($overdueLoans) . ") have been updated.");
     }
 }

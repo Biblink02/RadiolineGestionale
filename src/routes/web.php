@@ -9,7 +9,7 @@ use Inertia\Inertia;
 
 Route::get('/contact-us', [ContactUsController::class, 'index']);
 Route::get('/pdf/{path}',[PdfController::class, 'getPdf'])->name('pdf');
-Route::post('/api/request/client-code', [ClientCodeController::class, 'sendClientCode']);
+Route::post('/api/request/client-code', [ClientCodeController::class, 'sendClientCode'])->name('client-code.request');
 
 
 

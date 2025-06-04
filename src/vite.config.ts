@@ -6,6 +6,7 @@ import Components from 'unplugin-vue-components/vite';
 import {PrimeVueResolver} from '@primevue/auto-import-resolver';
 import { imagetools } from 'vite-imagetools'
 
+
 interface Params {
     mode: string
 }
@@ -48,6 +49,7 @@ export default ({ mode }: Params) => {
             alias: {
                 '@': '/resources/ts',
                 '~': '/resources',
+                '£': '/public/'
             },
         },
         server: {

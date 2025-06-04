@@ -71,25 +71,21 @@ class RadiosRelationManager extends RelationManager
                             ->skippable()
                     ])
                     ->after(function (AttachAction $action, array $data): void {
-                        // Determina se l'ownerRecord è attivo.
-                        // TODO guarda loan date?
-                        $isActive = $this->ownerRecord->status === LoanStatusEnum::ACTIVE->value;
 
-                        // --- 1. Aggiorna lo stato delle radio già attachate (manualmente) ---
-                        $selectedRadios = $data['recordId'] ?? [];
-
-                        if (!empty($selectedRadios) && $isActive) {
-                            $this->updateSelectedRadiosStatus($selectedRadios);
-                        }
-
-                        // --- 2. Aggiungo le radio dalla textarea
+                        // --- 1. Aggiungo le radio dalla textarea
                         $selectMultipleRadios = explode("\n", $data['multiple'] ?? "");
-                        if(!empty($selectMultipleRadios)){
-                            $this->attachAndUpdateRadios($selectMultipleRadios, $isActive);
+                        if (!empty($selectMultipleRadios)) {
+                            $this->attachRadios($selectMultipleRadios);
                         }
-                        // --- 3. Processa l'intervallo da/to ---
+
+                        // --- 2. Processa l'intervallo da/to ---
                         if (!empty($data['from']) && !empty($data['to'])) {
-                            $this->attachAndUpdateRadiosByRange($data['from'], $data['to'], $isActive);
+                            $this->attachRadiosByRange($data['from'], $data['to']);
+                        }
+
+                        // --- 3. Aggiungi radio singole ---
+                        if (!empty($data['recordId'])) {
+                            $this->attachSingleRadio($data['recordId']);
                         }
                     })
 
@@ -99,29 +95,35 @@ class RadiosRelationManager extends RelationManager
     }
 
     /**
-     * Aggiorna lo stato a LOANED per le radio, basato su id.
+     * Attacca le radio non già attaccate e le mantiene come AVAILABLE.
      *
-     * @param array $selectedRadioIds
+     * @param array $radiosId
      */
-    private function updateSelectedRadiosStatus(array $selectedRadioIds): void
+    private function attachRadios(array $radiosId): void
     {
-        foreach ($selectedRadioIds as $radioId) {
-            $radio = Radio::find($radioId);
-            if ($radio && $radio->status === RadioStatusEnum::AVAILABLE->value) {
-                $radio->status = RadioStatusEnum::LOANED;
-                $radio->save();
+        // Pre-carica gli ID delle radio già attachate in un'unica query
+        $attachedRadioIds = $this->ownerRecord->radios()->pluck('radio_id')->toArray();
+        $radios = Radio::query()
+            ->whereIn("identifier", $radiosId)
+            ->get();
+
+        foreach ($radios as $radio) {
+            // Controlla in memoria se la radio non è già presente
+            if (!in_array($radio->id, $attachedRadioIds)) {
+                $this->ownerRecord->radios()->attach($radio->id);
+                // Aggiorna l'array per evitare duplicazioni nel ciclo
+                $attachedRadioIds[] = $radio->id;
             }
         }
     }
 
     /**
-     * Attacca le radio non gia attaccate nell'intervallo e, se l'ownerRecord è attivo, aggiorna lo stato a LOANED.
+     * Attacca le radio non già attaccate nell'intervallo e le mantiene come AVAILABLE.
      *
      * @param string $from
      * @param string $to
-     * @param bool $isActive
      */
-    private function attachAndUpdateRadiosByRange(string $from, string $to, bool $isActive): void
+    private function attachRadiosByRange(string $from, string $to): void
     {
         // Pre-carica gli ID delle radio già attachate in un'unica query
         $attachedRadioIds = $this->ownerRecord->radios()->pluck('radio_id')->toArray();
@@ -138,32 +140,23 @@ class RadiosRelationManager extends RelationManager
                 // Aggiorna l'array per evitare duplicazioni nel ciclo
                 $attachedRadioIds[] = $radio->id;
             }
-            if ($isActive && $radio->status === RadioStatusEnum::AVAILABLE->value) {
-                $radio->status = RadioStatusEnum::LOANED;
-                $radio->save();
-            }
         }
     }
 
-    private function attachAndUpdateRadios(array $radiosId, bool $isActive): void {
+    /**
+     * Attacca una singola radio e la mantiene come AVAILABLE.
+     *
+     * @param array $radioId
+     */
+    private function attachSingleRadio(array $radioId): void
+    {
         // Pre-carica gli ID delle radio già attachate in un'unica query
         $attachedRadioIds = $this->ownerRecord->radios()->pluck('radio_id')->toArray();
-        $radios = Radio::query()
-            ->whereIn("identifier", $radiosId)
-            ->get();
 
-        foreach ($radios as $radio) {
-            // Controlla in memoria se la radio non è già presente
-            if (!in_array($radio->id, $attachedRadioIds)) {
-                $this->ownerRecord->radios()->attach($radio->id);
-                // Aggiorna l'array per evitare duplicazioni nel ciclo
-                $attachedRadioIds[] = $radio->id;
-            }
-            if ($isActive && $radio->status === RadioStatusEnum::AVAILABLE->value) {
-                $radio->status = RadioStatusEnum::LOANED;
-                $radio->save();
-            }
+        $radio = Radio::find($radioId);
+
+        if ($radio && !in_array($radio->id, $attachedRadioIds)) {
+            $this->ownerRecord->radios()->attach($radio->id);
         }
     }
-
 }
