@@ -49,17 +49,32 @@ class ClientResourceViewBuilder
                         TextInput::make('A_name')
                             ->label('Agency Name')
                             ->requiredIf("profile_type", ClientProfileTypeEnum::A->value)
-                            ->maxLength(255)->reactive(),
+                            ->maxLength(255),
                         TextInput::make('A_country')
                             ->label('Agency Country')
-                            ->requiredIf("profile_type", ClientProfileTypeEnum::A->value),
+                            ->requiredIf("profile_type", ClientProfileTypeEnum::A->value)
+                            ->maxLength(2),
                         TextInput::make('A_email')
                             ->label('Agency Email')
                             ->email()
                             ->requiredIf("profile_type", ClientProfileTypeEnum::A->value)
                             ->maxLength(255),
+                        TextInput::make('A_ref_name')
+                            ->label('Reference Contact Name')
+                            ->requiredIf("profile_type", ClientProfileTypeEnum::A->value)
+                            ->maxLength(255),
+                        TextInput::make('A_ref_surname')
+                            ->label('Reference Contact Surname')
+                            ->requiredIf("profile_type", ClientProfileTypeEnum::A->value)
+                            ->maxLength(255),
+                        TextInput::make('A_mobile')
+                            ->label('Agency Mobile')
+                            ->tel()
+                            ->requiredIf("profile_type", ClientProfileTypeEnum::A->value)
+                            ->maxLength(20),
                     ])
-                    ->visible(fn($get) => $get('profile_type') === ClientProfileTypeEnum::A->value), // La sezione è visibile solo per il tipo "A"
+                    ->columns(2)
+                    ->visible(fn($get) => $get('profile_type') === ClientProfileTypeEnum::A->value),
 
                 // Sezione "Guida" (visibile solo se 'profile_type' è "G")
                 Section::make('Guide Profile')
@@ -81,23 +96,43 @@ class ClientResourceViewBuilder
                             ->email()
                             ->requiredIf("profile_type", ClientProfileTypeEnum::G->value)
                             ->maxLength(255),
+                        TextInput::make('G_mobile')
+                            ->label('Guide Mobile')
+                            ->tel()
+                            ->requiredIf("profile_type", ClientProfileTypeEnum::G->value)
+                            ->maxLength(20),
                     ])
-                    ->visible(fn($get) => $get('profile_type') === ClientProfileTypeEnum::G->value), // La sezione è visibile solo per il tipo "G"
+                    ->columns(2)
+                    ->visible(fn($get) => $get('profile_type') === ClientProfileTypeEnum::G->value),
 
                 // Sezione "Hotel" (visibile solo se 'profile_type' è "H")
                 Section::make('Hotel Profile')
                     ->schema([
-                        TextInput::make('R_name')
+                        TextInput::make('H_name')
                             ->label('Hotel Name')
                             ->requiredIf("profile_type", ClientProfileTypeEnum::H->value)
                             ->maxLength(255),
-                        TextInput::make('R_email')
+                        TextInput::make('H_email')
                             ->label('Hotel Email')
                             ->email()
                             ->requiredIf("profile_type", ClientProfileTypeEnum::H->value)
                             ->maxLength(255),
+                        TextInput::make('H_ref_name')
+                            ->label('Reference Contact Name')
+                            ->requiredIf("profile_type", ClientProfileTypeEnum::H->value)
+                            ->maxLength(255),
+                        TextInput::make('H_ref_surname')
+                            ->label('Reference Contact Surname')
+                            ->requiredIf("profile_type", ClientProfileTypeEnum::H->value)
+                            ->maxLength(255),
+                        TextInput::make('H_mobile')
+                            ->label('Hotel Mobile')
+                            ->tel()
+                            ->requiredIf("profile_type", ClientProfileTypeEnum::H->value)
+                            ->maxLength(20),
                     ])
-                    ->visible(fn($get) => $get('profile_type') === ClientProfileTypeEnum::H->value), // La sezione è visibile solo per il tipo "H"
+                    ->columns(2)
+                    ->visible(fn($get) => $get('profile_type') === ClientProfileTypeEnum::H->value),
 
                 // Sezione "Laico" (visibile solo se 'profile_type' è "L")
                 Section::make('Laic Organizer Profile')
@@ -114,8 +149,19 @@ class ClientResourceViewBuilder
                             ->label('Laic Country')
                             ->requiredIf("profile_type", ClientProfileTypeEnum::L->value)
                             ->maxLength(2),
+                        TextInput::make('L_email')
+                            ->label('Laic Email')
+                            ->email()
+                            ->requiredIf("profile_type", ClientProfileTypeEnum::L->value)
+                            ->maxLength(255),
+                        TextInput::make('L_mobile')
+                            ->label('Laic Mobile')
+                            ->tel()
+                            ->requiredIf("profile_type", ClientProfileTypeEnum::L->value)
+                            ->maxLength(20),
                     ])
-                    ->visible(fn($get) => $get('profile_type') === ClientProfileTypeEnum::L->value), // La sezione è visibile solo per il tipo "L"
+                    ->columns(2)
+                    ->visible(fn($get) => $get('profile_type') === ClientProfileTypeEnum::L->value),
 
                 // Sezione "Religioso" (visibile solo se 'profile_type' è "R")
                 Section::make('Religious Accompanist Profile')
@@ -132,8 +178,19 @@ class ClientResourceViewBuilder
                             ->label('Religious Country')
                             ->requiredIf("profile_type", ClientProfileTypeEnum::R->value)
                             ->maxLength(2),
+                        TextInput::make('R_email')
+                            ->label('Religious Email')
+                            ->email()
+                            ->requiredIf("profile_type", ClientProfileTypeEnum::R->value)
+                            ->maxLength(255),
+                        TextInput::make('R_mobile')
+                            ->label('Religious Mobile')
+                            ->tel()
+                            ->requiredIf("profile_type", ClientProfileTypeEnum::R->value)
+                            ->maxLength(20),
                     ])
-                    ->visible(fn($get) => $get('profile_type') === ClientProfileTypeEnum::R->value), // La sezione è visibile solo per il tipo "R"
+                    ->columns(2)
+                    ->visible(fn($get) => $get('profile_type') === ClientProfileTypeEnum::R->value),
 
                 ...($fields ?? []),
             ]);
@@ -192,3 +249,4 @@ class ClientResourceViewBuilder
     }
 
 }
+

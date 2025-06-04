@@ -1,18 +1,19 @@
 <script setup lang="ts">
 import {ref, computed} from 'vue'
 import {useForm} from '@inertiajs/vue3'
-import SelectButton from 'primevue/selectbutton'
 import InputText from 'primevue/inputtext'
 import Dropdown from 'primevue/dropdown'
 import Button from 'primevue/button'
-import {ClientCodeRequestPayload, ProfileType} from "@/Types/ClientCodeRequest";
+import Textarea from 'primevue/textarea'
+import Checkbox from 'primevue/checkbox'
+import Toast from 'primevue/toast'
+import {ProfileType} from "@/Types/ClientCodeRequest";
 import AppLayout from "@/Layouts/AppLayout.vue";
-import {route} from "../../../../vendor/tightenco/ziggy";
 import {useToast} from "primevue";
 
 const toast = useToast();
 
-// 1. Define the SelectButton options for profileType
+// Profile type options for dropdown
 const profileOptions: { label: string; value: ProfileType }[] = [
     {label: 'Travel Agency', value: 'A'},
     {label: 'Guide', value: 'G'},
@@ -21,95 +22,140 @@ const profileOptions: { label: string; value: ProfileType }[] = [
     {label: 'Religious Accompanist', value: 'R'},
 ]
 
-// 2. Initialize the Inertia form with full typing
-const form = useForm<ClientCodeRequestPayload>({
-    profileType: '' as ProfileType,
+// Country options (add your actual country data)
+const countryOptions = [
+    {label: 'United States', value: 'US'},
+    {label: 'Canada', value: 'CA'},
+    {label: 'United Kingdom', value: 'UK'},
+    {label: 'France', value: 'FR'},
+    {label: 'Germany', value: 'DE'},
+    {label: 'Italy', value: 'IT'},
+    {label: 'Spain', value: 'ES'},
+    // Add more countries as needed
+]
+
+// Selected profile type
+const selectedProfileType = ref<ProfileType>('')
+
+// Define individual forms
+const agencyForm = useForm({
+    profileType: 'A' as ProfileType,
     message: '',
     acceptPrivacy: false,
-
-    // Agency fields
-    agencyName: '',
-    agencyCountry: '',
-    agencyEmail: '',
-    agencyRefName: '',
-    agencyRefSurname: '',
-    agencyMobile: '',
-
-    // Guide fields
-    guideName: '',
-    guideSurname: '',
-    guideCountry: '',
-    guideEmail: '',
-    guideMobile: '',
-
-    // Hotel fields
-    hotelName: '',
-    hotelEmail: '',
-    hotelRefName: '',
-    hotelRefSurname: '',
-    hotelMobile: '',
-
-    // Lay Organizer fields
-    laicName: '',
-    laicSurname: '',
-    laicCountry: '',
-    laicEmail: '',
-    laicMobile: '',
-
-    // Religious Accompanist fields
-    relName: '',
-    relSurname: '',
-    relCountry: '',
-    relEmail: '',
-    relMobile: ''
+    A_name: '',
+    A_country: '',
+    A_email: '',
+    A_ref_name: '',
+    A_ref_surname: '',
+    A_mobile: '',
 })
 
-// 3. Compute basic form validity based on profileType
+const guideForm = useForm({
+    profileType: 'G' as ProfileType,
+    message: '',
+    acceptPrivacy: false,
+    G_name: '',
+    G_surname: '',
+    G_country: '',
+    G_email: '',
+    G_mobile: '',
+})
+
+const hotelForm = useForm({
+    profileType: 'H' as ProfileType,
+    message: '',
+    acceptPrivacy: false,
+    H_name: '',
+    H_email: '',
+    H_ref_name: '',
+    H_ref_surname: '',
+    H_mobile: '',
+})
+
+const laicForm = useForm({
+    profileType: 'L' as ProfileType,
+    message: '',
+    acceptPrivacy: false,
+    L_name: '',
+    L_surname: '',
+    L_country: '',
+    L_email: '',
+    L_mobile: '',
+})
+
+const religiousForm = useForm({
+    profileType: 'R' as ProfileType,
+    message: '',
+    acceptPrivacy: false,
+    R_name: '',
+    R_surname: '',
+    R_country: '',
+    R_email: '',
+    R_mobile: ''
+})
+
+// Compute active form based on selected profile type
+const activeForm = computed(() => {
+    switch (selectedProfileType.value) {
+        case 'A': return agencyForm
+        case 'G': return guideForm
+        case 'H': return hotelForm
+        case 'L': return laicForm
+        case 'R': return religiousForm
+        default: return null
+    }
+})
+
+// Compute form validity
 const isValid = computed(() => {
-    if (!form.profileType || !form.acceptPrivacy) return false
+    const form = activeForm.value
+    if (!form || !form.acceptPrivacy) return false
 
     // Helper: check that all listed fields are non-empty
-    const allFilled = (fields: (keyof ClientCodeRequestPayload)[]) =>
+    const allFilled = (fields: string[]) =>
         fields.every(f => Boolean((form as any)[f]))
 
-    switch (form.profileType) {
+    switch (selectedProfileType.value) {
         case 'A':
             return allFilled([
-                'agencyName', 'agencyCountry', 'agencyEmail',
-                'agencyRefName', 'agencyRefSurname', 'agencyMobile'
+                'A_name', 'A_country', 'A_email',
+                'A_ref_name', 'A_ref_surname', 'A_mobile'
             ])
         case 'G':
             return allFilled([
-                'guideName', 'guideSurname', 'guideCountry',
-                'guideEmail', 'guideMobile'
+                'G_name', 'G_surname', 'G_country',
+                'G_email', 'G_mobile'
             ])
         case 'H':
             return allFilled([
-                'hotelName', 'hotelEmail', 'hotelRefName',
-                'hotelRefSurname', 'hotelMobile'
+                'H_name', 'H_email', 'H_ref_name',
+                'H_ref_surname', 'H_mobile'
             ])
         case 'L':
             return allFilled([
-                'laicName', 'laicSurname', 'laicCountry',
-                'laicEmail', 'laicMobile'
+                'L_name', 'L_surname', 'L_country',
+                'L_email', 'L_mobile'
             ])
         case 'R':
             return allFilled([
-                'relName', 'relSurname', 'relCountry',
-                'relEmail', 'relMobile'
+                'R_name', 'R_surname', 'R_country',
+                'R_email', 'R_mobile'
             ])
     }
     return false
 })
 
-// 4. Submit handler
+// Submit handler
 function submit() {
+    const form = activeForm.value
+    if (!form) return
+
     form.post(route('client-code.request'), {
         onSuccess: () => {
-            toast.add({severity: 'success', summary: 'Success Message', detail: 'Message Content', life: 3000});
+            toast.add({severity: 'success', summary: 'Success', detail: 'Request submitted successfully!', life: 3000});
         },
         onError: () => {
-            toast.add({ severity: 'error', summary: 'Error Message', detail: 'Message Content', life: 3000 });
+            toast.add({ severity: 'error', summary: 'Error', detail: 'Failed to submit request. Please try again.', life: 3000 });
         }
     })
 }
@@ -117,150 +163,390 @@ function submit() {
 
 <template>
     <AppLayout>
-        <Toast/>
-        <div class="flex justify-center mt-12">
-            <div class="w-full max-w-4xl p-6 bg-white shadow-md rounded-lg">
-                <!-- Profile selector -->
-                <div class="mb-6">
-                    <label class="block mb-2 font-medium text-gray-700 pb-3">
-                        Select your profile
-                    </label>
-                    <div class="w-fit mx-auto">
-                        <SelectButton
-                            v-model="form.profileType"
-                            :options="profileOptions"
-                            optionLabel="label"
-                            optionValue="value"
-                            class="w-fit"
-                        />
-                    </div>
+        <Toast />
+        <div class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-8 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-4xl mx-auto">
+                <!-- Header -->
+                <div class="text-center mb-8">
+                    <h1 class="text-3xl font-bold text-gray-900 mb-2">Client Code Request</h1>
+                    <p class="text-gray-600">Please select your profile type and fill in the required information</p>
                 </div>
-                <div v-show="form.profileType !== ''">
-                    <!-- Agency -->
-                    <div v-if="form.profileType==='A'" class="space-y-4">
-                        <h3 class="font-semibold">Travel Agency</h3>
-                        <InputText v-model="form.agencyName" placeholder="Agency Name" class="w-full"/>
-                        <Dropdown
-                            v-model="form.agencyCountry"
-                            :options="countryOptions"
-                            optionLabel="label"
-                            optionValue="value"
-                            placeholder="Country"
-                            class="w-full"
-                        />
-                        <InputText v-model="form.agencyEmail" type="email" placeholder="Agency Email" class="w-full"/>
-                        <div class="grid grid-cols-2 gap-4">
-                            <InputText v-model="form.agencyRefName" placeholder="Contact First Name"/>
-                            <InputText v-model="form.agencyRefSurname" placeholder="Contact Last Name"/>
+
+                <!-- Main Form Card -->
+                <div class="bg-white shadow-xl rounded-2xl overflow-hidden">
+                    <div class="px-6 py-8 sm:px-8 lg:px-12">
+                        <!-- Profile Type Selection -->
+                        <div class="mb-8">
+                            <label class="block text-lg font-semibold text-gray-900 mb-4">
+                                Select Your Profile Type
+                            </label>
+                            <Dropdown
+                                v-model="selectedProfileType"
+                                :options="profileOptions"
+                                optionLabel="label"
+                                optionValue="value"
+                                placeholder="Choose your profile..."
+                                class="w-full md:w-1/2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                            />
                         </div>
-                        <InputText v-model="form.agencyMobile" type="tel" placeholder="Mobile (with WhatsApp)"
-                                   class="w-full"/>
-                    </div>
 
-                    <!-- Guide -->
-                    <div v-if="form.profileType==='G'" class="space-y-4">
-                        <h3 class="font-semibold">Guide</h3>
-                        <div class="grid grid-cols-2 gap-4">
-                            <InputText v-model="form.guideName" placeholder="First Name"/>
-                            <InputText v-model="form.guideSurname" placeholder="Last Name"/>
+                        <!-- Dynamic Form Content -->
+                        <div v-if="activeForm" class="space-y-6">
+
+                            <!-- Travel Agency Form -->
+                            <div v-if="selectedProfileType === 'A'" class="space-y-6">
+                                <div class="border-l-4 border-blue-500 pl-4">
+                                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Travel Agency Information</h3>
+                                </div>
+
+                                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                                    <div class="lg:col-span-2">
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Agency Name</label>
+                                        <InputText
+                                            v-model="activeForm.A_name"
+                                            placeholder="Enter agency name"
+                                            class="w-full border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Country</label>
+                                        <Dropdown
+                                            v-model="activeForm.A_country"
+                                            :options="countryOptions"
+                                            optionLabel="label"
+                                            optionValue="value"
+                                            placeholder="Select country"
+                                            class="w-full border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Agency Email</label>
+                                        <InputText
+                                            v-model="activeForm.A_email"
+                                            type="email"
+                                            placeholder="agency@example.com"
+                                            class="w-full border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Contact First Name</label>
+                                        <InputText
+                                            v-model="activeForm.A_ref_name"
+                                            placeholder="First name"
+                                            class="w-full border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Contact Last Name</label>
+                                        <InputText
+                                            v-model="activeForm.A_ref_surname"
+                                            placeholder="Last name"
+                                            class="w-full border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                        />
+                                    </div>
+
+                                    <div class="lg:col-span-2">
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Mobile (with WhatsApp)</label>
+                                        <InputText
+                                            v-model="activeForm.A_mobile"
+                                            type="tel"
+                                            placeholder="+1 234 567 8900"
+                                            class="w-full border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Guide Form -->
+                            <div v-if="selectedProfileType === 'G'" class="space-y-6">
+                                <div class="border-l-4 border-green-500 pl-4">
+                                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Guide Information</h3>
+                                </div>
+
+                                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">First Name</label>
+                                        <InputText
+                                            v-model="activeForm.G_name"
+                                            placeholder="First name"
+                                            class="w-full border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
+                                        <InputText
+                                            v-model="activeForm.G_surname"
+                                            placeholder="Last name"
+                                            class="w-full border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Country</label>
+                                        <Dropdown
+                                            v-model="activeForm.G_country"
+                                            :options="countryOptions"
+                                            optionLabel="label"
+                                            optionValue="value"
+                                            placeholder="Select country"
+                                            class="w-full border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                                        <InputText
+                                            v-model="activeForm.G_email"
+                                            type="email"
+                                            placeholder="guide@example.com"
+                                            class="w-full border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                        />
+                                    </div>
+
+                                    <div class="lg:col-span-2">
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Mobile (with WhatsApp)</label>
+                                        <InputText
+                                            v-model="activeForm.G_mobile"
+                                            type="tel"
+                                            placeholder="+1 234 567 8900"
+                                            class="w-full border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Accommodation Provider Form -->
+                            <div v-if="selectedProfileType === 'H'" class="space-y-6">
+                                <div class="border-l-4 border-purple-500 pl-4">
+                                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Accommodation Provider Information</h3>
+                                </div>
+
+                                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                                    <div class="lg:col-span-2">
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Property Name</label>
+                                        <InputText
+                                            v-model="activeForm.H_name"
+                                            placeholder="Hotel/Property name"
+                                            class="w-full border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                        />
+                                    </div>
+
+                                    <div class="lg:col-span-2">
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                                        <InputText
+                                            v-model="activeForm.H_email"
+                                            type="email"
+                                            placeholder="hotel@example.com"
+                                            class="w-full border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Contact First Name</label>
+                                        <InputText
+                                            v-model="activeForm.H_ref_name"
+                                            placeholder="First name"
+                                            class="w-full border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Contact Last Name</label>
+                                        <InputText
+                                            v-model="activeForm.H_ref_surname"
+                                            placeholder="Last name"
+                                            class="w-full border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                        />
+                                    </div>
+
+                                    <div class="lg:col-span-2">
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Mobile (with WhatsApp)</label>
+                                        <InputText
+                                            v-model="activeForm.H_mobile"
+                                            type="tel"
+                                            placeholder="+1 234 567 8900"
+                                            class="w-full border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Lay Organizer Form -->
+                            <div v-if="selectedProfileType === 'L'" class="space-y-6">
+                                <div class="border-l-4 border-orange-500 pl-4">
+                                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Lay Organizer Information</h3>
+                                </div>
+
+                                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">First Name</label>
+                                        <InputText
+                                            v-model="activeForm.L_name"
+                                            placeholder="First name"
+                                            class="w-full border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
+                                        <InputText
+                                            v-model="activeForm.L_surname"
+                                            placeholder="Last name"
+                                            class="w-full border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Country</label>
+                                        <Dropdown
+                                            v-model="activeForm.L_country"
+                                            :options="countryOptions"
+                                            optionLabel="label"
+                                            optionValue="value"
+                                            placeholder="Select country"
+                                            class="w-full border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                                        <InputText
+                                            v-model="activeForm.L_email"
+                                            type="email"
+                                            placeholder="organizer@example.com"
+                                            class="w-full border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                        />
+                                    </div>
+
+                                    <div class="lg:col-span-2">
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Mobile (with WhatsApp)</label>
+                                        <InputText
+                                            v-model="activeForm.L_mobile"
+                                            type="tel"
+                                            placeholder="+1 234 567 8900"
+                                            class="w-full border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Religious Accompanist Form -->
+                            <div v-if="selectedProfileType === 'R'" class="space-y-6">
+                                <div class="border-l-4 border-red-500 pl-4">
+                                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Religious Accompanist Information</h3>
+                                </div>
+
+                                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">First Name</label>
+                                        <InputText
+                                            v-model="activeForm.R_name"
+                                            placeholder="First name"
+                                            class="w-full border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
+                                        <InputText
+                                            v-model="activeForm.R_surname"
+                                            placeholder="Last name"
+                                            class="w-full border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Country</label>
+                                        <Dropdown
+                                            v-model="activeForm.R_country"
+                                            :options="countryOptions"
+                                            optionLabel="label"
+                                            optionValue="value"
+                                            placeholder="Select country"
+                                            class="w-full border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                                        <InputText
+                                            v-model="activeForm.R_email"
+                                            type="email"
+                                            placeholder="accompanist@example.com"
+                                            class="w-full border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                        />
+                                    </div>
+
+                                    <div class="lg:col-span-2">
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Mobile (with WhatsApp)</label>
+                                        <InputText
+                                            v-model="activeForm.R_mobile"
+                                            type="tel"
+                                            placeholder="+1 234 567 8900"
+                                            class="w-full border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Message Section -->
+                            <div class="space-y-3">
+                                <label class="block text-lg font-semibold text-gray-900">Your Message</label>
+                                <Textarea
+                                    v-model="activeForm.message"
+                                    :rows="4"
+                                    placeholder="Please provide any additional information or specific requirements..."
+                                    class="w-full border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                />
+                            </div>
+
+                            <!-- Privacy Consent -->
+                            <div class="bg-gray-50 rounded-lg p-4">
+                                <div class="flex items-start space-x-3">
+                                    <Checkbox
+                                        v-model="activeForm.acceptPrivacy"
+                                        inputId="privacy"
+                                        binary
+                                        class="mt-1"
+                                    />
+                                    <label for="privacy" class="text-sm text-gray-700 leading-relaxed">
+                                        I consent to the processing of my personal data in accordance with the privacy policy.
+                                        This information will be used solely for processing your client code request.
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="flex justify-end pt-6">
+                                <Button
+                                    label="Submit Request"
+                                    icon="pi pi-send"
+                                    :disabled="!isValid"
+                                    @click="submit"
+                                    class="px-8 py-3 text-lg rounded-lg transition-all duration-200"
+                                    :class="{
+                                        'opacity-50 cursor-not-allowed': !isValid,
+                                        'bg-blue-600 hover:bg-blue-700 text-white': isValid
+                                    }"
+                                />
+                            </div>
                         </div>
-                        <Dropdown
-                            v-model="form.guideCountry"
-                            :options="countryOptions"
-                            optionLabel="label"
-                            optionValue="value"
-                            placeholder="Country"
-                            class="w-full"
-                        />
-                        <InputText v-model="form.guideEmail" type="email" placeholder="Email" class="w-full"/>
-                        <InputText v-model="form.guideMobile" type="tel" placeholder="Mobile (with WhatsApp)"
-                                   class="w-full"/>
-                    </div>
 
-                    <!-- Accommodation Provider -->
-                    <div v-if="form.profileType==='H'" class="space-y-4">
-                        <h3 class="font-semibold">Accommodation Provider</h3>
-                        <InputText v-model="form.hotelName" placeholder="Property Name" class="w-full"/>
-                        <InputText v-model="form.hotelEmail" type="email" placeholder="Email" class="w-full"/>
-                        <div class="grid grid-cols-2 gap-4">
-                            <InputText v-model="form.hotelRefName" placeholder="Contact First Name"/>
-                            <InputText v-model="form.hotelRefSurname" placeholder="Contact Last Name"/>
+                        <!-- No Profile Selected Message -->
+                        <div v-else class="text-center py-12">
+                            <div class="mx-auto h-24 w-24 text-gray-400 mb-4">
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" class="w-full h-full">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-lg font-medium text-gray-900 mb-2">Select a Profile Type</h3>
+                            <p class="text-gray-500">Please choose your profile type from the dropdown above to continue.</p>
                         </div>
-                        <InputText v-model="form.hotelMobile" type="tel" placeholder="Mobile (with WhatsApp)"
-                                   class="w-full"/>
-                    </div>
-
-                    <!-- Lay Organizer -->
-                    <div v-if="form.profileType==='L'" class="space-y-4">
-                        <h3 class="font-semibold">Lay Organizer</h3>
-                        <div class="grid grid-cols-2 gap-4">
-                            <InputText v-model="form.laicName" placeholder="First Name"/>
-                            <InputText v-model="form.laicSurname" placeholder="Last Name"/>
-                        </div>
-                        <Dropdown
-                            v-model="form.laicCountry"
-                            :options="countryOptions"
-                            optionLabel="label"
-                            optionValue="value"
-                            placeholder="Country"
-                            class="w-full"
-                        />
-                        <InputText v-model="form.laicEmail" type="email" placeholder="Email" class="w-full"/>
-                        <InputText v-model="form.laicMobile" type="tel" placeholder="Mobile (with WhatsApp)"
-                                   class="w-full"/>
-                    </div>
-
-                    <!-- Religious Accompanist -->
-                    <div v-if="form.profileType==='R'" class="space-y-4">
-                        <h3 class="font-semibold">Religious Accompanist</h3>
-                        <div class="grid grid-cols-2 gap-4">
-                            <InputText v-model="form.relName" placeholder="First Name"/>
-                            <InputText v-model="form.relSurname" placeholder="Last Name"/>
-                        </div>
-                        <Dropdown
-                            v-model="form.relCountry"
-                            :options="countryOptions"
-                            optionLabel="label"
-                            optionValue="value"
-                            placeholder="Country"
-                            class="w-full"
-                        />
-                        <InputText v-model="form.relEmail" type="email" placeholder="Email" class="w-full"/>
-                        <InputText v-model="form.relMobile" type="tel" placeholder="Mobile (with WhatsApp)"
-                                   class="w-full"/>
-                    </div>
-
-                    <!-- Message -->
-                    <div class="mt-6">
-                        <label class="block mb-1 font-medium text-gray-700">Your Message</label>
-                        <textarea
-                            v-model="form.message"
-                            rows="4"
-                            class="w-full border border-gray-400 rounded-md"
-                        ></textarea>
-                    </div>
-
-                    <!-- Privacy consent -->
-                    <div class="mt-4 flex items-center">
-                        <input
-                            type="checkbox"
-                            v-model="form.acceptPrivacy"
-                            id="privacy"
-                            class="h-4 w-4 text-blue-600"
-                        />
-                        <label for="privacy" class="ml-2 text-sm">
-                            I consent to the processing of personal data
-                        </label>
-                    </div>
-
-                    <!-- Submit button -->
-                    <div class="mt-6 text-right">
-                        <Button
-                            label="Submit"
-                            icon="pi pi-arrow-up-right"
-                            :disabled="!isValid"
-                            @click="submit"
-                        />
                     </div>
                 </div>
             </div>
@@ -269,8 +555,5 @@ function submit() {
 </template>
 
 <style scoped>
-/* Make SelectButton chips fully rounded */
-.p-selectbutton .p-button {
-    border-radius: 9999px;
-}
+
 </style>
