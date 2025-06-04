@@ -19,9 +19,6 @@ class LoanResource extends Resource
 {
     protected static ?string $model = Loan::class;
 
-    protected $listeners = [
-        'example' => '$refresh',
-    ];
     protected static ?string $navigationIcon = 'phosphor-hand-deposit-duotone';
 
     protected static ?int $navigationSort = 1;
@@ -40,6 +37,17 @@ class LoanResource extends Resource
                             ->success()
                             ->send();
                         redirect(static::getUrl('edit', ['record' => $loan->id,]));
+                    })
+                    ->visible(function (?Loan $record): bool {
+                        return $record !== null && $record->id !== null;
+                    }),
+
+                Action::make('viewPdf')
+                    ->button()
+                    ->label('View PDF')
+                    ->url(fn(Loan $record) => url('/pdf/' . $record->pdf_url), true)
+                    ->visible(function (?Loan $record): bool {
+                        return $record !== null && $record->pdf_url !== null;
                     }),
             ])->fullWidth(),
             ]);

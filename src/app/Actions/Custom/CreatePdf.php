@@ -37,46 +37,29 @@ class CreatePdf
 
         // STEP 4: Aggiorna il campo pdf_url nel record del loan
         $loan->pdf_url = $fileName;
-        if (empty($loan->loan_date)) {
-            $loan->loan_date = now();
+
+        // Imposta la data se non è già presente
+        if (empty($loan->date)) {
+            $loan->date = now();
         }
+
         $loan->save();
     }
 
-
-    static private function getFileName(Loan $loan): string
+    private static function getFileName(Loan $loan): string
     {
-        $clients = $loan->clients()->get();
-        $hasClients = !$clients->isEmpty();
-        $hasIdentifier = !empty($loan->identifier);
+        // Nome base con ID del loan
+        $baseName = 'loan_' . $loan->id;
+        $fileName = $baseName . '.pdf';
 
-        // Se sia clients che identifier sono vuoti, genera un nome casuale
-        if (!$hasClients && !$hasIdentifier) {
-            return str_replace(' ', '_', 'loan_' . now() . '.pdf');
+        // Controlla se esiste già nel filesystem
+        if (Storage::disk('public')->exists($fileName)) {
+            // Se esiste, aggiungi timestamp per renderlo unico
+            $timestamp = now()->format('Y-m-d_H:i:s');
+            $fileName = $baseName . '_' . $timestamp . '.pdf';
         }
 
-        $nameParts = [];
-
-        // Aggiunge il nome dei client se presenti
-        if ($hasClients) {
-            foreach ($clients as $client) {
-                // Se first_name o last_name sono null, verranno trattati come stringa vuota
-                $firstName = $client->name ?? '';
-                $lastName = $client->surname ?? '';
-                // Solo se almeno uno dei due è valorizzato
-                if ($firstName !== '' || $lastName !== '') {
-                    $nameParts[] = trim($firstName . '_' . $lastName, '_');
-                }
-            }
-        }
-
-        // Aggiunge l'identifier se presente
-        if ($hasIdentifier) {
-            $nameParts[] = $loan->identifier;
-        }
-
-        $name = implode('_', $nameParts);
-        return $name . '.pdf';
+        return $fileName;
     }
 
 }

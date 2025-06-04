@@ -33,7 +33,7 @@ class MarkWaitingLoans extends Command
 
         // Recupera i prestiti con status 'scheduled' e loan_date uguale a oggi
         $scheduledLoans = Loan::where('status', LoanStatusEnum::SCHEDULED)
-            ->whereDate('loan_date', $today)
+            ->whereDate('delivery_date', $today)
             ->get();
 
         // Aggiorna ogni prestito a 'active'

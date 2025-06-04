@@ -3,9 +3,10 @@
 namespace App\Filament\Resources\LoanResource;
 
 use App\Enums\LoanStatusEnum;
+use App\Enums\ClientProfileTypeEnum;
 use Carbon\Carbon;
+use Carbon\Traits\Date;
 use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -21,10 +22,8 @@ class LoanResourceViewBuilder
     {
         return $form
             ->schema([
-                TextInput::make('identifier')
-                    ->nullable()
-                    ->string(),
-                DatePicker::make('loan_date')
+                TextInput::make('id')->disabled(),
+                DatePicker::make('date')
                     ->required()
                     ->default(now())
                     ->reactive()
@@ -33,13 +32,87 @@ class LoanResourceViewBuilder
                         $date = Carbon::parse($state);
                         $set('status', $date->isToday() ? LoanStatusEnum::ACTIVE->value : LoanStatusEnum::SCHEDULED->value);
                     }),
+
                 Select::make('status')
                     ->options(LoanStatusEnum::class)
                     ->default(LoanStatusEnum::ACTIVE),
-                DatePicker::make('return_date')
-                    ->after('loan_date'),
-                DatePicker::make('returned_at'),
-                FileUpload::make('pdf_url'),
+
+                Select::make('booking_type')
+                    ->options(ClientProfileTypeEnum::getProfileTypeOptions())
+                    ->nullable(),
+
+                TextInput::make('customer_code')
+                    ->nullable()
+                    ->string(),
+
+                TextInput::make('email')
+                    ->email()
+                    ->nullable(),
+
+                TextInput::make('channel')
+                    ->nullable()
+                    ->string(),
+
+                TextInput::make('mobile_phone')
+                    ->tel()
+                    ->nullable(),
+
+                TextInput::make('accommodation')
+                    ->nullable()
+                    ->string(),
+
+                DatePicker::make('delivery_date')
+                    ->nullable()
+                    ->after('date')
+                    ->reactive()
+                    ->afterStateUpdated(function ($state, callable $set, callable $get) {
+                        $deliveryDate = $state ? Carbon::parse($state) : null;
+                        $returnDate = $get('radio_return_date') ? Carbon::parse($get('radio_return_date')) : null;
+
+                        if ($deliveryDate && $returnDate && $returnDate->gt($deliveryDate)) {
+                            $days = $deliveryDate->diffInDays($returnDate) + 1;
+                            $set('rental_days', $days);
+                        } else {
+                            $set('rental_days', null);
+                        }
+                    }),
+
+                DatePicker::make('radio_return_date')
+                    ->nullable()
+                    ->after('delivery_date')
+                    ->reactive()
+                    ->afterStateUpdated(function ($state, callable $set, callable $get) {
+                        $returnDate = $state ? Carbon::parse($state) : null;
+                        $deliveryDate = $get('delivery_date') ? Carbon::parse($get('delivery_date')) : null;
+
+                        if ($deliveryDate && $returnDate && $returnDate->gt($deliveryDate)) {
+                            $days = $deliveryDate->diffInDays($returnDate) + 1;
+                            $set('rental_days', $days);
+                        } else {
+                            $set('rental_days', null);
+                        }
+                    }),
+
+                TextInput::make('rental_days')
+                    ->numeric()
+                    ->reactive()
+                    ->minValue(1)
+                    ->nullable(),
+
+                TextInput::make('power_bank')
+                    ->numeric()
+                    ->minValue(0)
+                    ->nullable(),
+
+                TextInput::make('spare_batteries')
+                    ->numeric()
+                    ->minValue(0)
+                    ->nullable(),
+
+                TextInput::make('reference')
+                    ->nullable()
+                    ->string(),
+
                 ...($fields ?? []),
             ]);
     }
@@ -56,28 +129,27 @@ class LoanResourceViewBuilder
         return $table
             ->columns([
                 TextColumn::make('id')
-                    ->searchable(),
-                TextColumn::make('identifier')
-                    ->searchable(),
-                TextColumn::make('loan_date')
-                    ->date()
+                    ->searchable()
                     ->sortable(),
-                TextColumn::make('status')
-                    ->sortable(),
-                TextColumn::make('return_date')
-                    ->date()
-                    ->sortable(),
-                TextColumn::make('returned_at')
-                    ->date()
-                    ->sortable(),
+
                 TextColumn::make('pdf_url')
                     ->searchable()
                     ->url(fn($record) => url('/pdf/' . $record->pdf_url), true)
                     ->formatStateUsing(fn($state) => 'View PDF'),
+
+                TextColumn::make('status')
+                    ->badge()
+                    ->sortable(),
+
+                TextColumn::make('customer_code')
+                    ->searchable()
+                    ->sortable(),
+
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
+
                 TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()

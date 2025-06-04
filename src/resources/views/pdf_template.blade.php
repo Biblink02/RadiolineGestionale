@@ -7,7 +7,7 @@
         body {
             font-family: DejaVu Sans, sans-serif;
             font-size: 11px;
-            margin: 5px;
+            margin: 3px 1px;
             padding: 0;
         }
         /* Header con Flexbox */
@@ -105,11 +105,11 @@
         }
         .inner-table th:nth-child(2),
         .inner-table td:nth-child(2) {
-            width: 20%;
+            width: 15%;
         }
         .inner-table th:nth-child(3),
         .inner-table td:nth-child(3) {
-            width: 70%;
+            width: 75%;
         }
         /* Ogni pagina di radio */
         .page {
@@ -153,45 +153,45 @@
 <!-- Prima riga -->
 <table class="section-table">
     <tr>
-        <td style="width: 20%;"><strong>DATE: </strong></td>
+        <td style="width: 20%;"><strong>DATE: </strong>{{ $loan->date ? $loan->date->format('d/m/Y') : '' }}</td>
         <td style="width: 25%;"><strong>BOOKING NUMBER: </strong> {{ $loan->id ?? '' }}</td>
-        <td style="width: 55%;"><strong>A/G/L/H*: </strong></td>
+        <td style="width: 55%;"><strong>A/G/L/H*: </strong>{{ $loan->booking_type ? $loan->booking_type->value : '' }}</td>
     </tr>
 </table>
 
 <!-- Seconda riga -->
 <table class="section-table">
     <tr>
-        <td style="width: 30%;"><strong>CUSTOMER CODE: </strong><!--TODO--></td>
-        <td style="width: 50%;"><strong>MAIL: </strong></td>
-        <td style="width: 20%;"><strong>CHANNEL: </strong></td>
+        <td style="width: 30%;"><strong>CUSTOMER CODE: </strong>{{ $loan->customer_code ?? '' }}</td>
+        <td style="width: 50%;"><strong>MAIL: </strong>{{ $loan->email ?? '' }}</td>
+        <td style="width: 20%;"><strong>CHANNEL: </strong>{{ $loan->channel ?? '' }}</td>
     </tr>
 </table>
 
 <!-- Terza riga -->
 <table class="section-table">
     <tr>
-        <td style="width: 40%;"><strong>MOBILE PHONE: </strong></td>
+        <td style="width: 40%;"><strong>MOBILE PHONE: </strong>{{ $loan->mobile_phone ?? '' }}</td>
         <td style="width: 20%;"><strong>RADIO QUANTITY: </strong>{{ count($radios ?? []) }}</td>
-        <td style="width: 40%;"><strong>ACCOMMODATION: </strong></td>
+        <td style="width: 40%;"><strong>ACCOMMODATION: </strong>{{ $loan->accommodation ?? '' }}</td>
     </tr>
 </table>
 
 <!-- Quarta riga -->
 <table class="section-table">
     <tr>
-        <td style="width: 35%;"><strong>DELIVERY DATE: </strong></td>
-        <td style="width: 35%;"><strong>RADIO RETURN: </strong><!--TODO forse--></td>
-        <td style="width: 30%;"><strong>RENTAL DAYS: </strong><!--TODO forse--></td>
+        <td style="width: 35%;"><strong>DELIVERY DATE: </strong>{{ $loan->delivery_date ? $loan->delivery_date->format('d/m/Y') : '' }}</td>
+        <td style="width: 35%;"><strong>RADIO RETURN: </strong>{{ $loan->radio_return_date ? $loan->radio_return_date->format('d/m/Y') : '' }}</td>
+        <td style="width: 30%;"><strong>RENTAL DAYS: </strong>{{ $loan->rental_days ?? '' }}</td>
     </tr>
 </table>
 
 <!-- Quinta riga -->
 <table class="section-table">
     <tr>
-        <td style="width: 30%;"><strong>POWER BANK: </strong></td>
-        <td style="width: 30%;"><strong>SPARE BATTERIES: </strong></td>
-        <td style="width: 40%;"><strong>REFERENCE: </strong></td>
+        <td style="width: 30%;"><strong>POWER BANK: </strong>{{ $loan->power_bank ?? '' }}</td>
+        <td style="width: 30%;"><strong>SPARE BATTERIES: </strong>{{ $loan->spare_batteries ?? '' }}</td>
+        <td style="width: 40%;"><strong>REFERENCE: </strong>{{ $loan->reference ?? '' }}</td>
     </tr>
 </table>
 
@@ -249,7 +249,7 @@
                             @php $globalIndex++; @endphp
                             <tr>
                                 <td>{{ $globalIndex }}</td>
-                                <td>{{ $radio->identifier ?? '' }}</td>
+                                <td><strong>{{ $radio->identifier ?? '' }}</strong></td>
                                 <td>&nbsp;</td>
                             </tr>
                         @endforeach
@@ -271,7 +271,7 @@
                             @php $globalIndex++; @endphp
                             <tr>
                                 <td>{{ $globalIndex }}</td>
-                                <td>{{ $radio->identifier ?? '' }}</td>
+                                <td><strong>{{ $radio->identifier ?? '' }}</strong></td>
                                 <td>&nbsp;</td>
                             </tr>
                         @endforeach
@@ -308,7 +308,7 @@
                             @php $globalIndex++; @endphp
                             <tr>
                                 <td>{{ $globalIndex }}</td>
-                                <td>{{ $radio->identifier ?? '' }}</td>
+                                <td><strong>{{ $radio->identifier ?? '' }}</strong></td>
                                 <td>&nbsp;</td>
                             </tr>
                         @endforeach
@@ -330,7 +330,7 @@
                             @php $globalIndex++; @endphp
                             <tr>
                                 <td>{{ $globalIndex }}</td>
-                                <td>{{ $radio->identifier ?? '' }}</td>
+                                <td><strong>{{ $radio->identifier ?? '' }}</strong></td>
                                 <td>&nbsp;</td>
                             </tr>
                         @endforeach

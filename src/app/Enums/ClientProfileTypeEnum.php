@@ -26,4 +26,15 @@ enum ClientProfileTypeEnum: string
             default => 'Unknown Profile',
         };
     }
+
+    public static function getProfileTypeOptions(): array
+    {
+        $options = [];
+
+        foreach (self::cases() as $enum) {
+            $options[$enum->value] = $enum->value . ' ~ ' . self::getDescription($enum);
+        }
+
+        return $options;
+    }
 }

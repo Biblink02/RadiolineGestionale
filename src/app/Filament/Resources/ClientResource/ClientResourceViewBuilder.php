@@ -31,7 +31,7 @@ class ClientResourceViewBuilder
                     ->disabled(),
                 Select::make('profile_type')
                     ->label('Profile Type')
-                    ->options(self::getProfileTypeOptions()) // Imposta le opzioni con i valori dell'enum
+                    ->options(ClientProfileTypeEnum::getProfileTypeOptions()) // Imposta le opzioni con i valori dell'enum
                     ->required()
                     ->reactive(),
 
@@ -235,17 +235,6 @@ class ClientResourceViewBuilder
                     DeleteBulkAction::make(),
                 ]),
             ]);
-    }
-
-    public static function getProfileTypeOptions(): array
-    {
-        $options = [];
-
-        foreach (ClientProfileTypeEnum::cases() as $enum) {
-            $options[$enum->value] = $enum->value . ' ~ ' . ClientProfileTypeEnum::getDescription($enum);
-        }
-
-        return $options;
     }
 
 }

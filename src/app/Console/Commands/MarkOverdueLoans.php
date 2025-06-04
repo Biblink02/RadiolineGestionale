@@ -28,8 +28,8 @@ class MarkOverdueLoans extends Command
     public function handle()
     {
         $overdueLoans = Loan::where('status', LoanStatusEnum::ACTIVE->value)
-            ->whereNotNull('return_date')
-            ->whereNowOrPast('return_date')
+            ->whereNotNull('radio_return_date')
+            ->whereNowOrPast('radio_return_date')
             ->get();
 
         if ($overdueLoans->isEmpty()) {
