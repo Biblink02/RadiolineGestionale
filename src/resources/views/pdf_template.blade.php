@@ -137,7 +137,6 @@
             <p>Pape Ivana Pavla II 14<br>88266 Medjugorje, BiH</p>
         </div>
         <div class="header-contact">
-            <p>tel. 00387 063 741548</p>
             <p>mob. WhatsApp 00387 063 144 027</p>
             <p>00387 063 247 485</p>
             <p>Email: <a href="mailto:mdjservice00@gmail.com">mdjservice00@gmail.com</a></p>

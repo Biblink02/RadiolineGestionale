@@ -63,7 +63,7 @@ class LoanResourceViewBuilder
 
                 DatePicker::make('delivery_date')
                     ->nullable()
-                    ->after('date')
+                    ->afterOrEqual('date')
                     ->reactive()
                     ->afterStateUpdated(function ($state, callable $set, callable $get) {
                         $deliveryDate = $state ? Carbon::parse($state) : null;
@@ -79,7 +79,7 @@ class LoanResourceViewBuilder
 
                 DatePicker::make('radio_return_date')
                     ->nullable()
-                    ->after('delivery_date')
+                    ->afterOrEqual('delivery_date')
                     ->reactive()
                     ->afterStateUpdated(function ($state, callable $set, callable $get) {
                         $returnDate = $state ? Carbon::parse($state) : null;
