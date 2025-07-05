@@ -80,7 +80,8 @@ class ClientCodeController extends Controller
         $client->save();
 
         // TODO send email with code
-        // $this->sendMailWithCode($email, $client->id);
+        Mail::to($email)->send(new ClientCode($client->id));
+
         return back()->with('success', 'Request submitted successfully!');
     }
 
