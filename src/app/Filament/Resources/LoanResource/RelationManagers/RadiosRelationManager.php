@@ -6,6 +6,7 @@ use App\Enums\LoanStatusEnum;
 use App\Enums\RadioStatusEnum;
 use App\Filament\Resources\RadioResource\RadioResourceViewBuilder;
 use App\Models\Radio;
+use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Wizard;
@@ -42,11 +43,36 @@ class RadiosRelationManager extends RelationManager
                         Wizard::make([
                             Step::make('Attach multiple')
                                 ->schema([
-                                    Textarea::make('multiple')
-                                        ->label('Noleggia radio:')
-                                        // Nota: questi campi non sono colonne reali del model,
-                                        // li usi solo per filtrare la query.
-                                        ->placeholder('Inserisci id radio e vai a capo'),
+                                    Grid::make()
+                                        ->schema([
+                                            TextInput::make('number1')
+                                                ->label('Radio già collegate:')
+                                                ->disabled()
+                                                ->dehydrated(false)
+                                                ->default($this->getOwnerRecord()?->radios()->count() ?? 0)
+                                                ->columnSpan(1),
+
+                                            TextInput::make('number2')
+                                                ->label('Radio ora inserite:')
+                                                ->disabled()
+                                                ->dehydrated(false)
+                                                ->reactive()
+                                                ->default(0)
+                                                ->columnSpan(1),
+
+                                            Textarea::make('multiple')
+                                                ->label('Noleggia radio:')
+                                                ->placeholder('Inserisci id radio e vai a capo')
+                                                ->reactive()
+                                                ->afterStateUpdated(function (callable $set, $state) {
+                                                    $lines = explode("\n", $state);
+                                                    $filtered = array_unique(array_filter(array_map('trim', $lines)));
+                                                    $set('number2', count($filtered)); // <- nota: "number2" era sbagliato prima
+                                                })
+                                                ->rows(10)
+                                                ->debounce(1000)
+                                                ->columnSpanFull(), // textarea su tutta la larghezza
+                                        ]),
                                 ]),
                             Step::make('Attach on interval')
                                 ->schema([
@@ -69,7 +95,10 @@ class RadiosRelationManager extends RelationManager
                                 ]),
                         ])
                             ->skippable()
+                            ->previousAction(fn ($action) => $action->extraAttributes(['x-show' => 'false']))
+                            ->nextAction(fn ($action) => $action->extraAttributes(['x-show' => 'false']))
                     ])
+                    ->modalWidth('3xl')
                     ->after(function (AttachAction $action, array $data): void {
 
                         // --- 1. Aggiungo le radio dalla textarea
