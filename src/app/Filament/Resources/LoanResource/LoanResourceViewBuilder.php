@@ -15,6 +15,7 @@ use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\Storage;
 
 class LoanResourceViewBuilder
 {
@@ -134,8 +135,20 @@ class LoanResourceViewBuilder
 
                 TextColumn::make('pdf_url')
                     ->searchable()
-                    ->url(fn($record) => url('/pdf/' . $record->pdf_url), true)
-                    ->formatStateUsing(fn($state) => 'View PDF'),
+                    ->formatStateUsing(function ($state, $record) {
+                        if (!$record->pdf_url || !Storage::disk('public')->exists($record->pdf_url)) {
+                            return null;
+                        }
+
+                        return 'View PDF';
+                    })
+                    ->url(function ($record) {
+                        if (!$record->pdf_url || !Storage::disk('public')->exists($record->pdf_url)) {
+                            return null;
+                        }
+
+                        return url('/pdf/' . $record->pdf_url);
+                    }, true),
 
                 TextColumn::make('status')
                     ->badge()
