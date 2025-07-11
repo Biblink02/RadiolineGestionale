@@ -8,6 +8,7 @@ import {ZiggyVue} from '../../vendor/tightenco/ziggy';
 import PrimeVue from 'primevue/config';
 import Material from '@primeuix/themes/material';
 import ToastService from 'primevue/toastservice';
+import AnimateOnScroll from 'primevue/animateonscroll';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
@@ -16,6 +17,7 @@ createInertiaApp({
     resolve: (name) => resolvePageComponent(`./Pages/${name}.vue`, import.meta.glob('./Pages/**/*.vue')),
     setup({el, App, props, plugin}) {
         return createApp({render: () => h(App, props)})
+            .directive('animateonscroll', AnimateOnScroll)
             .use(plugin)
             .use(ZiggyVue)
             .use(PrimeVue, {

@@ -33,9 +33,12 @@
         "vue-eslint-parser": "^9.4.3"
     },
     "dependencies": {
+        "@heroicons/vue": "^2.2.0",
         "@primeuix/themes": "^1.0.0",
         "primeicons": "^7.0.0",
         "primevue": "^4.3.1",
+        "tailwind-merge": "^3.3.1",
+        "tailwindcss-primeui": "^0.6.1",
         "vite-imagetools": "^7.0.5"
     }
 }

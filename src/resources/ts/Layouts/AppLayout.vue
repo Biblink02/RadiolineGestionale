@@ -1,7 +1,8 @@
 <script setup>
 import {Head} from '@inertiajs/vue3';
-import Banner from '@/Components/Banner.vue';
-import Footer from '../Components/Footer.vue'
+import Banner from '@/Components/inertia/Banner.vue';
+import Footer from './AppFooter.vue'
+import AppHeader from "./AppHeader.vue";
 
 defineProps({
     title: String,
@@ -10,6 +11,13 @@ defineProps({
 </script>
 
 <template>
+    <ScrollTop
+        :pt="{
+                root: {
+                    style: { background: 'var(--color-blue-800)', border: 'var(--color-blue-800)' },
+                },
+            }"
+    />
     <div class="bg-gradient-to-br from-stone-100 to-slate-200">
         <Head :title="title"/>
 
@@ -18,11 +26,7 @@ defineProps({
         <div class="min-h-screen">
 
             <!-- Page Heading -->
-            <header v-if="$slots.header" class="bg-white shadow">
-                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    <slot name="header"/>
-                </div>
-            </header>
+            <AppHeader/>
 
             <!-- Page Content -->
             <main>

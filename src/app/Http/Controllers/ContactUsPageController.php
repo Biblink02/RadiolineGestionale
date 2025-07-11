@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Inertia\Inertia;
 use Inertia\Response;
 
-class ContactUsController extends Controller
+class ContactUsPageController extends Controller
 {
     public function index(): Response
     {

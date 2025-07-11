@@ -1,5 +1,7 @@
 @import "tailwindcss";
-
-@theme {
-
+@import "tailwindcss-primeui";
+/*@custom-variant dark (&:where(.my-app-dark, .my-app-dark *));*/
+@theme{
+    --color-primary: var(--color-blue-800);
+    --p-button-primary-background: var(--color-blue-800);
 }
