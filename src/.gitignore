@@ -28,3 +28,4 @@ yarn-error.log
 /package-lock.json
 /storage/framework/views/
 /auto-imports.d.ts
+/.eslintrc-auto-import.json
