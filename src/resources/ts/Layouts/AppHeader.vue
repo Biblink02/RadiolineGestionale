@@ -17,7 +17,7 @@ const toggleMobileMenu = () => {
 </script>
 
 <template>
-    <header class="sticky sm:fixed w-full top-0 z-50 bg-white/80 backdrop-blur-lg shadow-sm" role="banner">
+    <header class="top-0 z-50 bg-white/80 backdrop-blur-lg shadow-sm" role="banner" :class="page.url === '/' ? 'fixed w-full' : 'sticky'">
         <div class="container mx-auto flex items-center justify-between px-6 py-2">
             <!-- Logo (left) -->
             <Link href="/">
@@ -55,23 +55,36 @@ const toggleMobileMenu = () => {
             </button>
         </div>
 
-        <!-- Mobile Navigation Panel -->
-        <nav
-            v-show="mobileMenuOpen"
-            class="sm:hidden px-6 pt-2 pb-4 shadow-md"
-            aria-label="Mobile navigation"
+        <Transition
+            name="slide-left"
+            enter-active-class="transition duration-300 ease-out"
+            enter-from-class="opacity-0 translate-x-6"
+            enter-to-class="opacity-100 translate-x-0"
+            leave-active-class="transition duration-200 ease-in"
+            leave-from-class="opacity-100 translate-x-0"
+            leave-to-class="opacity-0 translate-x-6"
         >
-            <hr class="text-gray-400 mx-auto" />
-            <Link
-                v-for="link in pages"
-                :key="link.href"
-                :href="link.href"
-                :class="['block py-2 hover:text-blue-600 font-medium transition-colors duration-200 text-center', link.href === page.url ? 'text-blue-800 underline' : 'text-gray-800']"
-                @click="mobileMenuOpen = false"
+            <nav
+                v-show="mobileMenuOpen"
+                class="sm:hidden px-6 pt-2 pb-4 absolute w-full z-50 bg-white/80 backdrop-blur-lg shadow-sm"
+                aria-label="Mobile navigation"
             >
-                {{ link.name }}
-            </Link>
-        </nav>
+                <hr class="text-gray-400 mx-auto" />
+                <Link
+                    v-for="link in pages"
+                    :key="link.href"
+                    :href="link.href"
+                    :class="[
+        'block py-2 hover:text-blue-600 font-medium transition-colors duration-200 text-center',
+        link.href === page.url ? 'text-blue-800 underline' : 'text-gray-800'
+      ]"
+                    @click="mobileMenuOpen = false"
+                >
+                    {{ link.name }}
+                </Link>
+            </nav>
+        </Transition>
+
     </header>
 
 </template>

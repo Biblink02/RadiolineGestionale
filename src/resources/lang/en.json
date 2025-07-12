@@ -1,3 +1,35 @@
 {
-
+    "homepage": {
+        "hero": {
+            "title": "Your Journey to Medjugorje Starts Here",
+            "title_sr": "Main heading: Your pilgrimage begins",
+            "subtitle": "We provide comprehensive logistical and technical support for your pilgrimage to Medjugorje, ensuring a seamless and spiritually enriching experience.",
+            "cta": "Learn More",
+            "cta_aria": "Learn more about our services",
+            "aria": "Hero section with introduction and services link"
+        },
+        "about": {
+            "aria": "About section: learn about Medjugorje Service",
+            "title": "About Us",
+            "title_sr": "Section heading: About Medjugorje Service",
+            "description": "At Medjugorje Service, we are dedicated to facilitating meaningful pilgrimages to Medjugorje. Our team of experienced professionals handles all logistical and technical aspects, allowing you to focus on your spiritual journey. We are committed to providing personalized support and ensuring a safe, comfortable, and transformative experience for every pilgrim.",
+            "cards": {
+                "individual": {
+                    "title": "Individual",
+                    "description": "Personalized pilgrimage services for individual travelers.",
+                    "aria": "Card for individual services"
+                },
+                "team": {
+                    "title": "Team",
+                    "description": "Group coordination and support for teams and small groups.",
+                    "aria": "Card for team services"
+                },
+                "enterprise": {
+                    "title": "Enterprise",
+                    "description": "Tailored solutions for travel agencies and large organizations.",
+                    "aria": "Card for enterprise services"
+                }
+            }
+        }
+    }
 }

@@ -1,7 +1,35 @@
 {
     "homepage": {
-        "hero" : {
-            "title": "Il Tuo Viaggio a Medjugorje Comincia Qui"
+        "hero": {
+            "title": "Il Tuo Viaggio a Medjugorje Comincia Qui",
+            "title_sr": "Intestazione principale: il tuo pellegrinaggio inizia qui",
+            "subtitle": "Forniamo supporto logistico e tecnico completo per il tuo pellegrinaggio a Medjugorje, garantendo un'esperienza fluida e spiritualmente arricchente.",
+            "cta": "Scopri di più",
+            "cta_aria": "Scopri di più sui nostri servizi",
+            "aria": "Sezione introduttiva con presentazione e collegamento ai servizi"
+        },
+        "about": {
+            "aria": "Sezione About: informazioni su Medjugorje Service",
+            "title": "Chi Siamo",
+            "title_sr": "Intestazione sezione: Chi è Medjugorje Service",
+            "description": "In Medjugorje Service siamo dedicati a facilitare pellegrinaggi significativi a Medjugorje. Il nostro team di professionisti esperti gestisce tutti gli aspetti logistici e tecnici, permettendoti di concentrarti sul tuo percorso spirituale. Offriamo supporto personalizzato per garantire a ogni pellegrino un'esperienza sicura, confortevole e trasformativa.",
+            "cards": {
+                "individual": {
+                    "title": "Individuale",
+                    "description": "Servizi di pellegrinaggio personalizzati per viaggiatori singoli.",
+                    "aria": "Scheda per servizi individuali"
+                },
+                "team": {
+                    "title": "Gruppo",
+                    "description": "Coordinamento e supporto per gruppi e team.",
+                    "aria": "Scheda per servizi di gruppo"
+                },
+                "enterprise": {
+                    "title": "Agenzie",
+                    "description": "Soluzioni su misura per agenzie e grandi organizzazioni.",
+                    "aria": "Scheda per servizi aziendali"
+                }
+            }
         }
     }
 }

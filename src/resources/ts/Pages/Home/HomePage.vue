@@ -6,7 +6,7 @@ import AboutSection from "@/Pages/Home/AboutSection.vue";
 </script>
 
 <template>
-    <AppLayout>
+    <AppLayout :title="'Homepage'">
         <HeroSection/>
         <AboutSection/>
     </AppLayout>

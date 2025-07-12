@@ -11,10 +11,11 @@ defineProps({
 </script>
 
 <template>
+    <!-- TODO non si vede il blu -->
     <ScrollTop
         :pt="{
                 root: {
-                    style: { background: 'var(--color-primary)', border: 'var(--color-primary)' },
+                    style: { background: '--color-black', border: 'var(--color-primary)' },
                 },
             }"
     />
