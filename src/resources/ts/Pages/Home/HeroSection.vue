@@ -4,7 +4,7 @@ const { t } = useI18n()
 
 <template>
     <section
-        class="relative flex min-h-[90vh] items-center justify-center bg-cover bg-fixed bg-center text-white"
+        class="relative flex min-h-screen 2xl:min-h-[95vh] items-center justify-center bg-cover bg-fixed bg-center text-white"
         :aria-label="t('homepage.hero.aria')"
         role="region"
         style='background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url("https://lh3.googleusercontent.com/aida-public/AB6AXuDT21lW4TzKjqODPMf6cywfDZQYabjG_ImOqRD3JErg1ioVl1VVylZvmqpr1C3NDjHTrOPGLExyZU9gSF9ltUmQ1nhcO18kBLuQKQlMx1XvY-Z5I9QXT5jfSzpn-fNHlGWtqvCj30gpY15Mw6nPvE0D7_ZHuZVo9MHJfGoj5GayYk2KMDgFNHkifUvnmoOGEddwGDIP7T0w2mPFpCZpaGR5F9hYZ_EZNZIQuRtHahaxMJxY4R4dZZCaFR8iLuH22B7RwjCbinT18H4z");'

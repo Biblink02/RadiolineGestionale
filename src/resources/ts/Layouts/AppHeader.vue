@@ -54,7 +54,7 @@ const toggleMobileMenu = () => {
                 <Bars3Icon v-else class="w-7 h-7" />
             </button>
         </div>
-
+<!-- TODO fai due header con v-if, cosi da sistemare il blur (perche il nav mobile è sopra header quindi fa blur su blur)-->
         <Transition
             name="slide-left"
             enter-active-class="transition duration-300 ease-out"
