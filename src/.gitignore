@@ -27,3 +27,4 @@ yarn-error.log
 /components.d.ts
 /package-lock.json
 /storage/framework/views/
+/auto-imports.d.ts

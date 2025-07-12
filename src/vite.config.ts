@@ -5,8 +5,7 @@ import tailwindcss from "@tailwindcss/vite";
 import Components from 'unplugin-vue-components/vite';
 import {PrimeVueResolver} from '@primevue/auto-import-resolver';
 import { imagetools } from 'vite-imagetools'
-
-
+import AutoImport from 'unplugin-auto-import/vite'
 interface Params {
     mode: string
 }
@@ -17,6 +16,7 @@ export default ({ mode }: Params) => {
 
     return defineConfig({
         plugins: [
+            AutoImport({ /* options */ }),
             laravel({
                 input: ['./resources/ts/app.ts', './resources/css/app.css'],
                 ssr: './resources/ts/ssr.ts',
@@ -43,7 +43,7 @@ export default ({ mode }: Params) => {
                 resolvers: [
                     PrimeVueResolver()
                 ]
-            })
+            }),
         ],
         resolve: {
             alias: {

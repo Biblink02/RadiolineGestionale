@@ -35,7 +35,9 @@
         "./resources/ts/**/*.ts",
         "./resources/ts/**/*.d.ts",
         "./resources/ts/**/*.vue",
-        "./vite.config.ts"
+        "./vite.config.ts",
+        "./auto-imports.d.ts",
+        "./components.d.ts"
     ],
     "exclude": [
         "./node_modules",

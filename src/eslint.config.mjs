@@ -48,7 +48,7 @@ export default [
                 ...globals.node,
             },
         },
-        files: ['vite.config.js', 'prettier.config.cjs', 'eslint.config.js'],
+        files: ['vite.config.js', 'prettier.config.cjs', 'eslint.config.js', '.eslintrc-auto-import.json'],
     },
     {
         // global ignores

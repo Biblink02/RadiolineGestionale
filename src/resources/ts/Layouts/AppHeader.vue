@@ -20,8 +20,8 @@ const toggleMobileMenu = () => {
 </script>
 
 <template>
-    <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-lg shadow-sm" role="banner">
-        <div class="container mx-auto flex items-center justify-between px-6 py-4">
+    <header class="sticky sm:fixed w-full top-0 z-50 bg-white/80 backdrop-blur-lg shadow-sm" role="banner">
+        <div class="container mx-auto flex items-center justify-between px-6 py-2">
             <!-- Logo (left) -->
             <Link href="/">
                 <figure class="flex items-center" role="img" aria-label="Company Logo">

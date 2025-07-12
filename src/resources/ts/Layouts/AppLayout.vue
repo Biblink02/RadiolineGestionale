@@ -1,5 +1,7 @@
 <script setup>
-import {Head} from '@inertiajs/vue3';
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
+import {Head, router} from '@inertiajs/vue3';
 import Banner from '@/Components/inertia/Banner.vue';
 import Footer from './AppFooter.vue'
 import AppHeader from "./AppHeader.vue";
@@ -14,7 +16,7 @@ defineProps({
     <ScrollTop
         :pt="{
                 root: {
-                    style: { background: 'var(--color-blue-800)', border: 'var(--color-blue-800)' },
+                    style: { background: 'var(--color-primary)', border: 'var(--color-primary)' },
                 },
             }"
     />
