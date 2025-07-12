@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import {ref} from 'vue'
-import logo from '@/../media/logo.png';
+ import logo from '@/../media/logo.png';
 const phoneWhatsApp = ref('00387063144027')
 const phoneAlt = ref('00387063247485')
 const email = ref('mdjservice00@gmail.com')

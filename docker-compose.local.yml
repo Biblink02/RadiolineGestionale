@@ -24,7 +24,7 @@ services:
     command: "bash /scripts/startup-wrapper_local.sh"
 
   frontend:
-    image: "node:20"
+    image: "node:24"
     depends_on:
       - "app"
     working_dir: "/var/www/docker"

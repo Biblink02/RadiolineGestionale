@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import {Link, usePage} from '@inertiajs/vue3';
 import logo from '@/../media/logo.png';
 import { Bars3Icon, XMarkIcon } from '@heroicons/vue/24/outline';
+import {Link} from '@inertiajs/vue3';
 const page = usePage();
 const pages = ref([
     { name: 'Home', href: '/' },
@@ -11,8 +10,6 @@ const pages = ref([
 ]);
 
 const mobileMenuOpen = ref(false);
-console.log(usePage().url)
-
 const toggleMobileMenu = () => {
     mobileMenuOpen.value = !mobileMenuOpen.value;
 };

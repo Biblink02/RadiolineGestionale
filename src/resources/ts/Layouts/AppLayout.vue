@@ -1,7 +1,5 @@
 <script setup>
-import { useI18n } from 'vue-i18n'
-const { t } = useI18n()
-import {Head, router} from '@inertiajs/vue3';
+import {Head} from '@inertiajs/vue3';
 import Banner from '@/Components/inertia/Banner.vue';
 import Footer from './AppFooter.vue'
 import AppHeader from "./AppHeader.vue";

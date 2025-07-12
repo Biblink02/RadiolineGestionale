@@ -16,7 +16,30 @@ export default ({ mode }: Params) => {
 
     return defineConfig({
         plugins: [
-            AutoImport({ /* options */ }),
+            AutoImport({
+                imports: [
+                    'vue',
+                    'vue-router',
+                    {
+                        'vue-i18n': ['useI18n']
+                    },
+                    {
+                        '@inertiajs/vue3': [
+                            'usePage',
+                            'useForm',
+                            'router'
+                        ]
+                    }
+                ],
+                vueTemplate: true, // supporto nei template
+                dts: './auto-imports.d.ts',
+                eslintrc: {
+                    enabled: true,
+                    filepath: './.eslintrc-auto-import.json',
+                    globalsPropValue: true,
+                }
+            }),
+
             laravel({
                 input: ['./resources/ts/app.ts', './resources/css/app.css'],
                 ssr: './resources/ts/ssr.ts',
