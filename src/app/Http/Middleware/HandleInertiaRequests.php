@@ -30,6 +30,7 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        // TODO vedi se puoi togliere o serve per le rotte
         return [
             ...parent::share($request),
             'ziggy' => fn () => [

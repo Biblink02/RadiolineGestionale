@@ -3,5 +3,8 @@
 /*@custom-variant dark (&:where(.my-app-dark, .my-app-dark *));*/
 @theme{
     --color-primary: var(--color-blue-800);
+    --p-primary-color : var(--color-primary);
     --p-button-primary-background: var(--color-blue-800);
+    --p-tabs-active-bar-background: var(--color-primary);
+    --p-primary-500: var(--color-primary);
 }

@@ -38,7 +38,7 @@ const toggleMobileMenu = () => {
                     v-for="link in pages"
                     :key="link.href"
                     :href="link.href"
-                    :class="['hover:text-blue-600 transition-colors duration-200 font-medium', link.href === page.url ? 'text-blue-800 underline' : 'text-gray-800'] "
+                    :class="['hover:text-blue-600 transition-colors duration-200 font-medium', link.href === page.url ? 'text-blue-800 underline underline-offset-3' : 'text-gray-800'] "
                 >
                     {{ link.name }}
                 </Link>
