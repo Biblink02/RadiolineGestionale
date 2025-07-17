@@ -31,5 +31,48 @@
                 }
             }
         }
+    },
+    "services": {
+        "title": "Services",
+        "header": {
+            "title": "Our Services",
+            "title_sr": "Section: Our Services",
+            "description": "Discover what we offer to help you succeed."
+        },
+        "cards": {
+            "section-aria": "Services cards list",
+            "1": {
+                "title": "Standard Plan",
+                "subtitle": "Best for individuals",
+                "features": {
+                    "1": "Feature one description",
+                    "2": "Feature two description",
+                    "3": "Feature three description",
+                    "4": "Feature four description",
+                    "5": "Feature five description",
+                    "6": "Feature six description"
+                }
+            },
+            "2": {
+                "title": "Premium Plan",
+                "subtitle": "Ideal for businesses",
+                "features": {
+                    "1": "Premium feature one",
+                    "2": "Premium feature two",
+                    "3": "Premium feature three",
+                    "4": "Premium feature four",
+                    "5": "Premium feature five",
+                    "6": "Premium feature six"
+                }
+            }
+        }
+    },
+
+    "service_card": {
+        "per_radio": "Radio",
+        "learn_more": "Learn More",
+        "aria_price": "Price",
+        "aria_learn": "Learn more button",
+        "aria_features": "Service's features list"
     }
 }

@@ -180,7 +180,7 @@ function submit() {
                             <label class="block text-lg font-semibold text-gray-900 mb-4">
                                 Select Your Profile Type
                             </label>
-                            <Dropdown
+                            <Select
                                 v-model="selectedProfileType"
                                 :options="profileOptions"
                                 optionLabel="label"
@@ -211,7 +211,7 @@ function submit() {
 
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Country</label>
-                                        <Dropdown
+                                        <Select
                                             v-model="activeForm.A_country"
                                             :options="countryOptions"
                                             optionLabel="label"
