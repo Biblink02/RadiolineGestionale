@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import logo from '@/../media/logo.png';
-import { Bars3Icon, XMarkIcon } from '@heroicons/vue/24/outline';
+import {Bars3Icon, XMarkIcon} from '@heroicons/vue/24/outline';
 import {Link} from '@inertiajs/vue3';
+
 const page = usePage();
 const pages = ref([
-    { name: 'Home', href: '/' },
-    { name: 'Services', href: '/services' },
-    { name: 'Contact Us', href: '/contact-us' },
+    {name: 'Home', href: '/'},
+    {name: 'Services', href: '/services'},
+    {name: 'Contact Us', href: '/contact-us'},
 ]);
 
 const mobileMenuOpen = ref(false);
@@ -17,7 +18,8 @@ const toggleMobileMenu = () => {
 </script>
 
 <template>
-    <header class="top-0 z-50 bg-white/80 backdrop-blur-lg shadow-sm" role="banner" :class="page.url === '/' ? 'fixed w-full' : 'sticky'">
+    <header class="top-0 z-50 bg-white" role="banner"
+            :class="page.url === '/' ? 'fixed w-full' : 'sticky'">
         <div class="container mx-auto flex items-center justify-between px-6 py-2">
             <!-- Logo (left) -->
             <Link href="/">
@@ -50,11 +52,12 @@ const toggleMobileMenu = () => {
                 class="sm:hidden text-gray-700 focus:outline-none mr-4"
                 aria-label="Toggle navigation menu"
             >
-                <XMarkIcon v-if="mobileMenuOpen" class="w-7 h-7" />
-                <Bars3Icon v-else class="w-7 h-7" />
+                <XMarkIcon v-if="mobileMenuOpen" class="w-7 h-7"/>
+                <Bars3Icon v-else class="w-7 h-7"/>
             </button>
         </div>
-<!-- TODO fai due header con v-if, cosi da sistemare il blur (perche il nav mobile è sopra header quindi fa blur su blur)-->
+        <!-- TODO fai due header con v-if, cosi da sistemare il blur (perche il nav mobile è sopra header quindi fa blur su blur)-->
+        <!-- MOBILE -->
         <Transition
             name="slide-left"
             enter-active-class="transition duration-300 ease-out"
@@ -66,10 +69,10 @@ const toggleMobileMenu = () => {
         >
             <nav
                 v-show="mobileMenuOpen"
-                class="sm:hidden px-6 pt-2 pb-4 absolute w-full z-50 bg-white/80 backdrop-blur-lg shadow-sm"
+                class="sm:hidden px-6 pt-2 pb-4 absolute w-full z-50 bg-white"
                 aria-label="Mobile navigation"
             >
-                <hr class="text-gray-400 mx-auto" />
+                <hr class="text-gray-400 mx-auto"/>
                 <Link
                     v-for="link in pages"
                     :key="link.href"

@@ -2,7 +2,7 @@
 import {Head} from '@inertiajs/vue3';
 import Banner from '@/Components/Inertia/Banner.vue';
 import Footer from './AppFooter.vue'
-import AppHeader from "./AppHeader.vue";
+import AppHeader from "./AppNavbar.vue";
 
 const props = defineProps<{
     title: string
