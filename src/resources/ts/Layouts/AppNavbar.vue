@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import {Link} from '@inertiajs/vue3';
 import logo from '@/../media/logo.png';
+import {t} from "@/Utils/utils";
+import SocialPart from "@/Components/Custom/SocialPart.vue";
 
 const {t} = useI18n();
 const page = usePage();
@@ -53,18 +55,7 @@ const pagesVisible = computed(() => scrollY.value < 10);
                         >
                             {{ link.name }}
                         </Link>
-                        <div class="space-x-3">
-                            <a href="https://www.facebook.com/medjugorjeservice" target="_blank"
-                               class="text-slate-500 hover:text-blue-600 transition-colors" aria-label="Facebook">
-                                <span class="sr-only">Facebook</span>
-                                <i class="pi pi-facebook" style="font-size: 1rem;"></i>
-                            </a>
-                            <a href="https://www.facebook.com/medjugorjeservice" target="_blank"
-                               class="text-slate-500 hover:text-blue-600 transition-colors" aria-label="Facebook">
-                                <span class="sr-only">Instagram</span>
-                                <i class="pi pi-instagram" style="font-size: 1rem;"></i>
-                            </a>
-                        </div>
+                        <SocialPart container-class="space-x-3" />
                     </nav>
                 </Transition>
 
