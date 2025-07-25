@@ -58,7 +58,7 @@ function formattedPhone(raw: string) {
                 </div>
             </div>
 
-            <div class="text-xs text-slate-500 place-content-center">
+            <div class="text-xs text-slate-500 place-content-center w-fit mx-auto">
                 <!-- Contatti a sinistra -->
                 <div
                     class="w-fit flex flex-col gap-y-1 text-center sm:mx-auto sm:gap-2 sm:flex-row sm:flex-wrap sm:justify-stretch  sm:m-4 sm:mt-6 sm:text-left">

@@ -1,23 +1,23 @@
 <script setup lang="ts">
 import {Link} from '@inertiajs/vue3';
 import logo from '@/../media/logo.png';
-import {t} from "@/Utils/utils";
 import SocialPart from "@/Components/Custom/SocialPart.vue";
+import {route} from "../../../vendor/tightenco/ziggy";
 
 const {t} = useI18n();
 const page = usePage();
 
 const pages = ref([
-    {name: t('navbar.links.who-are-we'), href: '/who-we-are'},
+    {name: t('navbar.links.who-are-we'), href: route('page.about-us', undefined, false)},
     {name: t('navbar.links.contact-us'), href: '/contact-us'},
     {name: t('navbar.links.privacy'), href: '/privacy-policy'},
-    {name: t('navbar.links.payments'), href: '/payments'}
+    {name: t('navbar.links.payments'), href: route('page.payments', undefined, false)}
 ]);
 
 const menu = ref([
     {name: t('navbar.links.radio-rent'), href: '/radio-rent'},
     {name: t('navbar.links.services'), href: '/services'},
-    {name: t('navbar.links.proposals'), href: '/proposals'},
+    {name: t('navbar.links.proposals'), href: route('page.proposals', undefined, false)},
     {name: t('navbar.links.jubilee-2025'), href: '/jubilee-2025'}
 ]);
 
@@ -34,11 +34,12 @@ const pagesVisible = computed(() => scrollY.value < 10);
 </script>
 
 <template>
+    <!--TODO sottomenu coi servizi e mobile view-->
     <header class="sticky top-0 z-50 bg-white shadow">
         <div class="container mx-auto hidden sm:flex items-center justify-between px-6 py-2 gap-6">
 
             <!-- LOGO -->
-            <Link href="/" class="flex-shrink-0">
+            <Link :href="route('page.home',undefined, false)" class="flex-shrink-0">
                 <img :src="logo" alt="Logo" class="h-auto w-28 object-contain" loading="eager"/>
             </Link>
 
@@ -55,7 +56,7 @@ const pagesVisible = computed(() => scrollY.value < 10);
                         >
                             {{ link.name }}
                         </Link>
-                        <SocialPart container-class="space-x-3" />
+                        <SocialPart container-class="space-x-3" :icon-size="1.1"/>
                     </nav>
                 </Transition>
 
