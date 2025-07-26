@@ -9,16 +9,16 @@ const page = usePage();
 
 const pages = ref([
     {name: t('navbar.links.who-are-we'), href: route('page.about-us', undefined, false)},
-    {name: t('navbar.links.contact-us'), href: '/contact-us'},
-    {name: t('navbar.links.privacy'), href: '/privacy-policy'},
+    {name: t('navbar.links.contact-us'), href: route('page.contact-us', undefined, false)},
+    {name: t('navbar.links.privacy'), href: route('page.privacy', undefined, false)},
     {name: t('navbar.links.payments'), href: route('page.payments', undefined, false)}
 ]);
 
 const menu = ref([
-    {name: t('navbar.links.radio-rent'), href: '/radio-rent'},
-    {name: t('navbar.links.services'), href: '/services'},
+    {name: t('navbar.links.radio-rent'), href: route('page.radio-rent', undefined, false)},
+    {name: t('navbar.links.services'), href: route('page.services', undefined, false)},
     {name: t('navbar.links.proposals'), href: route('page.proposals', undefined, false)},
-    {name: t('navbar.links.jubilee-2025'), href: '/jubilee-2025'}
+    {name: t('navbar.links.jubilee-2025'), href: route('page.jubilee', undefined, false)}
 ]);
 
 const scrollY = ref(0);

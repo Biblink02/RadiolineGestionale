@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Mail\ClientCode;
+use App\Http\Mail\ClientCodeMail;
 use App\Http\Requests\ClientCodeRequest;
 use App\Models\Client;
 use App\Enums\ClientProfileTypeEnum;
@@ -80,7 +80,7 @@ class ClientCodeController extends Controller
         $client->save();
 
         // TODO send email with code
-        Mail::to($email)->send(new ClientCode($client->id));
+        Mail::to($email)->send(new ClientCodeMail($client->id));
 
         return back()->with('success', 'Request submitted successfully!');
     }
@@ -95,6 +95,6 @@ class ClientCodeController extends Controller
     private function sendMailWithCode(string $email, int $clientId): void
     {
         Log::info('Sending mail with client code: ' . $clientId);
-        Mail::to($email)->send(new ClientCode($clientId));
+        Mail::to($email)->send(new ClientCodeMail($clientId));
     }
 }

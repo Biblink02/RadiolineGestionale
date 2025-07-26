@@ -10,6 +10,6 @@ class ContactUsPageController extends Controller
 {
     public function index(): Response
     {
-        return Inertia::render('Contact/ContactUsPage');
+        return Inertia::render('ContactUs/ContactUsPage');
     }
 }

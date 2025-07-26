@@ -10,7 +10,6 @@ const props = defineProps<{
 </script>
 
 <template>
-    <!-- TODO non si vede il blu -->
     <ScrollTop/>
     <div class="bg-gradient-to-br from-stone-100 to-slate-200">
         <Head :title="title"/>
