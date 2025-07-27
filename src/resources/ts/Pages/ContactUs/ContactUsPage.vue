@@ -1,22 +1,23 @@
 <script setup lang="ts">
 import AppLayout from "@/Layouts/AppLayout.vue";
 import Toast from "primevue/toast";
-import {useToast} from "primevue/usetoast";
+import { useToast } from "primevue/usetoast";
 import axios from "axios";
-import {route} from "../../../../vendor/tightenco/ziggy";
+import { route } from "../../../../vendor/tightenco/ziggy";
+import { getLanguageOrFallback } from "~/lang/lang";
 
-const {t} = useI18n();
+const { t } = useI18n();
 const toast = useToast();
 
 const fallbackCountries = [
-    {label: t("countries.italy"), value: "IT"},
-    {label: t("countries.spain"), value: "ES"},
-    {label: t("countries.portugal"), value: "PT"},
-    {label: t("countries.france"), value: "FR"},
-    {label: t("countries.germany"), value: "DE"},
-    {label: t("countries.united-kingdom"), value: "GB"},
-    {label: t("countries.bosnia-herzegovina"), value: "BA"} // Medjugorje
-]
+    { label: t("countries.italy"), value: "IT" },
+    { label: t("countries.spain"), value: "ES" },
+    { label: t("countries.portugal"), value: "PT" },
+    { label: t("countries.france"), value: "FR" },
+    { label: t("countries.germany"), value: "DE" },
+    { label: t("countries.united-kingdom"), value: "GB" },
+    { label: t("countries.bosnia-herzegovina"), value: "BA" } // Medjugorje
+];
 
 onMounted(async () => {
     try {
@@ -44,10 +45,11 @@ onMounted(async () => {
 
 // Dropdown profilo
 const profileOptions = [
-    {label: t("contact-us.profile.1"), value: "agency"},
-    {label: t("contact-us.profile.2"), value: "org"},
-    {label: t("contact-us.profile.3"), value: "spiritual"},
+    { label: t("contact-us.profile.1"), value: "AGENCY" },
+    { label: t("contact-us.profile.2"), value: "ORGANIZATION" },
+    { label: t("contact-us.profile.3"), value: "GUIDE" },
 ];
+
 
 // Stati form
 const contactForm = useForm({
@@ -59,9 +61,9 @@ const contactForm = useForm({
     profileType: null,
     message: "",
     acceptPrivacy: false,
+    language: getLanguageOrFallback(),
 });
 const countryOptions = ref<{ label: string; value: string }[]>();
-
 
 const isValid = computed(() => {
     return (
@@ -112,7 +114,11 @@ const submit = () => {
                         v-model="contactForm.firstName"
                         class="w-full"
                         :placeholder="t('contact-us.firstNamePlaceholder')"
+                        :class="{'p-invalid border-red-500': contactForm.errors.firstName}"
                     />
+                    <small v-if="contactForm.errors.firstName" class="p-error">
+                        {{ t(contactForm.errors.firstName) }}
+                    </small>
                 </div>
                 <div>
                     <label class="block mb-1 text-sm font-medium">{{ t("contact-us.last-name") }} *</label>
@@ -120,7 +126,11 @@ const submit = () => {
                         v-model="contactForm.lastName"
                         class="w-full"
                         :placeholder="t('contact-us.last-name-placeholder')"
+                        :class="{'p-invalid border-red-500': contactForm.errors.lastName}"
                     />
+                    <small v-if="contactForm.errors.lastName" class="p-error">
+                        {{ t(contactForm.errors.lastName) }}
+                    </small>
                 </div>
             </div>
 
@@ -133,9 +143,14 @@ const submit = () => {
                         class="w-full"
                         :mode="'decimal'"
                         :useGrouping="false"
+                        :placeholder="t('contact-us.phone-placeholder')"
                         decimalSeparator=""
                         prefix="+"
+                        :class="{'p-invalid border-red-500': contactForm.errors.phone}"
                     />
+                    <small v-if="contactForm.errors.phone" class="p-error">
+                        {{ t(contactForm.errors.phone) }}
+                    </small>
                 </div>
                 <div>
                     <label class="block mb-1 text-sm font-medium">{{ t("contact-us.email") }} *</label>
@@ -144,11 +159,15 @@ const submit = () => {
                         type="email"
                         class="w-full"
                         :placeholder="t('contact-us.email-placeholder')"
+                        :class="{'p-invalid border-red-500': contactForm.errors.email}"
                     />
+                    <small v-if="contactForm.errors.email" class="p-error">
+                        {{ t(contactForm.errors.email) }}
+                    </small>
                 </div>
             </div>
 
-            <!-- Nazione e Profilo sulla stessa riga (da desktop) -->
+            <!-- Nazione e Profilo -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                 <div>
                     <label class="block mb-1 text-sm font-medium">{{ t("contact-us.country-label") }}</label>
@@ -160,7 +179,11 @@ const submit = () => {
                         filter
                         :placeholder="t('contact-us.country-placeholder')"
                         class="w-full"
+                        :class="{'p-invalid border-red-500': contactForm.errors.country}"
                     />
+                    <small v-if="contactForm.errors.country" class="p-error">
+                        {{ t(contactForm.errors.country) }}
+                    </small>
                 </div>
                 <div>
                     <label class="block mb-1 text-sm font-medium">{{ t("contact-us.profile.label") }}</label>
@@ -171,7 +194,11 @@ const submit = () => {
                         optionValue="value"
                         :placeholder="t('contact-us.profile.placeholder')"
                         class="w-full"
+                        :class="{'p-invalid border-red-500': contactForm.errors.profileType}"
                     />
+                    <small v-if="contactForm.errors.profileType" class="p-error">
+                        {{ t(contactForm.errors.profileType) }}
+                    </small>
                 </div>
             </div>
 
@@ -183,7 +210,11 @@ const submit = () => {
                     rows="4"
                     class="w-full"
                     :placeholder="t('contact-us.message-placeholder')"
+                    :class="{'p-invalid border-red-500': contactForm.errors.message}"
                 />
+                <small v-if="contactForm.errors.message" class="p-error">
+                    {{ t(contactForm.errors.message) }}
+                </small>
             </div>
 
             <!-- Privacy -->
@@ -194,6 +225,9 @@ const submit = () => {
                     <a href="#" class="text-blue-600 underline">{{ t("contact-us.privacy.link") }}</a>
                     *
                 </label>
+                <div v-if="contactForm.errors.acceptPrivacy" class="text-red-500 text-sm">
+                    {{ t(contactForm.errors.acceptPrivacy) }}
+                </div>
             </div>
 
             <!-- Pulsante -->
@@ -209,5 +243,10 @@ const submit = () => {
         </div>
     </AppLayout>
 </template>
+
 <style scoped>
+.p-error {
+    font-size: 0.875rem;
+    color: #ef4444;
+}
 </style>

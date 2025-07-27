@@ -57,9 +57,17 @@ const features = [
 
 
             <!-- Conclusione -->
-            <Link :href="route('page.contact-us', undefined, false)" class="underline hover:text-blue-600">
-                {{ t('radio-rent.body.closure') }}
-            </Link>
+            <p class="text-left">
+                {{ t('radio-rent.body.closure-before-link') }}
+                <Link
+                    :href="route('page.contact-us', undefined, false)"
+                    class="underline hover:text-blue-600"
+                >
+                    {{ t('radio-rent.body.closure-after-link') }}
+                </Link>
+                {{ t('radio-rent.body.closure-link') }}
+            </p>
+
         </div>
     </AppLayout>
 </template>

@@ -1,0 +1,341 @@
+{
+    "footer": {
+        "links": {
+            "label1": "text",
+            "label2": "text",
+            "label3": "text",
+            "label4": "text",
+            "label5": "text",
+            "label6": "text",
+            "label7": "text"
+        }
+    },
+    "countries": {
+        "italy": "text",
+        "spain": "text",
+        "portugal": "text",
+        "france": "text",
+        "germany": "text",
+        "united-kingdom": "text",
+        "bosnia-herzegovina": "text"
+    },
+    "contact-us": {
+        "profile": {
+            "1": "text",
+            "2": "text",
+            "3": "text",
+            "label": "text",
+            "placeholder": "text"
+        },
+        "toast": {
+            "success": {
+                "title": "text",
+                "message": "text"
+            },
+            "error": {
+                "title": "text",
+                "message": "text"
+            }
+        },
+        "form-title": "text",
+        "first-name": "text",
+        "last-name": "text",
+        "phone": "text",
+        "email": "text",
+        "country-label": "text",
+        "message": "text",
+        "privacy": {
+            "accept": "text",
+            "link": "text"
+        },
+        "firstNamePlaceholder": "text",
+        "last-name-placeholder": "text",
+        "email-placeholder": "text",
+        "phone-placeholder": "text",
+        "country-placeholder": "text",
+        "message-placeholder": "text",
+        "submit": "text",
+        "title": "text"
+    },
+    "service_card": {
+        "aria_price": "text",
+        "per_radio": "text",
+        "aria_features": "text",
+        "aria_learn": "text",
+        "learn_more": "text"
+    },
+    "navbar": {
+        "links": {
+            "who-are-we": "text",
+            "contact-us": "text",
+            "privacy": "text",
+            "payments": "text",
+            "radio-rent": "text",
+            "services": "text",
+            "proposals": "text",
+            "jubilee-2025": "text"
+        }
+    },
+    "about-us": {
+        "header": {
+            "image-alt": "text",
+            "title": "text",
+            "subtitle": "text",
+            "paragraph-1": "text",
+            "paragraph-2": "text"
+        },
+        "cards": {
+            "1": {
+                "title": "text",
+                "subtitle": "text",
+                "image-alt": "text"
+            },
+            "2": {
+                "title": "text",
+                "subtitle": "text",
+                "image-alt": "text"
+            },
+            "history": {
+                "title": "text",
+                "subtitle": "text",
+                "paragraph1": "text",
+                "paragraph2": "text"
+            },
+            "mission": {
+                "title": "text",
+                "subtitle": "text",
+                "paragraph": "text"
+            }
+        },
+        "title": "text"
+    },
+    "services": {
+        "airportTransfers": {
+            "title": "text",
+            "element1": "text",
+            "element2": "text",
+            "element3": "text",
+            "element4": "text",
+            "element5": "text",
+            "element6": "text"
+        },
+        "portTransfers": {
+            "title": "text",
+            "element1": "text",
+            "element2": "text"
+        },
+        "accommodation": {
+            "title": "text",
+            "element1": "text",
+            "element2": "text",
+            "element3": "text",
+            "element4": "text"
+        },
+        "guide": {
+            "title": "text",
+            "element1": "text"
+        },
+        "guidedTours": {
+            "title": "text",
+            "element1": "text",
+            "element2": "text",
+            "element3": "text",
+            "element4": "text",
+            "element5": "text"
+        },
+        "title": "text",
+        "specification": "text",
+        "cards": {
+            "1": {
+                "title": "text",
+                "subtitle": "text",
+                "features": {
+                    "1": "text",
+                    "2": "text",
+                    "3": "text",
+                    "4": "text",
+                    "5": "text",
+                    "6": "text"
+                }
+            },
+            "2": {
+                "title": "text",
+                "subtitle": "text",
+                "features": {
+                    "1": "text",
+                    "2": "text",
+                    "3": "text",
+                    "4": "text",
+                    "5": "text",
+                    "6": "text"
+                }
+            },
+            "section-aria": "text"
+        },
+        "header": {
+            "title": "text",
+            "title_sr": "text",
+            "description": "text"
+        }
+    },
+    "payments": {
+        "title": "text",
+        "header": {
+            "title": "text",
+            "description": "text"
+        },
+        "methods": {
+            "bank": "text",
+            "cash": "text"
+        }
+    },
+    "home": {
+        "hero": {
+            "aria": "text",
+            "title": "text",
+            "title_sr": "text",
+            "subtitle": "text",
+            "cta_aria": "text",
+            "cta": "text"
+        },
+        "social": {
+            "title": "text",
+            "subtitle": "text"
+        },
+        "title": "text",
+        "inspire": {
+            "cards": {
+                "1": {
+                    "title": "text",
+                    "subtitle": "text",
+                    "images": {
+                        "1": { "alt": "text" }
+                    }
+                },
+                "2": {
+                    "title": "text",
+                    "subtitle": "text",
+                    "images": {
+                        "1": { "alt": "text" }
+                    }
+                },
+                "3": {
+                    "title": "text",
+                    "subtitle": "text",
+                    "images": {
+                        "1": { "alt": "text" }
+                    }
+                }
+            },
+            "title": "text"
+        }
+    },
+    "jubilee": {
+        "title": "text",
+        "header": {
+            "image-alt": "text"
+        },
+        "body": {
+            "title": "text",
+            "paragraph1": "text",
+            "paragraph2": {
+                "quote": "text",
+                "source": "text"
+            },
+            "paragraph3": {
+                "beforeBold": "text",
+                "bold": "text",
+                "afterBold": "text"
+            },
+            "paragraph4": "text",
+            "paragraph5": {
+                "bold": "text",
+                "normal": "text"
+            }
+        }
+    },
+    "radio-rent": {
+        "body": {
+            "features": {
+                "audio": "text",
+                "earphones": "text",
+                "instructions": "text",
+                "personalChannel": "text",
+                "translationChannel": "text",
+                "barcode": "text",
+                "radioList": "text",
+                "battery": "text",
+                "delivery": "text",
+                "support": "text"
+            },
+            "title": "text",
+            "subtitle": "text",
+            "intro": "text",
+            "benefits": "text",
+            "integration": "text",
+            "featuresTitle": "text",
+            "closure": "text"
+        },
+        "title": "text",
+        "header": {
+            "image-alt": "text"
+        }
+    },
+    "privacy": {
+        "title": "text",
+        "body": {
+            "title": "text",
+            "paragraph1": {
+                "beforeBold": "text",
+                "afterBold": "text"
+            },
+            "paragraph2": "text",
+            "paragraph3": "text",
+            "paragraph4": {
+                "beforeBold": "text",
+                "bold": "text",
+                "afterBold": "text"
+            },
+            "paragraph5": {
+                "beforeBold": "text",
+                "bold": "text",
+                "afterBold": "text"
+            },
+            "paragraph6": {
+                "beforeBold": "text",
+                "bold": "text",
+                "afterBold": "text"
+            },
+            "paragraph7": {
+                "beforeBold": "text",
+                "bold": "text",
+                "afterBold": "text"
+            },
+            "paragraph8": {
+                "beforeLink": "text",
+                "bold": "text",
+                "afterLink": "text"
+            }
+        }
+    },
+    "proposals": {
+        "title": "text",
+        "header": {
+            "image-alt": "text",
+            "title": "text",
+            "subtitle": "text"
+        },
+        "body": {
+            "intro": "text",
+            "pilgrimage": "text"
+        },
+        "steps": {
+            "title": "text",
+            "step1": "text",
+            "step2": "text"
+        },
+        "footer": {
+            "text": "text"
+        }
+    }
+}

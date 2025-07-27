@@ -21,7 +21,8 @@ class ContactFormRequest extends FormRequest
             'country' => 'required|string|size:2', // codice ISO
             'profileType' => 'nullable|string|max:50',
             'message' => 'required|string',
-            'acceptPrivacy' => 'accepted'
+            'acceptPrivacy' => 'accepted',
+            'language' => 'nullable|string|size:2',
         ];
     }
 }

@@ -8,17 +8,24 @@ use Illuminate\Mail\Mailables\Attachment;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Lang;
 
 class ContactFormMail extends Mailable
 {
     use Queueable, SerializesModels;
+
     /**
      * Create a new message instance.
      */
-    public function __construct()
-    {
-        //
+    public function __construct(
+        protected string $firstName,
+        protected string $lastName,
+        public $locale = 'en'
+    ) {
+        $this->locale = $locale ?? 'en';
     }
+
 
     /**
      * Get the message envelope.
@@ -26,7 +33,7 @@ class ContactFormMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Contact Form from MedjugorjeService',
+            subject: Lang::get('emails.contact_confirmation.subject', [], $this->locale)
         );
     }
 
@@ -35,12 +42,13 @@ class ContactFormMail extends Mailable
      */
     public function content(): Content
     {
-        //TODO
         return new Content(
-            view: 'emails.client-code',
-            text: 'emails.client-code-text',
+            view: 'emails.form-response',
+            text: 'emails.form-response-text',
             with: [
-                'code' => $this->clientCode,
+                'firstName' => $this->firstName,
+                'lastName' => $this->lastName,
+                'locale' => $this->locale,
             ],
         );
     }

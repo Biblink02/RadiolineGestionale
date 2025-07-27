@@ -30,7 +30,7 @@ onMounted(() => {
 });
 
 const pagesVisible = computed(() => scrollY.value < 10);
-
+const mobileMenuOpen = ref(false);
 </script>
 
 <template>
@@ -52,7 +52,7 @@ const pagesVisible = computed(() => scrollY.value < 10);
                             v-for="link in pages"
                             :key="link.href"
                             :href="link.href"
-                            :class="['hover:text-blue-600 transition-colors', link.href === page.url ? 'text-blue-800 underline' : '']"
+                            :class="['hover:text-blue-600 transition-colors', link.href === page.url ? 'text-blue-700 underline' : '']"
                         >
                             {{ link.name }}
                         </Link>
@@ -66,7 +66,7 @@ const pagesVisible = computed(() => scrollY.value < 10);
                         v-for="link in menu"
                         :key="link.href"
                         :href="link.href"
-                        :class="['transition-colors hover:text-blue-600', link.href === page.url ? 'text-blue-800 underline' : 'text-gray-800']"
+                        :class="['transition-colors hover:text-blue-600', link.href === page.url ? 'text-blue-700 underline' : 'text-gray-800']"
                     >
                         {{ link.name }}
                     </Link>
@@ -76,35 +76,61 @@ const pagesVisible = computed(() => scrollY.value < 10);
 
         </div>
         <!-- MOBILE -->
-        <Transition
-            name="slide-left"
-            enter-active-class="transition duration-300 ease-out"
-            enter-from-class="opacity-0 translate-x-6"
-            enter-to-class="opacity-100 translate-x-0"
-            leave-active-class="transition duration-200 ease-in"
-            leave-from-class="opacity-100 translate-x-0"
-            leave-to-class="opacity-0 translate-x-6"
-        >
-            <nav
-                v-show="mobileMenuOpen"
-                class="sm:hidden px-6 pt-2 pb-4 absolute w-full z-50 bg-white"
-                aria-label="Mobile navigation"
-            >
-                <hr class="text-gray-400 mx-auto"/>
+        <div class="sm:hidden flex items-center justify-between px-4 py-2">
+            <Link :href="route('page.home', undefined, false)">
+                <img :src="logo" alt="Logo" class="h-auto w-24 object-contain" loading="eager"/>
+            </Link>
+            <Button
+                icon="pi pi-bars"
+                class="p-button-text p-button-rounded"
+                @click="mobileMenuOpen = true"
+                aria-label="Apri menu"
+            />
+        </div>
+
+        <Drawer v-model:visible="mobileMenuOpen" position="right" class="w-64">
+            <!-- HEADER TEMPLATE -->
+            <template #header>
+                <div class="flex justify-between items-center w-full">
+                    <Link :href="route('page.home', undefined, false)">
+                        <img :src="logo" alt="Logo" class="h-auto w-24 object-contain"/>
+                    </Link>
+                </div>
+            </template>
+            <hr/>
+
+            <!-- CONTENUTO PRINCIPALE -->
+            <nav class="flex flex-col space-y-4 text-lg font-medium mt-4">
                 <Link
                     v-for="link in pages"
                     :key="link.href"
                     :href="link.href"
-                    :class="[
-        'block py-2 hover:text-blue-600 font-medium transition-colors duration-200 text-center',
-        link.href === page.url ? 'text-blue-800 underline' : 'text-gray-800'
-      ]"
+                    class="hover:text-blue-600 text-gray-800 transition-colors text-center"
+                    :class="{ 'text-blue-700 underline': link.href === page.url }"
+                    @click="mobileMenuOpen = false"
+                >
+                    {{ link.name }}
+                </Link>
+                <Link
+                    v-for="link in menu"
+                    :key="link.href"
+                    :href="link.href"
+                    class="hover:text-blue-600 text-gray-800 transition-colors text-center"
+                    :class="{ 'text-blue-700 underline': link.href === page.url }"
                     @click="mobileMenuOpen = false"
                 >
                     {{ link.name }}
                 </Link>
             </nav>
-        </Transition>
+
+            <!-- FOOTER TEMPLATE -->
+            <template #footer>
+                <div class="pt-6">
+                    <SocialPart container-class="flex justify-center space-x-4" :icon-size="1.3"/>
+                </div>
+            </template>
+        </Drawer>
+
 
     </header>
 </template>
