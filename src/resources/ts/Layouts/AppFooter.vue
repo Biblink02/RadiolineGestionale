@@ -1,16 +1,17 @@
 <script setup lang="ts">
 import SocialPart from "@/Components/Custom/SocialPart.vue";
+import {route} from "../../../vendor/tightenco/ziggy";
 
 const {t} = useI18n();
 
 const links = [
-    {label: t("footer.links.label1"), href: "#"},
-    {label: t("footer.links.label2"), href: "#"},
-    {label: t("footer.links.label3"), href: "#"},
-    {label: t("footer.links.label4"), href: "#"},
-    {label: t("footer.links.label5"), href: "#"},
-    {label: t("footer.links.label6"), href: "#"},
-    {label: t("footer.links.label7"), href: "#"},
+    {label: t("footer.links.label1"), href: route('page.about-us', undefined, false)},
+    {label: t("footer.links.label2"), href: route('page.contact-us', undefined, false)},
+    {label: t("footer.links.label3"), href: "TODO"},
+    {label: t("footer.links.label4"), href: route('page.privacy', undefined, false)},
+    {label: t("footer.links.label5"), href: route('page.payments', undefined, false)},
+    {label: t("footer.links.label6"), href: "TODO"},
+    {label: t("footer.links.label7"), href: "TODO"},
 ];
 
 const socials = [
