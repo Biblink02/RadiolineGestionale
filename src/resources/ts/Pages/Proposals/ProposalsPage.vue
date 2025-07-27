@@ -2,6 +2,9 @@
 
 import ImageAndTitle from "@/Components/Custom/ImageAndTitle.vue";
 import AppLayout from "@/Layouts/AppLayout.vue";
+import {Link} from '@inertiajs/vue3';
+import {route} from "../../../../vendor/tightenco/ziggy";
+
 const {t} = useI18n();
 </script>
 
@@ -32,7 +35,11 @@ const {t} = useI18n();
                     {{ t('proposals.steps.title') }}
                 </h3>
                 <ol class="list-decimal list-inside space-y-2">
-                    <li>{{ t('proposals.steps.step1') }}</li>
+                    <li>
+                        <Link :href="route('page.contact-us', undefined, false)" class="underline hover:text-blue-600">
+                            {{ t('proposals.steps.step1') }}
+                        </Link>
+                    </li>
                     <li>{{ t('proposals.steps.step2') }}</li>
                 </ol>
             </div>
