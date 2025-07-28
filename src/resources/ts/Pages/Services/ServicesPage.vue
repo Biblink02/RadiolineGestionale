@@ -4,7 +4,6 @@ import {AirplaneModeIcon, CargoShipIcon, House01Icon, MentoringIcon, VisionIcon}
 import AppLayout from "@/Layouts/AppLayout.vue";
 
 const { t } = useI18n()
-const activePanels = ref([])
 
 const services = reactive([
     {
@@ -54,8 +53,10 @@ const services = reactive([
             t('services.guidedTours.element4'), // Surmanci
             t('services.guidedTours.element5')  // Dubrovnik
         ]
-    }
+    },
 ])
+const openPanels = ref(services.map((_, index) => index))
+
 </script>
 
 <template>
@@ -63,8 +64,7 @@ const services = reactive([
         <div class="container mx-auto p-6 max-w-7xl">
             <h1 class="text-3xl font-bold mb-6 text-gray-800">{{ t('services.specification') }}</h1>
 
-            <Accordion :modelValue="activePanels" multiple @update:modelValue="val => activePanels = val"
-                       class="bg-white shadow rounded-lg">
+            <Accordion  class="bg-white shadow rounded-lg" v-model:value="openPanels" multiple>
                 <AccordionPanel
                     v-for="(service, key) in services"
                     :key="key"

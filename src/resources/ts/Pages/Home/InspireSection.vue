@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import {InspireCardData} from "@/Types/InspireCardData";
-
 const {t} = useI18n()
 import InspireCard from "@/Components/Custom/InspireCard.vue";
 
@@ -8,7 +7,7 @@ const cards: InspireCardData[] = [
     {
         title: t('home.inspire.cards.1.title'),
         subtitle: t('home.inspire.cards.1.subtitle'),
-        onClick: () => console.log('ciao'),
+        onClick: () => router.visit(route('page.radio-rent', undefined, false)),
         images: [
             {
                 src: "https://www.cobraspa.it/upload/img/c/1000x0-x%20OMG-100-1_rev%20(Omero%20101)%20copia_quadrato%20per%20sito.jpg",
@@ -19,7 +18,7 @@ const cards: InspireCardData[] = [
     {
         title: t('home.inspire.cards.2.title'),
         subtitle: t('home.inspire.cards.2.subtitle'),
-        onClick: () => console.log('ciao'),
+        onClick: () => router.visit(route('page.proposals', undefined, false)),
         images: [
             {
                 src: "https://www.cobraspa.it/upload/img/c/1000x0-x%20OMG-100-1_rev%20(Omero%20101)%20copia_quadrato%20per%20sito.jpg",
@@ -30,7 +29,7 @@ const cards: InspireCardData[] = [
     {
         title: t('home.inspire.cards.3.title'),
         subtitle: t('home.inspire.cards.3.subtitle'),
-        onClick: () => console.log('ciao'),
+        onClick: () => router.visit(route('page.jubilee', undefined, false)),
         images: [
             {
                 src: "https://www.cobraspa.it/upload/img/c/1000x0-x%20OMG-100-1_rev%20(Omero%20101)%20copia_quadrato%20per%20sito.jpg",
