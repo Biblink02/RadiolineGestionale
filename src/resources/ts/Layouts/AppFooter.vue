@@ -13,8 +13,7 @@ const links = [
     {label: t("footer.links.label5"), href: route('page.payments', undefined, false)},
 ];
 const phoneWhatsApp = ref("00387063144027");
-const phoneAlt = ref("00387063247485");
-const email = ref("mdjservice00@gmail.com");
+const email = ref("medjugorjeservice00@gmail.com");
 
 function formattedPhone(raw: string) {
     const match = raw.match(/^00(\d{3})(\d{3})(\d{3})(\d{3})$/);
@@ -58,34 +57,37 @@ function formattedPhone(raw: string) {
                     <div
                         class="flex flex-col gap-y-1 text-center sm:text-left sm:flex-row sm:flex-wrap sm:gap-4">
 
-                        <!-- WhatsApp -->
+                        <!-- Address -->
+                        <a href="https://maps.app.goo.gl/sTaZTrP1WC7cu5y99" target="_blank" rel="noreferrer"
+                           class="hover:text-blue-600 transition-colors">
+                            Pape Ivana Pavla II 14 88266 Medjugorje
+                        </a>
+                        <span class="hidden sm:inline">|</span>
+
+
+                        <!-- Tel -->
                         <a :href="`tel:${phoneWhatsApp}`" class="hover:text-blue-600 transition-colors">
+                            <span class="text-xs mr-1">Tel.</span>
                             {{ formattedPhone(phoneWhatsApp) }}
-                            <span class="text-xs ml-1">(WhatsApp)</span>
                         </a>
 
                         <span class="hidden sm:inline">|</span>
 
-                        <!-- Alt -->
+                        <!-- Alt
                         <a :href="`tel:${phoneAlt}`" class="hover:text-blue-600 transition-colors">
                             {{ formattedPhone(phoneAlt) }}
                             <span class="text-xs ml-1">(Alt.)</span>
                         </a>
-
                         <span class="hidden sm:inline">|</span>
+                        -->
 
                         <!-- Email -->
                         <a :href="`mailto:${email}`" class="hover:text-blue-600 transition-colors break-all">
+                            <span class="text-xs mr-1">Mail:</span>
+
                             {{ email }}
                         </a>
 
-                        <span class="hidden sm:inline">|</span>
-
-                        <!-- Indirizzo -->
-                        <a href="https://g.co/kgs/1vJq9fe" target="_blank" rel="noreferrer"
-                           class="hover:text-blue-600 transition-colors">
-                            Pape Ivana Pavla II 14 88266 Medjugorje, BiH
-                        </a>
                     </div>
 
                     <!-- Copyright a destra -->
