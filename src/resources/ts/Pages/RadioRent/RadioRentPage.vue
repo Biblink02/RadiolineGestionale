@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import AppLayout from "@/Layouts/AppLayout.vue";
+import { HugeiconsIcon } from '@hugeicons/vue';
+import {RadioIcon} from "@hugeicons/core-free-icons";
 import ImageAndTitle from "@/Components/Custom/ImageAndTitle.vue";
 import {Link} from "@inertiajs/vue3"
 import {route} from "../../../../vendor/tightenco/ziggy";
@@ -29,6 +31,7 @@ const features = [
 
             <!-- Sottotitolo servizio -->
             <h3 class="text-lg font-semibold mb-2">
+                <HugeiconsIcon :icon="RadioIcon" class="w-6 h-6 inline-block mb-1 mr-2 text-blue-800"/>
                 {{ t('radio-rent.body.subtitle') }}
             </h3>
 
@@ -42,6 +45,7 @@ const features = [
             <p class="mb-6">
                 {{ t('radio-rent.body.integration') }}
             </p>
+            <hr class="text-gray-400 mb-5">
 
             <!-- Caratteristiche -->
             <h4 class="text-lg font-semibold mb-3">
@@ -55,6 +59,7 @@ const features = [
                 </li>
             </ul>
 
+            <hr class="text-gray-400 mb-5">
 
             <!-- Conclusione -->
             <p class="text-left">

@@ -21,12 +21,11 @@ const {t} = useI18n();
             </p>
 
             <p class="mb-4">
+                {{ t('jubilee.body.paragraph2.before-quote') }}
                 <span class="italic">
-                    {{ t('jubilee.body.paragraph2.quote') }}
+                    "{{ t('jubilee.body.paragraph2.quote') }}"
                 </span>
-                <span> (</span>
-                <span class="italic">{{ t('jubilee.body.paragraph2.source') }}</span>
-                <span>)</span>
+                <span class="italic"> (Spes non confundit, 23).</span>
             </p>
 
             <p class="mb-4">
@@ -38,7 +37,7 @@ const {t} = useI18n();
             <p class="mb-4">
                 {{ t('jubilee.body.paragraph4') }}
             </p>
-
+            <hr class="text-gray-400">
             <p class="mt-6">
                 <span class="font-bold">
                 {{ t('jubilee.body.paragraph5.bold') }}

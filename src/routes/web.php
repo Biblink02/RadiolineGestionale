@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AboutUsPageController;
 use App\Http\Controllers\JubileePageController;
+use App\Http\Controllers\OfficesPageController;
 use App\Http\Controllers\ProposalsPageController;
 use App\Http\Controllers\RadioRentPageController;
 use App\Http\Controllers\PaymentsPageController;
@@ -26,6 +27,7 @@ Route::name('page.')->group(function () {
     Route::get('/radio-rent', [RadioRentPageController::class, 'index'])->name('radio-rent');
     Route::get('/contact-us', [ContactUsPageController::class, 'index'])->name('contact-us');
     Route::get('/services', [ServicesPageController::class, 'index'])->name('services');
+    Route::get('/offices', [OfficesPageController::class, 'index'])->name('offices');
 });
 
 Route::prefix('api')

@@ -12,7 +12,7 @@ const props = defineProps<{
         :aria-label="props.card.title"
     >
         <!-- Galleria PrimeVue -->
-        <Galleria
+        <Galleria v-if="props.card.images"
             :value="props.card.images"
             :responsiveOptions="[]"
             :showThumbnails="false"
@@ -34,15 +34,18 @@ const props = defineProps<{
 
         <!-- Contenuto -->
         <div class="p-6 text-center">
-            <h2 class="text-xl font-semibold text-black mb-2">
+            <h2 v-if="props.card.title" class="text-xl font-semibold text-black mb-2">
                 {{ props.card.title }}
             </h2>
+            <p v-if="props.card.subtitle" class="mb-2">
+                {{ props.card.subtitle }}
+            </p>
 
-            <button
+            <button v-if="props.card.button"
                 class="group/button mx-auto flex items-center gap-1 text-slate-500 hover:text-blue-600 transition-colors hover:cursor-pointer"
                 @click="props.card.onClick"
             >
-                {{ props.card.subtitle }}
+                {{ props.card.button }}
                 <i class="pi pi-arrow-right text-xs transition-transform duration-300 group-hover/button:translate-x-1"></i>
             </button>
         </div>

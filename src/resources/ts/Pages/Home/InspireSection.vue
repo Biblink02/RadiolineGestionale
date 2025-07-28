@@ -6,7 +6,7 @@ import InspireCard from "@/Components/Custom/InspireCard.vue";
 const cards: InspireCardData[] = [
     {
         title: t('home.inspire.cards.1.title'),
-        subtitle: t('home.inspire.cards.1.subtitle'),
+        button: t('home.inspire.cards.1.button'),
         onClick: () => router.visit(route('page.radio-rent', undefined, false)),
         images: [
             {
@@ -17,7 +17,7 @@ const cards: InspireCardData[] = [
     },
     {
         title: t('home.inspire.cards.2.title'),
-        subtitle: t('home.inspire.cards.2.subtitle'),
+        button: t('home.inspire.cards.2.button'),
         onClick: () => router.visit(route('page.proposals', undefined, false)),
         images: [
             {
@@ -28,7 +28,7 @@ const cards: InspireCardData[] = [
     },
     {
         title: t('home.inspire.cards.3.title'),
-        subtitle: t('home.inspire.cards.3.subtitle'),
+        button: t('home.inspire.cards.3.button'),
         onClick: () => router.visit(route('page.jubilee', undefined, false)),
         images: [
             {
