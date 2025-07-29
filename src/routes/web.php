@@ -5,6 +5,7 @@ use App\Http\Controllers\JubileePageController;
 use App\Http\Controllers\OfficesPageController;
 use App\Http\Controllers\ProposalsPageController;
 use App\Http\Controllers\RadioRentPageController;
+use App\Http\Controllers\GalleryPageController;
 use App\Http\Controllers\PaymentsPageController;
 use App\Http\Controllers\PrivacyPageController;
 use App\Http\Controllers\ContactFormController;
@@ -28,6 +29,7 @@ Route::name('page.')->group(function () {
     Route::get('/contact-us', [ContactUsPageController::class, 'index'])->name('contact-us');
     Route::get('/services', [ServicesPageController::class, 'index'])->name('services');
     Route::get('/offices', [OfficesPageController::class, 'index'])->name('offices');
+    Route::get('/gallery', [GalleryPageController::class, 'index'])->name('gallery');
 });
 
 Route::prefix('api')
