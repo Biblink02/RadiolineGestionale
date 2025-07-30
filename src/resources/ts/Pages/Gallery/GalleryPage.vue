@@ -7,7 +7,7 @@ const props = defineProps<{
     batchSize: number;
 }>()
 const allImages = Array.from({length: props.imgNumber}, (_, i) => ({
-    src: `/images/gallery/gallery${i}.jpg`,
+    src: `/images/gallery/gallery${i}.webp`,
 }));
 
 const batch = ref(1);
@@ -43,7 +43,6 @@ const previewAlt = t('gallery.body.preview-alt')
                         <template #image>
                             <img
                                 :src="item.src"
-                                loading="lazy"
                                 :alt="imageAlt + ' ' + index"
                             />
                         </template>

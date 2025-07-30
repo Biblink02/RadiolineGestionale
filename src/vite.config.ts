@@ -50,7 +50,7 @@ export default ({ mode }: Params) => {
                 defaultDirectives: () => {
                     return new URLSearchParams({
                         format: 'webp',
-                        quality: '40',
+                        quality: '60',
                     })
                 },
             }),
