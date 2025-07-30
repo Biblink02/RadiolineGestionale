@@ -11,7 +11,8 @@ const pages = ref([
     {name: t('navbar.links.who-are-we'), href: route('page.about-us', undefined, false)},
     {name: t('navbar.links.contact-us'), href: route('page.contact-us', undefined, false)},
     {name: t('navbar.links.privacy'), href: route('page.privacy', undefined, false)},
-    {name: t('navbar.links.payments'), href: route('page.payments', undefined, false)}
+    {name: t('navbar.links.payments'), href: route('page.payments', undefined, false)},
+    {name: t('navbar.links.gallery'), href: route('page.gallery', undefined, false)}
 ]);
 
 const menu = ref([
@@ -23,19 +24,17 @@ const menu = ref([
 
 const scrollY = ref(0);
 
-onMounted(() => {
-    window.addEventListener('scroll', () => {
-        scrollY.value = window.scrollY;
-    });
-});
+useEventListener(window, 'scroll', () => {
+    scrollY.value = window.scrollY
+})
 
 const pagesVisible = computed(() => scrollY.value < 10);
 const mobileMenuOpen = ref(false);
 </script>
 
 <template>
-    <!--TODO sottomenu coi servizi e mobile view-->
     <header class="sticky top-0 z-50 bg-white shadow">
+
         <div class="container mx-auto hidden sm:flex items-center justify-between px-6 py-2 gap-6">
 
             <!-- LOGO -->

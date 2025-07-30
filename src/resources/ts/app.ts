@@ -12,6 +12,7 @@ import AnimateOnScroll from 'primevue/animateonscroll';
 import {createI18n} from "vue-i18n";
 import {languages, locale, fallbackLocale} from '~/lang/lang.ts'
 import { definePreset } from '@primeuix/themes';
+import MasonryWall from '@yeger/vue-masonry-wall'
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 const messages = Object.assign(languages);
@@ -50,6 +51,7 @@ createInertiaApp({
             .directive('animateonscroll', AnimateOnScroll)
             .use(plugin)
             .use(ZiggyVue)
+            .use(MasonryWall)
             .use(PrimeVue, {
                 theme: {
                     preset: MyPreset,

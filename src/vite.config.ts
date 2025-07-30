@@ -20,6 +20,7 @@ export default ({ mode }: Params) => {
                 imports: [
                     'vue',
                     'vue-router',
+                    '@vueuse/core',
                     {
                         'vue-i18n': ['useI18n']
                     },

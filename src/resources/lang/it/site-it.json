@@ -68,6 +68,7 @@
             "contact-us": "Contattaci",
             "privacy": "Privacy",
             "payments": "Pagamenti",
+            "gallery": "Galleria",
             "radio-rent": "Radio Rent",
             "services": "Servizi",
             "proposals": "Proposte",
@@ -327,6 +328,14 @@
                 "button": "Mappa",
                 "image-alt": "Mappa posizione ufficio"
             }
+        }
+    },
+    "gallery": {
+        "title": "Galleria fotografica",
+        "body": {
+            "title": "Galleria",
+            "image-alt": "Immagine galleria",
+            "preview-alt": "Anteprima immagine"
         }
     }
 }

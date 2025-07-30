@@ -91,7 +91,7 @@ function formattedPhone(raw: string) {
                     </div>
 
                     <!-- Copyright a destra -->
-                    <div class="text-center sm:text-right">
+                    <div class="text-center sm:text-right mt-3 sm:mt-0">
                         Copyright © 2025 Medjugorje Service
                     </div>
                 </div>

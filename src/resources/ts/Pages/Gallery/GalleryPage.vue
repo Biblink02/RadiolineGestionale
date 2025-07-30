@@ -2,86 +2,62 @@
 import AppLayout from "@/Layouts/AppLayout.vue";
 
 const {t} = useI18n();
-const images = [
-    "https://www.cobraspa.it/upload/img/c/1000x0-x%20OMG-100-1_rev%20(Omero%20101)%20copia_quadrato%20per%20sito.jpg",
-    "https://www.cobraspa.it/upload/img/c/1000x0-x%20OMG-100-1_rev%20(Omero%20101)%20copia_quadrato%20per%20sito.jpg",
-    "https://www.cobraspa.it/upload/img/c/1000x0-x%20OMG-100-1_rev%20(Omero%20101)%20copia_quadrato%20per%20sito.jpg",
-    "https://www.cobraspa.it/upload/img/c/1000x0-x%20OMG-100-1_rev%20(Omero%20101)%20copia_quadrato%20per%20sito.jpg",
-    "https://www.cobraspa.it/upload/img/c/1000x0-x%20OMG-100-1_rev%20(Omero%20101)%20copia_quadrato%20per%20sito.jpg",
-    "https://www.cobraspa.it/upload/img/c/1000x0-x%20OMG-100-1_rev%20(Omero%20101)%20copia_quadrato%20per%20sito.jpg",
-    "https://www.cobraspa.it/upload/img/c/1000x0-x%20OMG-100-1_rev%20(Omero%20101)%20copia_quadrato%20per%20sito.jpg",
-    "https://www.cobraspa.it/upload/img/c/1000x0-x%20OMG-100-1_rev%20(Omero%20101)%20copia_quadrato%20per%20sito.jpg",
-    "https://www.cobraspa.it/upload/img/c/1000x0-x%20OMG-100-1_rev%20(Omero%20101)%20copia_quadrato%20per%20sito.jpg",
-    "https://www.cobraspa.it/upload/img/c/1000x0-x%20OMG-100-1_rev%20(Omero%20101)%20copia_quadrato%20per%20sito.jpg",
-    "https://www.cobraspa.it/upload/img/c/1000x0-x%20OMG-100-1_rev%20(Omero%20101)%20copia_quadrato%20per%20sito.jpg",
-    "https://www.cobraspa.it/upload/img/c/1000x0-x%20OMG-100-1_rev%20(Omero%20101)%20copia_quadrato%20per%20sito.jpg",
-    "https://www.cobraspa.it/upload/img/c/1000x0-x%20OMG-100-1_rev%20(Omero%20101)%20copia_quadrato%20per%20sito.jpg",
-    "https://www.cobraspa.it/upload/img/c/1000x0-x%20OMG-100-1_rev%20(Omero%20101)%20copia_quadrato%20per%20sito.jpg",
-    "https://www.cobraspa.it/upload/img/c/1000x0-x%20OMG-100-1_rev%20(Omero%20101)%20copia_quadrato%20per%20sito.jpg",
-    "https://www.cobraspa.it/upload/img/c/1000x0-x%20OMG-100-1_rev%20(Omero%20101)%20copia_quadrato%20per%20sito.jpg",
-    "https://www.cobraspa.it/upload/img/c/1000x0-x%20OMG-100-1_rev%20(Omero%20101)%20copia_quadrato%20per%20sito.jpg",
-    "https://www.cobraspa.it/upload/img/c/1000x0-x%20OMG-100-1_rev%20(Omero%20101)%20copia_quadrato%20per%20sito.jpg",
-    "https://www.cobraspa.it/upload/img/c/1000x0-x%20OMG-100-1_rev%20(Omero%20101)%20copia_quadrato%20per%20sito.jpg",
-    "https://www.cobraspa.it/upload/img/c/1000x0-x%20OMG-100-1_rev%20(Omero%20101)%20copia_quadrato%20per%20sito.jpg",
-    "https://www.cobraspa.it/upload/img/c/1000x0-x%20OMG-100-1_rev%20(Omero%20101)%20copia_quadrato%20per%20sito.jpg",
-    "https://www.cobraspa.it/upload/img/c/1000x0-x%20OMG-100-1_rev%20(Omero%20101)%20copia_quadrato%20per%20sito.jpg",
-    "https://www.cobraspa.it/upload/img/c/1000x0-x%20OMG-100-1_rev%20(Omero%20101)%20copia_quadrato%20per%20sito.jpg",
-    "https://www.cobraspa.it/upload/img/c/1000x0-x%20OMG-100-1_rev%20(Omero%20101)%20copia_quadrato%20per%20sito.jpg",
-    "https://www.cobraspa.it/upload/img/c/1000x0-x%20OMG-100-1_rev%20(Omero%20101)%20copia_quadrato%20per%20sito.jpg",
-    "https://www.cobraspa.it/upload/img/c/1000x0-x%20OMG-100-1_rev%20(Omero%20101)%20copia_quadrato%20per%20sito.jpg",
-    "https://www.cobraspa.it/upload/img/c/1000x0-x%20OMG-100-1_rev%20(Omero%20101)%20copia_quadrato%20per%20sito.jpg",
-    "https://www.cobraspa.it/upload/img/c/1000x0-x%20OMG-100-1_rev%20(Omero%20101)%20copia_quadrato%20per%20sito.jpg",
-    "https://www.cobraspa.it/upload/img/c/1000x0-x%20OMG-100-1_rev%20(Omero%20101)%20copia_quadrato%20per%20sito.jpg",
-    "https://www.cobraspa.it/upload/img/c/1000x0-x%20OMG-100-1_rev%20(Omero%20101)%20copia_quadrato%20per%20sito.jpg",
-    "https://www.cobraspa.it/upload/img/c/1000x0-x%20OMG-100-1_rev%20(Omero%20101)%20copia_quadrato%20per%20sito.jpg",
-    "https://www.cobraspa.it/upload/img/c/1000x0-x%20OMG-100-1_rev%20(Omero%20101)%20copia_quadrato%20per%20sito.jpg",
-    "https://www.cobraspa.it/upload/img/c/1000x0-x%20OMG-100-1_rev%20(Omero%20101)%20copia_quadrato%20per%20sito.jpg",
-    "https://www.cobraspa.it/upload/img/c/1000x0-x%20OMG-100-1_rev%20(Omero%20101)%20copia_quadrato%20per%20sito.jpg",
-    "https://www.cobraspa.it/upload/img/c/1000x0-x%20OMG-100-1_rev%20(Omero%20101)%20copia_quadrato%20per%20sito.jpg",
-    "https://www.cobraspa.it/upload/img/c/1000x0-x%20OMG-100-1_rev%20(Omero%20101)%20copia_quadrato%20per%20sito.jpg",
-    "https://www.cobraspa.it/upload/img/c/1000x0-x%20OMG-100-1_rev%20(Omero%20101)%20copia_quadrato%20per%20sito.jpg",
-    "https://www.cobraspa.it/upload/img/c/1000x0-x%20OMG-100-1_rev%20(Omero%20101)%20copia_quadrato%20per%20sito.jpg",
-    "https://www.cobraspa.it/upload/img/c/1000x0-x%20OMG-100-1_rev%20(Omero%20101)%20copia_quadrato%20per%20sito.jpg",
-    "https://www.cobraspa.it/upload/img/c/1000x0-x%20OMG-100-1_rev%20(Omero%20101)%20copia_quadrato%20per%20sito.jpg",
-    "https://www.cobraspa.it/upload/img/c/1000x0-x%20OMG-100-1_rev%20(Omero%20101)%20copia_quadrato%20per%20sito.jpg",
-    "https://www.cobraspa.it/upload/img/c/1000x0-x%20OMG-100-1_rev%20(Omero%20101)%20copia_quadrato%20per%20sito.jpg",
-    "https://www.cobraspa.it/upload/img/c/1000x0-x%20OMG-100-1_rev%20(Omero%20101)%20copia_quadrato%20per%20sito.jpg",
-    "https://www.cobraspa.it/upload/img/c/1000x0-x%20OMG-100-1_rev%20(Omero%20101)%20copia_quadrato%20per%20sito.jpg",
-    "https://www.cobraspa.it/upload/img/c/1000x0-x%20OMG-100-1_rev%20(Omero%20101)%20copia_quadrato%20per%20sito.jpg",
-    "https://www.cobraspa.it/upload/img/c/1000x0-x%20OMG-100-1_rev%20(Omero%20101)%20copia_quadrato%20per%20sito.jpg",
+const props = defineProps<{
+    imgNumber: number;
+    batchSize: number;
+}>()
+const allImages = Array.from({length: props.imgNumber}, (_, i) => ({
+    src: `/images/gallery/gallery${i}.jpg`,
+}));
 
-]
+const batch = ref(1);
+const loadedImages = computed(() =>
+    allImages.slice(0, props.batchSize * batch.value)
+)
+useEventListener(window, 'scroll', () => {
+    const threshold = Math.min(0.5 + (batch.value - 1) * 0.1, 0.8);
+    // Check if the user has scrolled at least halfway down the page && if there are still more images to load
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight * threshold &&
+        props.imgNumber > props.batchSize * batch.value)
+        batch.value++;
+})
+const imageAlt = t('gallery.body.image-alt');
+const previewAlt = t('gallery.body.preview-alt')
 </script>
 
 <template>
     <AppLayout :title="t('gallery.title')">
-        <h1 class="text-3xl font-bold mb-8 text-center">Mosaico Fotografico</h1>
-
-        <div class="grid grid-cols-6 gap-4 auto-rows-[150px]">
-            <div
-                v-for="(img, index) in images"
-                :key="index"
-                :class="[
-                    'relative group rounded-xl overflow-hidden shadow-lg transition-all duration-300',
-                    index % 7 === 0 ? 'col-span-3 row-span-2' :
-                    index % 5 === 0 ? 'col-span-2 row-span-2' :
-                    'col-span-2 row-span-1'
-                ]"
-            >
-                <Image
-                    :src="img"
-                    preview
-                    alt="foto"
-                    class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-500"
-                />
-                <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-white text-lg font-semibold">
-                    Clicca per ingrandire
+        <h1 class="text-center text-bold text-4xl mt-9">{{t('gallery.body.title')}}</h1>
+        <masonry-wall
+            :items="loadedImages"
+            :ssr-columns="1"
+            :min-columns="1"
+            :max-columns="3"
+            :column-width="300"
+            :gap="60"
+            class="m-20"
+        >
+            <template #default="{ item, index }">
+                <div class="transition-transform duration-300 hover:scale-105 rounded shadow-md overflow-hidden">
+                    <Image :alt="imageAlt" preview class="w-full h-auto rounded-lg shadow-md">
+                        <template #image>
+                            <img
+                                :src="item.src"
+                                loading="lazy"
+                                :alt="imageAlt + ' ' + index"
+                            />
+                        </template>
+                        <template #preview="slotProps">
+                            <img
+                                class="max-w-[70%]! max-h-[70%]! m-auto!"
+                                :src="item.src"
+                                :alt="previewAlt + ' ' + index"
+                                :style="slotProps.style" @click="slotProps.onClick"
+                            />
+                        </template>
+                    </Image>
                 </div>
-            </div>
-        </div>
+            </template>
+        </masonry-wall>
     </AppLayout>
 </template>
-
-<style scoped>
-
-</style>
