@@ -1,341 +1,341 @@
 {
     "footer": {
         "links": {
-            "label1": "text",
-            "label2": "text",
-            "label3": "text",
-            "label4": "text",
-            "label5": "text",
-            "label6": "text",
-            "label7": "text"
+            "label1": "About Us",
+            "label2": "Contact Us",
+            "label3": "Our Offices",
+            "label4": "Privacy",
+            "label5": "Payments"
         }
     },
     "countries": {
-        "italy": "text",
-        "spain": "text",
-        "portugal": "text",
-        "france": "text",
-        "germany": "text",
-        "united-kingdom": "text",
-        "bosnia-herzegovina": "text"
+        "italy": "Italy",
+        "spain": "Spain",
+        "portugal": "Portugal",
+        "france": "France",
+        "germany": "Germany",
+        "united-kingdom": "United Kingdom",
+        "bosnia-herzegovina": "Bosnia and Herzegovina"
     },
     "contact-us": {
         "profile": {
-            "1": "text",
-            "2": "text",
-            "3": "text",
-            "label": "text",
-            "placeholder": "text"
+            "1": "Agency",
+            "2": "Organizer",
+            "3": "Spiritual Guide",
+            "label": "Profile",
+            "placeholder": "Select your profile"
         },
         "toast": {
             "success": {
-                "title": "text",
-                "message": "text"
+                "title": "Request sent",
+                "message": "Thank you for your request! We will contact you as soon as possible."
             },
             "error": {
-                "title": "text",
-                "message": "text"
+                "title": "Error",
+                "message": "There was a problem sending your request."
             }
         },
-        "form-title": "text",
-        "first-name": "text",
-        "last-name": "text",
-        "phone": "text",
-        "email": "text",
-        "country-label": "text",
-        "message": "text",
+        "form-title": "Information Request",
+        "first-name": "First Name",
+        "last-name": "Last Name",
+        "phone": "Phone",
+        "email": "Email",
+        "country-label": "Country",
+        "message": "Message",
         "privacy": {
-            "accept": "text",
-            "link": "text"
+            "accept": "I have read and accept the privacy policy",
+            "link": "Privacy Policy"
         },
-        "firstNamePlaceholder": "text",
-        "last-name-placeholder": "text",
-        "email-placeholder": "text",
-        "phone-placeholder": "text",
-        "country-placeholder": "text",
-        "message-placeholder": "text",
-        "submit": "text",
-        "title": "text"
+        "firstNamePlaceholder": "Enter your first name",
+        "last-name-placeholder": "Enter your last name",
+        "email-placeholder": "Enter your email",
+        "phone-placeholder": "Enter your phone number",
+        "country-placeholder": "Select your country",
+        "message-placeholder": "Write your message",
+        "submit": "Send Request",
+        "title": "Contact Us"
     },
     "service_card": {
-        "aria_price": "text",
-        "per_radio": "text",
-        "aria_features": "text",
-        "aria_learn": "text",
-        "learn_more": "text"
+        "aria_price": "Service price",
+        "per_radio": "per radio",
+        "aria_features": "Service features",
+        "aria_learn": "Learn more",
+        "learn_more": "Learn more"
     },
     "navbar": {
         "links": {
-            "who-are-we": "text",
-            "contact-us": "text",
-            "privacy": "text",
-            "payments": "text",
-            "radio-rent": "text",
-            "services": "text",
-            "proposals": "text",
-            "jubilee-2025": "text"
+            "who-are-we": "About Us",
+            "contact-us": "Contact Us",
+            "privacy": "Privacy",
+            "payments": "Payments",
+            "gallery": "Gallery",
+            "radio-rent": "Radio Rent",
+            "services": "Services",
+            "proposals": "Proposals",
+            "jubilee-2025": "Jubilee 2025"
         }
     },
     "about-us": {
         "header": {
-            "image-alt": "text",
-            "title": "text",
-            "subtitle": "text",
-            "paragraph-1": "text",
-            "paragraph-2": "text"
+            "image-alt": "About Us section image",
+            "title": "In this place of grace",
+            "subtitle": "At the service of pilgrims",
+            "paragraph-1": "Medjugorje Service works to welcome pilgrims by offering technical and organizational assistance, supporting them on their journey of conversion, prayer, and reconciliation in this place chosen by God.",
+            "paragraph-2": "Here, in an atmosphere of grace, the supernatural intertwines with everyday life."
         },
         "cards": {
             "1": {
-                "title": "text",
-                "subtitle": "text",
-                "image-alt": "text"
+                "title": "Our History",
+                "subtitle": "A reference point for pilgrims in Medjugorje",
+                "image-alt": "Our history image"
             },
             "2": {
-                "title": "text",
-                "subtitle": "text",
-                "image-alt": "text"
+                "title": "Our Mission",
+                "subtitle": "We are here to stand by your side",
+                "image-alt": "Our mission image"
             },
             "history": {
-                "title": "text",
-                "subtitle": "text",
-                "paragraph1": "text",
-                "paragraph2": "text"
+                "title": "Our History",
+                "subtitle": "A reference point for pilgrims in Medjugorje",
+                "paragraph1": "Medjugorje Service was founded in 2012, almost 30 years after the first apparitions of the Virgin Mary, with the aim of accompanying those who come to this place of prayer and spirituality. With years of experience and deep knowledge of the area, we take care of every detail of your stay: from safety to comfort, from transportation to guided tours.",
+                "paragraph2": "We believe that every pilgrimage is a unique journey. Our task is to make it as peaceful and meaningful as possible."
             },
             "mission": {
-                "title": "text",
-                "subtitle": "text",
-                "paragraph": "text"
+                "title": "Our Mission",
+                "subtitle": "We are here to stand by your side",
+                "paragraph": "In addition to careful technical organization, each group can rely on our professional support to experience their pilgrimage with peace and confidence."
             }
         },
-        "title": "text"
+        "title": "About Us"
     },
     "services": {
         "airportTransfers": {
-            "title": "text",
-            "element1": "text",
-            "element2": "text",
-            "element3": "text",
-            "element4": "text",
-            "element5": "text",
-            "element6": "text"
+            "title": "Airport Transfers",
+            "element1": "Sarajevo",
+            "element2": "Mostar",
+            "element3": "Dubrovnik",
+            "element4": "Split",
+            "element5": "Zadar",
+            "element6": "Venice"
         },
         "portTransfers": {
-            "title": "text",
-            "element1": "text",
-            "element2": "text"
+            "title": "Port Transfers",
+            "element1": "Dubrovnik",
+            "element2": "Split"
         },
         "accommodation": {
-            "title": "text",
-            "element1": "text",
-            "element2": "text",
-            "element3": "text",
-            "element4": "text"
+            "title": "Accommodation",
+            "element1": "Family Guesthouse",
+            "element2": "3-Star Hotel",
+            "element3": "4-Star Hotel",
+            "element4": "4-Star Superior Hotel"
         },
         "guide": {
-            "title": "text",
-            "element1": "text"
+            "title": "Guide",
+            "element1": "Local"
         },
         "guidedTours": {
-            "title": "text",
-            "element1": "text",
-            "element2": "text",
-            "element3": "text",
-            "element4": "text",
-            "element5": "text"
+            "title": "Guided Tours",
+            "element1": "Sarajevo",
+            "element2": "Mostar",
+            "element3": "Tkalina",
+            "element4": "Surmanci",
+            "element5": "Dubrovnik"
         },
-        "title": "text",
-        "specification": "text",
+        "title": "Services",
+        "specification": "The services are offered to pre-formed pilgrimage groups",
         "cards": {
             "1": {
-                "title": "text",
-                "subtitle": "text",
+                "title": "Radio Rent",
+                "subtitle": "Learn more",
                 "features": {
-                    "1": "text",
-                    "2": "text",
-                    "3": "text",
-                    "4": "text",
-                    "5": "text",
-                    "6": "text"
+                    "1": "High-quality stereo audio",
+                    "2": "Double earphone (left to the pilgrim)",
+                    "3": "Multilingual instructions (in 4 languages)",
+                    "4": "Custom channel for each group",
+                    "5": "Channel dedicated to simultaneous translation",
+                    "6": "Identification via barcode number"
                 }
             },
             "2": {
-                "title": "text",
-                "subtitle": "text",
+                "title": "Proposals",
+                "subtitle": "Learn more",
                 "features": {
-                    "1": "text",
-                    "2": "text",
-                    "3": "text",
-                    "4": "text",
-                    "5": "text",
-                    "6": "text"
+                    "1": "Updated and available radio list",
+                    "2": "Rechargeable battery included",
+                    "3": "Delivery and pickup directly at the hotel",
+                    "4": "Continuous assistance throughout the stay",
+                    "5": "Optimal listening experience",
+                    "6": "Compatibility with evening parish program"
                 }
             },
-            "section-aria": "text"
+            "section-aria": "Services section"
         },
         "header": {
-            "title": "text",
-            "title_sr": "text",
-            "description": "text"
+            "title": "Be Inspired",
+            "title_sr": "Be Inspired (sr-only)",
+            "description": "Discover all our services dedicated to pilgrims"
         }
     },
     "payments": {
-        "title": "text",
+        "title": "Payments",
         "header": {
-            "title": "text",
-            "description": "text"
+            "title": "Payment Methods",
+            "description": "Payments to Medjugorje Service can be made, always specifying the case number:"
         },
         "methods": {
-            "bank": "text",
-            "cash": "text"
+            "bank": "By bank transfer",
+            "cash": "In cash, at the offices of Medjugorje Service"
         }
     },
     "home": {
         "hero": {
-            "aria": "text",
-            "title": "text",
-            "title_sr": "text",
-            "subtitle": "text",
-            "cta_aria": "text",
-            "cta": "text"
+            "aria": "Main section",
+            "title": "Welcome to Medjugorje Service",
+            "title_sr": "Welcome to Medjugorje Service",
+            "subtitle": "Serving pilgrims since 2012",
+            "cta_aria": "Learn more",
+            "cta": "Learn more"
         },
         "social": {
-            "title": "text",
-            "subtitle": "text"
+            "title": "Follow us on social media",
+            "subtitle": "Share with us the most exciting moments of your pilgrimage"
         },
-        "title": "text",
+        "title": "Home",
         "inspire": {
             "cards": {
                 "1": {
-                    "title": "text",
-                    "subtitle": "text",
-                    "images": {
-                        "1": { "alt": "text" }
-                    }
+                    "title": "Radio Rent",
+                    "button": "Learn more",
+                    "images": { "1": { "alt": "Radio Rent" } }
                 },
                 "2": {
-                    "title": "text",
-                    "subtitle": "text",
-                    "images": {
-                        "1": { "alt": "text" }
-                    }
+                    "title": "Proposals",
+                    "button": "Learn more",
+                    "images": { "1": { "alt": "Proposals" } }
                 },
                 "3": {
-                    "title": "text",
-                    "subtitle": "text",
-                    "images": {
-                        "1": { "alt": "text" }
-                    }
+                    "title": "Jubilee 2025",
+                    "button": "Learn more",
+                    "images": { "1": { "alt": "Jubilee 2025" } }
                 }
             },
-            "title": "text"
+            "title": "Be Inspired"
         }
     },
     "jubilee": {
-        "title": "text",
+        "title": "Jubilee 2025",
         "header": {
-            "image-alt": "text"
+            "image-alt": "St. James Jubilee Door"
         },
         "body": {
-            "title": "text",
-            "paragraph1": "text",
+            "title": "The JUBILEE and INDULGENCES",
+            "paragraph1": "The Jubilee is an ancient institution of the Catholic Church, dating back to 1300 with Pope Boniface VIII.",
             "paragraph2": {
-                "quote": "text",
-                "source": "text"
+                "before-quote": "Pope Francis reminds us that indulgence",
+                "quote": "allows us to discover how unlimited God's mercy is. It is no coincidence that in ancient times the term mercy was used interchangeably with indulgence, precisely because it expresses the fullness of God's forgiveness that knows no bounds"
             },
             "paragraph3": {
-                "beforeBold": "text",
-                "bold": "text",
-                "afterBold": "text"
+                "beforeBold": "Indulgence is therefore a grace proper to the Jubilee.",
+                "bold": "It can be received by all the faithful who are truly repentant, moved by charity, ",
+                "afterBold": "who during the Holy Year approach the sacrament of Penance, receive the Eucharist, and pray according to the intentions of the Holy Father."
             },
-            "paragraph4": "text",
+            "paragraph4": "It can also be applied in suffrage for the souls in Purgatory.",
             "paragraph5": {
-                "bold": "text",
-                "normal": "text"
+                "bold": "Pope Francis has authorized that the parish church of St. James the Apostle in Medjugorje be designated as a \"Jubilee door\"",
+                "normal": "an official place where, for the entire ordinary Jubilee of 2025, it will be possible to obtain the plenary indulgence."
             }
         }
     },
     "radio-rent": {
         "body": {
             "features": {
-                "audio": "text",
-                "earphones": "text",
-                "instructions": "text",
-                "personalChannel": "text",
-                "translationChannel": "text",
-                "barcode": "text",
-                "radioList": "text",
-                "battery": "text",
-                "delivery": "text",
-                "support": "text"
+                "audio": "High-quality stereo audio",
+                "earphones": "Double earphone (left to the pilgrim)",
+                "instructions": "Multilingual instructions (in 4 languages)",
+                "personalChannel": "Custom channel for each group",
+                "translationChannel": "Channel dedicated to simultaneous translation",
+                "barcode": "Identification via barcode number",
+                "radioList": "Updated and available radio list",
+                "battery": "Rechargeable battery included",
+                "delivery": "Delivery and pickup directly at the hotel",
+                "support": "Continuous assistance throughout the stay"
             },
-            "title": "text",
-            "subtitle": "text",
-            "intro": "text",
-            "benefits": "text",
-            "integration": "text",
-            "featuresTitle": "text",
-            "closure": "text"
+            "title": "Live an experience",
+            "subtitle": "Radio Guide Service for Pilgrimages",
+            "intro": "Since 2012, we have been offering a professional radio guide rental service for pilgrimage groups, designed to accompany every moment with recollection, sharing, and spirituality.",
+            "benefits": "Thanks to radio guides, it is possible to follow catechesis, prayer moments, and guided tours in silence and meditation, without losing contact with your group.",
+            "integration": "The system is also integrated with the evening parish program: pilgrims can listen to its simultaneous translation in major languages, remaining united in prayer even in different idioms.",
+            "featuresTitle": "Service Features",
+            "closure-before-link": "A service designed to make the pilgrimage more collected, organized, and profound.",
+            "closure-after-link": "Contact us",
+            "closure-link": "to book the radio guides for your group."
         },
-        "title": "text",
+        "title": "Radio Rent",
         "header": {
-            "image-alt": "text"
+            "image-alt": "Radio guides for pilgrimages"
         }
     },
     "privacy": {
-        "title": "text",
+        "title": "Privacy Policy",
         "body": {
-            "title": "text",
+            "title": "Privacy Policy",
             "paragraph1": {
-                "beforeBold": "text",
-                "afterBold": "text"
+                "beforeBold": "While browsing the",
+                "afterBold": "website, you may provide some personal data by filling in forms or requests."
             },
-            "paragraph2": "text",
-            "paragraph3": "text",
+            "paragraph2": "The purpose for which we process your data is related to your information request and any participation in our initiatives. The legal basis of the processing is therefore your expressed interest in receiving information and services.",
+            "paragraph3": "Your data will never be disseminated or communicated to third parties. Filling in the “Information Request” form is considered a clear and unequivocal action, considered as explicit consent to the processing of personal data.",
             "paragraph4": {
-                "beforeBold": "text",
-                "bold": "text",
-                "afterBold": "text"
+                "beforeBold": "Providing the data is",
+                "bold": "mandatory",
+                "afterBold": "in order to fulfill your requests."
             },
             "paragraph5": {
-                "beforeBold": "text",
-                "bold": "text",
-                "afterBold": "text"
-            },
-            "paragraph6": {
-                "beforeBold": "text",
-                "bold": "text",
-                "afterBold": "text"
-            },
-            "paragraph7": {
-                "beforeBold": "text",
-                "bold": "text",
-                "afterBold": "text"
-            },
-            "paragraph8": {
-                "beforeLink": "text",
-                "bold": "text",
-                "afterLink": "text"
+                "beforeBold": "Regarding any personal data processing by the managers of",
+                "bold": "Social Media",
+                "afterBold": "platforms used by Medjugorje Service (and connected to it), we invite you to consult the respective Privacy Policies, available directly on the official websites of the platforms themselves."
             }
         }
     },
     "proposals": {
-        "title": "text",
+        "title": "Proposals",
         "header": {
-            "image-alt": "text",
-            "title": "text",
-            "subtitle": "text"
+            "image-alt": "Pilgrimage proposals",
+            "title": "Want to come?",
+            "subtitle": "Let us help you"
         },
         "body": {
-            "intro": "text",
-            "pilgrimage": "text"
+            "intro": "Relying on Medjugorje Service means choosing an expert local partner, with years of experience, reliable and transparent in the services offered. We are by your side to organize your pilgrimage to Medjugorje in a simple, complete, and safe way.",
+            "pilgrimage": "Fill out the 'Information Request' form and receive a customized proposal with an advantageous offer. Medjugorje awaits you. And we are here to accompany you."
         },
         "steps": {
-            "title": "text",
-            "step1": "text",
-            "step2": "text"
+            "title": "What to do?",
+            "step1": "Fill out the \"Information Request\" form",
+            "step2": "Receive a customized proposal with an advantageous offer"
         },
         "footer": {
-            "text": "text"
+            "text": "Medjugorje awaits you. And we are here to accompany you."
+        }
+    },
+    "offices": {
+        "title": "Offices",
+        "body": {
+            "title": "Our Offices",
+            "card": {
+                "title": "Headquarters",
+                "subtitle": "Pape Ivana Pavla II 14 88266 Medjugorje",
+                "button": "Map",
+                "image-alt": "Office location map"
+            }
+        }
+    },
+    "gallery": {
+        "title": "Photo Gallery",
+        "body": {
+            "title": "Gallery",
+            "image-alt": "Gallery image",
+            "preview-alt": "Image preview"
         }
     }
 }
