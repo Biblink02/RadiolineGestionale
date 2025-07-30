@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import AppLayout from "@/Layouts/AppLayout.vue";
+import {breakpointsTailwind} from "@vueuse/core";
 
 const {t} = useI18n();
 const props = defineProps<{
@@ -11,31 +12,41 @@ const allImages = Array.from({length: props.imgNumber}, (_, i) => ({
 }));
 
 const batch = ref(1);
-const loadedImages = computed(() =>
-    allImages.slice(0, props.batchSize * batch.value)
-)
-useEventListener(window, 'scroll', () => {
+const loadedImages = computed(() => allImages.slice(0, props.batchSize * batch.value))
+
+const stopScroll = useEventListener(window, 'scroll', () => {
     const threshold = Math.min(0.5 + (batch.value - 1) * 0.1, 0.8);
-    // Check if the user has scrolled at least halfway down the page && if there are still more images to load
-    if (window.innerHeight + window.scrollY >= document.body.offsetHeight * threshold &&
-        props.imgNumber > props.batchSize * batch.value)
+
+    if (props.imgNumber <= props.batchSize * batch.value) {
+        stopScroll();
+    } else if (window.innerHeight + window.scrollY >= document.body.offsetHeight * threshold) {
         batch.value++;
-})
+    }
+});
+const breakpoints = useBreakpoints(breakpointsTailwind);
+const gap = computed(() => {
+    if (breakpoints.smaller("sm").value) return 20;
+    if (breakpoints.between("sm", "md").value) return 30;
+    if (breakpoints.between("md", "lg").value) return 40;
+    if (breakpoints.between("lg", "xl").value) return 50;
+    if (breakpoints.greaterOrEqual("xl").value) return 60;
+    return 40;
+});
 const imageAlt = t('gallery.body.image-alt');
 const previewAlt = t('gallery.body.preview-alt')
 </script>
 
 <template>
     <AppLayout :title="t('gallery.title')">
-        <h1 class="text-center text-bold text-4xl mt-9">{{t('gallery.body.title')}}</h1>
+        <h1 class="text-center text-bold text-4xl mt-9">{{ t('gallery.body.title') }}</h1>
         <masonry-wall
             :items="loadedImages"
             :ssr-columns="1"
             :min-columns="1"
             :max-columns="3"
             :column-width="300"
-            :gap="60"
-            class="m-20"
+            :gap="gap"
+            class="m-4 sm:m-8 md:m-12 lg:m-20"
         >
             <template #default="{ item, index }">
                 <div class="transition-transform duration-300 hover:scale-105 rounded shadow-md overflow-hidden">

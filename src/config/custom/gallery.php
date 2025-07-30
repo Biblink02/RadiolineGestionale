@@ -2,5 +2,5 @@
 
 return [
     'imgNumber' => 33,
-    'batchSize' => 20,
+    'batchSize' => 33,
 ];
