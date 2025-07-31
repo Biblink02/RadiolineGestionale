@@ -15,7 +15,7 @@ const batch = ref(1);
 const loadedImages = computed(() => allImages.slice(0, props.batchSize * batch.value))
 
 const stopScroll = useEventListener(window, 'scroll', () => {
-    const threshold = Math.min(0.5 + (batch.value - 1) * 0.1, 0.8);
+    const threshold = Math.min(0.4 + (batch.value - 1) * 0.1, 0.7);
 
     if (props.imgNumber <= props.batchSize * batch.value) {
         stopScroll();
