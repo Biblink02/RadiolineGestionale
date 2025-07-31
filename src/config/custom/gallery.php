@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'imgNumber' => 33,
-    'batchSize' => 33,
+    'imgNumber' => 203,
+    'batchSize' => 25,
 ];
