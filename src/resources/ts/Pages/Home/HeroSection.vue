@@ -6,7 +6,7 @@ import Home1 from "@/../media/1-home.jpg";
 
 <template>
     <section
-        class="relative flex min-h-[70vh] lg:min-h-[75vh] items-center justify-center bg-cover bg-fixed bg-right md:bg-center"
+        class="relative flex min-h-[70vh] lg:min-h-[75vh] items-center justify-center bg-cover bg-fixed bg-[15%_50%]"
         :aria-label="t('home.hero.aria')"
         role="region"
         :style="{ backgroundImage: `url(${Home1})`}"
