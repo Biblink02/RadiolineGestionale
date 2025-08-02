@@ -104,7 +104,7 @@ const mobileMenuOpen = ref(false);
                     v-for="link in pages"
                     :key="link.href"
                     :href="link.href"
-                    class="hover:text-blue-600 text-gray-800 transition-colors text-center"
+                    class="hover:text-blue-600 text-center"
                     :class="{ 'text-blue-700 underline': link.href === page.url }"
                     @click="mobileMenuOpen = false"
                 >
@@ -114,14 +114,13 @@ const mobileMenuOpen = ref(false);
                     v-for="link in menu"
                     :key="link.href"
                     :href="link.href"
-                    class="hover:text-blue-600 text-gray-800 transition-colors text-center"
+                    class="hover:text-blue-600 text-center"
                     :class="{ 'text-blue-700 underline': link.href === page.url }"
                     @click="mobileMenuOpen = false"
                 >
                     {{ link.name }}
                 </Link>
             </nav>
-
             <!-- FOOTER TEMPLATE -->
             <template #footer>
                 <div class="pt-6">
