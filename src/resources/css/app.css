@@ -1,6 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Libertinus+Sans:ital,wght@0,400;0,700;1,400&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Sacramento&display=swap');/*@custom-variant dark (&:where(.my-app-dark, .my-app-dark *));*/
 @import "tailwindcss";
 @import "tailwindcss-primeui";
-/*@custom-variant dark (&:where(.my-app-dark, .my-app-dark *));*/
 @theme{
     --color-primary: var(--color-blue-800);
+    --font-sans: "Open Sans", ui-sans-serif, system-ui, sans-serif;
 }
+
