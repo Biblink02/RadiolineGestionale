@@ -1,0 +1,340 @@
+{
+    "footer": {
+        "links": {
+            "label1": "Quem somos",
+            "label2": "Contacte-nos",
+            "label3": "Os nossos escritórios",
+            "label4": "Privacidade",
+            "label5": "Pagamentos"
+        }
+    },
+    "countries": {
+        "italy": "Itália",
+        "spain": "Espanha",
+        "portugal": "Portugal",
+        "france": "França",
+        "germany": "Alemanha",
+        "united-kingdom": "Reino Unido",
+        "bosnia-herzegovina": "Bósnia-Herzegovina"
+    },
+    "contact-us": {
+        "profile": {
+            "1": "Agência",
+            "2": "Organizador",
+            "3": "Acompanhante espiritual",
+            "label": "Perfil",
+            "placeholder": "Selecione o perfil"
+        },
+        "toast": {
+            "success": {
+                "title": "Pedido enviado",
+                "message": "Obrigado pelo seu pedido! Entraremos em contacto o mais breve possível."
+            },
+            "error": {
+                "title": "Erro",
+                "message": "Ocorreu um problema ao enviar o pedido."
+            }
+        },
+        "form-title": "Pedido de informações",
+        "first-name": "Nome",
+        "last-name": "Apelido",
+        "phone": "Telefone",
+        "email": "Email",
+        "country-label": "País",
+        "message": "Mensagem",
+        "privacy": {
+            "accept": "Li e aceito a política de privacidade",
+            "link": "Política de Privacidade"
+        },
+        "firstNamePlaceholder": "Digite o seu nome",
+        "last-name-placeholder": "Digite o seu apelido",
+        "email-placeholder": "Digite o seu email",
+        "phone-placeholder": "Digite o seu número de telefone",
+        "country-placeholder": "Selecione o seu país",
+        "message-placeholder": "Escreva a sua mensagem",
+        "submit": "Enviar pedido",
+        "title": "Contacte-nos"
+    },
+    "service_card": {
+        "aria_price": "Preço do serviço",
+        "per_radio": "por rádio",
+        "aria_features": "Características do serviço",
+        "aria_learn": "Saiba mais",
+        "learn_more": "Saiba mais"
+    },
+    "navbar": {
+        "links": {
+            "who-are-we": "Quem somos",
+            "contact-us": "Contacte-nos",
+            "privacy": "Privacidade",
+            "payments": "Pagamentos",
+            "gallery": "Galeria",
+            "radio-rent": "Aluguer de rádios",
+            "services": "Serviços",
+            "proposals": "Propostas",
+            "jubilee-2025": "Jubileu 2025"
+        }
+    },
+    "about-us": {
+        "header": {
+            "image-alt": "Imagem da seção Quem somos",
+            "title": "Neste lugar de graça",
+            "subtitle": "Ao serviço dos peregrinos",
+            "paragraph-1": "A Medjugorje Service trabalha para acolher os peregrinos oferecendo assistência técnica e organizacional, apoiando-os no seu caminho de conversão, oração e reconciliação neste lugar escolhido por Deus.",
+            "paragraph-2": "Aqui, num ambiente de graça, o sobrenatural mistura-se com a vida quotidiana."
+        },
+        "cards": {
+            "1": {
+                "title": "A nossa história",
+                "subtitle": "Um ponto de referência para os peregrinos em Medjugorje",
+                "button": "Ver mais",
+                "image-alt": "Imagem da nossa história"
+            },
+            "2": {
+                "title": "A nossa missão",
+                "subtitle": "Estamos aqui para estar ao seu lado",
+                "button": "Ver mais",
+                "image-alt": "Imagem da nossa missão"
+            },
+            "history": {
+                "title": "A nossa história",
+                "subtitle": "Um ponto de referência para os peregrinos em Medjugorje",
+                "paragraph1": "A Medjugorje Service nasceu em 2012, quase 30 anos após as primeiras aparições da Virgem Maria, com o objetivo de acolher aqueles que chegam a este lugar de oração e espiritualidade. Com anos de experiência e um profundo conhecimento do território, cuidamos de cada detalhe da sua estadia: da segurança ao conforto, do transporte às visitas guiadas.",
+                "paragraph2": "Acreditamos que cada peregrinação é uma viagem única. A nossa missão é torná-la o mais serena e significativa possível."
+            },
+            "mission": {
+                "title": "A nossa missão",
+                "subtitle": "Estamos aqui para estar ao seu lado",
+                "paragraph": "Além de uma organização técnica cuidadosa, cada grupo pode contar com a nossa disponibilidade profissional, para viver a sua peregrinação com serenidade e confiança."
+            }
+        },
+        "title": "Quem somos"
+    },
+    "services": {
+        "airportTransfers": {
+            "title": "Transferes de e para aeroportos",
+            "element1": "Sarajevo",
+            "element2": "Mostar",
+            "element3": "Dubrovnik",
+            "element4": "Split",
+            "element5": "Zadar",
+            "element6": "Veneza"
+        },
+        "portTransfers": {
+            "title": "Transferes de e para portos",
+            "element1": "Dubrovnik",
+            "element2": "Split"
+        },
+        "accommodation": {
+            "title": "Alojamento",
+            "element1": "Pensão familiar",
+            "element2": "Hotel 3 estrelas",
+            "element3": "Hotel 4 estrelas",
+            "element4": "Hotel 4 estrelas S"
+        },
+        "guide": {
+            "title": "Guia",
+            "element1": "Local"
+        },
+        "guidedTours": {
+            "title": "Visitas guiadas",
+            "element1": "Sarajevo",
+            "element2": "Mostar",
+            "element3": "Tihaijina",
+            "element4": "Surmanci",
+            "element5": "Dubrovnik"
+        },
+        "title": "Serviços",
+        "specification": "Os serviços são oferecidos a grupos de peregrinos pré-constituídos",
+        "cards": {
+            "1": {
+                "title": "Aluguer de rádios",
+                "subtitle": "Saiba mais",
+                "features": {
+                    "1": "Áudio estéreo de alta qualidade",
+                    "2": "Auricular duplo (deixado com o peregrino)",
+                    "3": "Instruções multilingues (em 4 idiomas)",
+                    "4": "Canal personalizado para cada grupo",
+                    "5": "Canal dedicado à tradução simultânea",
+                    "6": "Identificação por número de código de barras"
+                }
+            },
+            "2": {
+                "title": "Propostas",
+                "subtitle": "Saiba mais",
+                "features": {
+                    "1": "Lista de rádios atualizada e disponível",
+                    "2": "Bateria recarregável incluída",
+                    "3": "Entrega e recolha diretamente no hotel",
+                    "4": "Assistência contínua durante toda a estadia",
+                    "5": "Experiência de audição ótima",
+                    "6": "Compatibilidade com o programa paroquial noturno"
+                }
+            },
+            "section-aria": "Seção de serviços"
+        },
+        "header": {
+            "title": "Deixe-se inspirar",
+            "title_sr": "Deixe-se inspirar (sr-only)",
+            "description": "Descubra todos os nossos serviços dedicados aos peregrinos"
+        }
+    },
+    "payments": {
+        "title": "Pagamentos",
+        "header": {
+            "title": "Métodos de pagamento",
+            "description": "Os pagamentos à Medjugorje Service podem ser feitos, especificando sempre o número de processo:"
+        },
+        "methods": {
+            "bank": "Por transferência bancária",
+            "cash": "Em dinheiro, nos escritórios da Medjugorje Service"
+        }
+    },
+    "home": {
+        "hero": {
+            "aria": "Seção principal",
+            "title": "Medjugorje Service",
+            "title_sr": "Medjugorje Service",
+            "subtitle": "está ao seu lado"
+        },
+        "social": {
+            "title": "Siga-nos nas redes sociais",
+            "subtitle": "Partilhe connosco os momentos mais emocionantes da sua peregrinação"
+        },
+        "title": "Início",
+        "inspire": {
+            "cards": {
+                "1": {
+                    "title": "Aluguer de rádios",
+                    "button": "Saiba mais",
+                    "images": { "1": { "alt": "Aluguer de rádios" } }
+                },
+                "2": {
+                    "title": "Propostas",
+                    "button": "Saiba mais",
+                    "images": { "1": { "alt": "Propostas" } }
+                },
+                "3": {
+                    "title": "Jubileu 2025",
+                    "button": "Saiba mais",
+                    "images": { "1": { "alt": "Jubileu 2025" } }
+                }
+            },
+            "title": "Deixe-se inspirar"
+        }
+    },
+    "jubilee": {
+        "title": "Jubileu 2025",
+        "header": {
+            "image-alt": "Porta jubilar de São Tiago"
+        },
+        "body": {
+            "title": "O JUBILEU e as INDULGÊNCIAS",
+            "image-alt": "Logótipo do Jubileu 2025",
+            "paragraph1": "O Jubileu é uma antiga instituição da Igreja Católica, que remonta a 1300 com o Papa Bonifácio VIII.",
+            "paragraph2": {
+                "before-quote": "O Papa Francisco lembra que a indulgência",
+                "quote": "permite descobrir quão ilimitada é a misericórdia de Deus. Não é por acaso que na antiguidade o termo misericórdia era usado de forma intercambiável com indulgência, precisamente porque expressa a plenitude do perdão de Deus que não conhece limites"
+            },
+            "paragraph3": {
+                "beforeBold": "A indulgência é, portanto, uma graça própria do Jubileu.",
+                "bold": "Podem recebê-la todos os fiéis verdadeiramente arrependidos, movidos pela caridade, ",
+                "afterBold": "que durante o Ano Santo se aproximem do sacramento da Penitência, recebam a Eucaristia e rezem pelas intenções do Santo Padre."
+            },
+            "paragraph4": "Pode também ser aplicada em sufrágio pelas almas do Purgatório.",
+            "paragraph5": {
+                "bold": "O Papa Francisco autorizou que a igreja paroquial de São Tiago Apóstolo em Medjugorje seja designada como \"porta jubilar\"",
+                "normal": "um local oficial onde, durante todo o Jubileu ordinário de 2025, será possível obter a indulgência plenária."
+            }
+        }
+    },
+    "radio-rent": {
+        "body": {
+            "features": {
+                "audio": "Áudio estéreo de alta qualidade",
+                "earphones": "Auricular duplo (deixado com o peregrino)",
+                "instructions": "Instruções multilingues (em 4 idiomas)",
+                "personalChannel": "Canal personalizado para cada grupo",
+                "translationChannel": "Canal dedicado à tradução simultânea",
+                "barcode": "Identificação por número de código de barras",
+                "radioList": "Lista de rádios atualizada e disponível",
+                "battery": "Bateria recarregável incluída",
+                "delivery": "Entrega e recolha diretamente no hotel",
+                "support": "Assistência contínua durante toda a estadia"
+            },
+            "title": "Viva uma experiência",
+            "subtitle": "Serviço de guias de rádio para peregrinações",
+            "intro": "Desde 2012, oferecemos um serviço profissional de aluguer de guias de rádio para grupos em peregrinação, pensado para acompanhar cada momento com recolhimento, partilha e espiritualidade.",
+            "benefits": "Graças às guias de rádio é possível acompanhar catequeses, momentos de oração e visitas guiadas em silêncio e meditação, sem perder o contacto com o seu grupo.",
+            "integration": "O sistema está também integrado no programa paroquial da noite: os peregrinos podem ouvir a tradução simultânea nos principais idiomas, permanecendo unidos na oração mesmo em diferentes línguas.",
+            "featuresTitle": "Características do serviço",
+            "closure-before-link": "Um serviço pensado para tornar a peregrinação mais recolhida, organizada e profunda.",
+            "closure-after-link": "Contacte-nos",
+            "closure-link": "para reservar as guias de rádio para o seu grupo."
+        },
+        "title": "Aluguer de rádios",
+        "header": {
+            "image-alt": "Guias de rádio para peregrinações"
+        }
+    },
+    "privacy": {
+        "title": "Política de Privacidade",
+        "body": {
+            "title": "Política de Privacidade",
+            "paragraph1": {
+                "beforeBold": "Ao navegar no site de",
+                "afterBold": "poderá fornecer alguns dados pessoais através do preenchimento de formulários ou pedidos."
+            },
+            "paragraph2": "A finalidade para a qual tratamos os seus dados está relacionada com o seu pedido de informação e eventual participação nas nossas iniciativas. A base legal do tratamento é, portanto, o seu interesse expresso em receber informações e serviços.",
+            "paragraph3": "Os seus dados nunca serão divulgados nem comunicados a terceiros. O preenchimento do formulário “Pedido de informações” representa uma ação clara e inequívoca, considerada como consentimento explícito para o tratamento dos dados pessoais.",
+            "paragraph4": {
+                "beforeBold": "O fornecimento dos dados é",
+                "bold": "obrigatório",
+                "afterBold": "para podermos satisfazer os pedidos que nos enviar."
+            },
+            "paragraph5": {
+                "beforeBold": "Relativamente ao eventual tratamento de dados pessoais por parte dos gestores das plataformas",
+                "bold": "Redes Sociais",
+                "afterBold": "utilizadas pela Medjugorje Service (e a ela associadas), convidamo-lo a consultar as respetivas Políticas de Privacidade, disponíveis diretamente nos sites oficiais das próprias plataformas."
+            }
+        }
+    },
+    "proposals": {
+        "title": "Propostas",
+        "header": {
+            "image-alt": "Propostas de peregrinação",
+            "title": "Quer vir?",
+            "subtitle": "Deixe-nos ajudar"
+        },
+        "body": {
+            "intro": "Confiar na Medjugorje Service significa escolher um parceiro local experiente, com anos de experiência, fiável e transparente nos serviços oferecidos. Estamos ao seu lado para organizar a sua peregrinação a Medjugorje de forma simples, completa e segura.",
+            "pilgrimage": "Preencha o formulário 'Pedido de informações' e receba uma proposta personalizada com uma oferta vantajosa.",
+            "end": "Medjugorje espera por si. E nós estamos aqui para o acompanhar."
+        },
+        "steps": {
+            "title": "O que fazer?",
+            "step1": "Preencha o formulário \"Pedido de informações\"",
+            "step2": "Receba uma proposta personalizada com uma oferta vantajosa"
+        }
+    },
+    "offices": {
+        "title": "Escritórios",
+        "body": {
+            "title": "Os nossos escritórios",
+            "card": {
+                "title": "Sede central",
+                "subtitle": "Pape Ivana Pavla II 14 88266 Medjugorje",
+                "button": "Mapa",
+                "image-alt": "Mapa da localização do escritório"
+            }
+        }
+    },
+    "gallery": {
+        "title": "Galeria fotográfica",
+        "body": {
+            "title": "Galeria",
+            "image-alt": "Imagem da galeria",
+            "preview-alt": "Pré-visualização da imagem"
+        }
+    }
+}
