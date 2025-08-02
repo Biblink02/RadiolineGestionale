@@ -6,13 +6,12 @@ use App\Enums\ContactFormProfileTypeEnum;
 use App\Http\Mail\ContactFormMail;
 use App\Http\Requests\ContactFormRequest;
 use App\Models\ContactForm;
-use Illuminate\Http\Response;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Redirect;
 
 class ContactFormController extends Controller
 {
-    public function handleContactFormRequest(ContactFormRequest $request)
+    public function handleContactFormRequest(ContactFormRequest $request): RedirectResponse
     {
         $parameters = $request->validated();
         $country = config('countries.' . $parameters['country']);
@@ -31,7 +30,7 @@ class ContactFormController extends Controller
             $parameters['lastName'],
             $parameters['language'] ?? null,
             $form));
-        return redirect()->back()->with('success', 'Thanks for contacting us!');
+        return redirect()->route('page.contact-us')->with('success', 'Thanks for contacting us!');
     }
 
 }
