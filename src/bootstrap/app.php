@@ -19,7 +19,7 @@ return Application::configure(basePath: dirname(__DIR__))
             \Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets::class,
         ]);
 
-        if ($_ENV['APP_ENV'] === 'production') {
+        if (env('APP_ENV') === 'production') {
             $privateRanges = [
                 '10.0.0.0/8',
                 '172.16.0.0/12',
@@ -29,7 +29,7 @@ return Application::configure(basePath: dirname(__DIR__))
             ];
 
             // Se vuoi fidarti solo del tuo proxy specifico, usa l'env
-            $proxies = $_ENV['APP_TRUST_PROXY'] ?? $privateRanges;
+            $proxies = env('APP_TRUST_PROXY') ?? $privateRanges;
 
             $middleware->trustProxies(
                 at: $proxies,
