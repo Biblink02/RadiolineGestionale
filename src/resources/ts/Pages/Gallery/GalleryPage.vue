@@ -32,6 +32,7 @@ const gap = computed(() => {
     if (breakpoints.greaterOrEqual("xl").value) return 60;
     return 40;
 });
+
 const imageAlt = t('gallery.body.image-alt');
 const previewAlt = t('gallery.body.preview-alt')
 </script>

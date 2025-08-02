@@ -2,13 +2,14 @@
 
 import AppLayout from "@/Layouts/AppLayout.vue";
 import ImageAndTitle from "@/Components/Custom/ImageAndTitle.vue";
+import Jubilee8 from "@/../media/8-jubilee.jpg";
 
 const {t} = useI18n();
 </script>
 
 <template>
     <AppLayout :title="t('jubilee.title')">
-        <ImageAndTitle :src="'todo'" :alt="t('jubilee.header.image-alt')" without-text/>
+        <ImageAndTitle class="mt-8" :src="Jubilee8" :alt="t('jubilee.header.image-alt')" image-class="object-[50%_25%]"/>
         <div class="max-w-4xl mx-auto p-6">
             <!-- Titolo -->
             <h1 class="text-2xl font-bold text-center mb-6">

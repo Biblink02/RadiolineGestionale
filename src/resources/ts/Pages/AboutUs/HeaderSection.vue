@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import ImageAndTitle from "@/Components/Custom/ImageAndTitle.vue";
+import AboutUs5 from "@/../media/5-about-us.jpeg";
 
 const { t } = useI18n();
 </script>
@@ -7,7 +8,7 @@ const { t } = useI18n();
 <template>
     <section class="w-full my-8">
         <!-- Immagine banner con testo centrale -->
-        <ImageAndTitle src="https://www.operaromanapellegrinaggi.org/uploads/slideshow_item/image/120/fill_1400x708_490122475137.jpg" :alt="t('about-us.header.image-alt')"/>
+        <ImageAndTitle text="Medjugorje SERVICE" :src="AboutUs5" :alt="t('about-us.header.image-alt')"/>
 
 
 

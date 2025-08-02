@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import InspireCard from "@/Components/Custom/InspireCard.vue";
 import {InspireCardData} from "@/Types/InspireCardData";
+import AboutUs6 from "@/../media/6-about-us.jpeg";
+import AboutUs7 from "@/../media/7-about-us.jpeg";
 
 const {t} = useI18n()
 
@@ -9,25 +11,19 @@ const cards: InspireCardData[] = [
         //history
         title: t('about-us.cards.1.title'),
         subtitle: t('about-us.cards.1.subtitle'),
+        button: t('about-us.cards.2.button'),
         onClick: () => handleVisibleState('history'),
-        images: [
-            {
-                src: "https://merotto.it/app/uploads/2024/04/P007_video2-placeholder-low.jpg",
-                alt: t('about-us.cards.1.image-alt')
-            }
-        ]
+        imageSrc: AboutUs6,
+        imageAlt: t('about-us.cards.1.image-alt')
     },
     {
         //mission
         title: t('about-us.cards.2.title'),
         subtitle: t('about-us.cards.2.subtitle'),
+        button: t('about-us.cards.2.button'),
         onClick: () => handleVisibleState('mission'),
-        images: [
-            {
-                src: "https://www.pensionati.cna.it/wp-content/uploads/2024/01/AdobeStock_603073451_w.jpg",
-                alt: t('about-us.cards.2.image-alt')
-            }
-        ]
+        imageSrc: AboutUs7,
+        imageAlt: t('about-us.cards.2.image-alt')
     },
 ];
 const contentRef = ref<HTMLElement | null>(null);
@@ -61,7 +57,7 @@ const visibleState = ref<'none' | 'history' | 'mission'>('none');
         leave-to-class="opacity-0 translate-y-4"
     >
         <div v-show="visibleState !== 'none'" ref="contentRef" key="content"
-             class="text-center space-y-4 px-4 mb-20 h-50">
+             class="text-center space-y-4 px-4 mb-20 h-50 max-w-5xl mx-auto">
             <div v-if="visibleState === 'history'">
                 <h2 class="text-3xl font-bold">{{ t('about-us.cards.history.title') }}</h2>
                 <h3 class="text-xl font-semibold">{{ t('about-us.cards.history.subtitle') }}</h3>

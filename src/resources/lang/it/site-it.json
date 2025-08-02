@@ -87,11 +87,13 @@
             "1": {
                 "title": "La nostra storia",
                 "subtitle": "Un punto di riferimento per i pellegrini a Medjugorje",
+                "button": "Vedi di più",
                 "image-alt": "Immagine della nostra storia"
             },
             "2": {
                 "title": "La nostra missione",
                 "subtitle": "Siamo qui per essere al vostro fianco",
+                "button": "Vedi di più",
                 "image-alt": "Immagine della nostra missione"
             },
             "history": {

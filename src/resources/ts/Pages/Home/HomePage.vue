@@ -3,7 +3,6 @@ import AppLayout from "@/Layouts/AppLayout.vue";
 import InspireSection from "@/Pages/Home/InspireSection.vue";
 import HeroSection from "@/Pages/Home/HeroSection.vue";
 import SocialSection from "@/Pages/Home/SocialSection.vue";
-
 const {t} = useI18n();
 </script>
 

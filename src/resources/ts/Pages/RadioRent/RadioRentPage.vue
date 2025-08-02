@@ -5,6 +5,8 @@ import {RadioIcon} from "@hugeicons/core-free-icons";
 import ImageAndTitle from "@/Components/Custom/ImageAndTitle.vue";
 import {Link} from "@inertiajs/vue3"
 import {route} from "../../../../vendor/tightenco/ziggy";
+import RadioRent9 from "@/../media/9-radio-rent.jpg";
+
 const {t} = useI18n();
 const features = [
     {text: t('radio-rent.body.features.audio'), icon: 'pi pi-volume-up'},
@@ -22,7 +24,7 @@ const features = [
 
 <template>
     <AppLayout :title="t('radio-rent.title')">
-        <ImageAndTitle :src="'todo'" :alt="t('radio-rent.header.image-alt')" without-text/>
+        <ImageAndTitle :src="RadioRent9" :alt="t('radio-rent.header.image-alt')" image-class="object-[50%_75%]"/>
         <div class="max-w-4xl mx-auto p-6">
             <!-- Titolo principale -->
             <h2 class="text-2xl font-bold text-center mb-6">

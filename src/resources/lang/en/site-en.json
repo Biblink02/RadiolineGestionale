@@ -87,11 +87,13 @@
             "1": {
                 "title": "Our History",
                 "subtitle": "A reference point for pilgrims in Medjugorje",
+                "button": "View more",
                 "image-alt": "Our history image"
             },
             "2": {
                 "title": "Our Mission",
                 "subtitle": "We are here to stand by your side",
+                "button": "View more",
                 "image-alt": "Our mission image"
             },
             "history": {
