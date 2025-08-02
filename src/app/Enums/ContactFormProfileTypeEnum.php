@@ -12,4 +12,9 @@ enum ContactFormProfileTypeEnum: string
     {
         return array_column(self::cases(), 'value');
     }
+
+    public function label(): string
+    {
+        return __('profile_types.' . $this->value);
+    }
 }

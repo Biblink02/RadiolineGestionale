@@ -13,7 +13,8 @@
     <title>{{ __('emails.contact_confirmation.subject') }}</title>
 </head>
 <body style="font-family: 'Playfair Display', Arial, sans-serif; background-color: #f4f4f4; padding: 40px 10px;">
-<div style="max-width: 600px; margin: auto; background: #ffffff; padding: 30px; border-radius: 12px; border: 1px solid #e0e0e0; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+<div
+    style="max-width: 600px; margin: auto; background: #ffffff; padding: 30px; border-radius: 12px; border: 1px solid #e0e0e0; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
 
     <!-- Titolo -->
     <h2 style="color: #222222; font-size: 24px; font-weight: 600; margin-bottom: 10px;">
@@ -52,9 +53,7 @@
         </tr>
         <tr>
             <td style="padding: 6px 0; font-weight: bold;">{{ __('emails.contact_confirmation.fields.profileType') }}</td>
-            <td style="padding: 6px 0;">
-                {{ __('profile_types.' . ($contactForm['profileType'] ?? '')) }}
-            </td>
+            <td style="padding: 6px 0;">{{ $contactForm['profileType']->label() }}</td>
         </tr>
 
         <tr style="background: #f9f9f9;">

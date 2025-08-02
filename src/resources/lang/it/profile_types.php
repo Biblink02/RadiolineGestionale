@@ -3,5 +3,5 @@
 return [
     'AGENCY' => 'Agenzia',
     'ORGANIZATION' => 'Organizzazione',
-    'GUIDE' => 'Guida',
+    'GUIDE' => 'Guida Spirituale',
 ];
