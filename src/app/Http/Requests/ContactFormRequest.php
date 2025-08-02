@@ -18,7 +18,7 @@ class ContactFormRequest extends FormRequest
             'lastName' => 'required|string|max:100',
             'phone' => 'required|phone',
             'email' => 'required|email|max:255',
-            'country' => 'required|string|size:2', // codice ISO
+            'country' => 'required|string|size:2', // ISO
             'profileType' => 'required|string|max:50',
             'message' => 'required|string',
             'acceptPrivacy' => 'accepted',

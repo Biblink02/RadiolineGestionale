@@ -16,7 +16,7 @@ class ContactFormController extends Controller
     {
         $parameters = $request->validated();
         $country = config('countries.' . $parameters['country']);
-        ContactForm::create([
+        $form = ContactForm::create([
             'firstName' => $parameters['firstName'],
             'lastName' => $parameters['lastName'],
             'phone' => $parameters['phone'] ?? null,
@@ -26,7 +26,11 @@ class ContactFormController extends Controller
             'message' => $parameters['message'],
         ]);
 
-        Mail::to($parameters['email'])->send(new ContactFormMail($parameters['firstName'], $parameters['lastName'], $parameters['language'] ?? null));
+        Mail::to($parameters['email'])->send(new ContactFormMail(
+            $parameters['firstName'],
+            $parameters['lastName'],
+            $parameters['language'] ?? null,
+            $form));
         return redirect()->back()->with('success', 'Thanks for contacting us!');
     }
 

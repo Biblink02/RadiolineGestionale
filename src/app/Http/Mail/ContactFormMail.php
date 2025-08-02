@@ -2,13 +2,13 @@
 
 namespace App\Http\Mail;
 
+use App\Models\ContactForm;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Attachment;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Lang;
 
 class ContactFormMail extends Mailable
@@ -21,7 +21,8 @@ class ContactFormMail extends Mailable
     public function __construct(
         protected string $firstName,
         protected string $lastName,
-        public $locale = 'en'
+        public $locale = 'en',
+        protected ?ContactForm $contactForm = null
     ) {
         $this->locale = $locale ?? 'en';
     }
@@ -49,6 +50,7 @@ class ContactFormMail extends Mailable
                 'firstName' => $this->firstName,
                 'lastName' => $this->lastName,
                 'locale' => $this->locale,
+                'contactForm' => $this->contactForm,
             ],
         );
     }
