@@ -78,7 +78,7 @@ const isValid = computed(() => {
 
 const submit = () => {
     contactForm.phone = '+'.concat(contactForm.phone);
-    contactForm.post(route("api.request.contact-form"), {
+    contactForm.post(route("api.request.contact-form", undefined, false), {
         onSuccess: () => {
             toast.add({
                 severity: "success",
