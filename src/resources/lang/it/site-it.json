@@ -99,7 +99,7 @@
             "history": {
                 "title": "La nostra storia",
                 "subtitle": "Un punto di riferimento per i pellegrini a Medjugorje",
-                "paragraph1": "Medjugorje Service nasce nel 2012, quasi 30 anni dopo le prime apparizioni della Vergine Maria, con l’obiettivo di accompagnare chi arriva in questo luogo di preghiera e spiritualità. Con anni di esperienza e una profonda conoscenza del territorio, ci prendiamo cura di ogni dettaglio del tuo soggiorno: dalla sicurezza al comfort, dal trasporto alle visite guidate.",
+                "paragraph1": "Medjugorje Service nasce nel 2012, quasi 30 anni dopo le prime apparizioni della Vergine Maria, con l’obiettivo di accogliere chi arriva in questo luogo di preghiera e spiritualità. Con anni di esperienza e una profonda conoscenza del territorio, ci prendiamo cura di ogni dettaglio del tuo soggiorno: dalla sicurezza al comfort, dal trasporto alle visite guidate.",
                 "paragraph2": "Crediamo che ogni pellegrinaggio sia un viaggio unico. Il nostro compito è quello di renderlo il più sereno e significativo possibile."
             },
             "mission": {
@@ -140,7 +140,7 @@
             "title": "Visite guidate",
             "element1": "Sarajevo",
             "element2": "Mostar",
-            "element3": "Tkalina",
+            "element3": "Tihaijina",
             "element4": "Surmanci",
             "element5": "Dubrovnik"
         },
@@ -193,11 +193,9 @@
     "home": {
         "hero": {
             "aria": "Sezione principale",
-            "title": "Benvenuto a Medjugorje Service",
-            "title_sr": "Benvenuto a Medjugorje Service",
-            "subtitle": "Al servizio dei pellegrini dal 2012",
-            "cta_aria": "Scopri di più",
-            "cta": "Scopri di più"
+            "title": "Medjugorje Service",
+            "title_sr": "Medjugorje Service",
+            "subtitle": "al tuo fianco"
         },
         "social": {
             "title": "Seguici sui social",
@@ -232,6 +230,7 @@
         },
         "body": {
             "title": "Il GIUBILEO e le INDULGENZE",
+            "image-alt": "Logo del Giubileo 2025",
             "paragraph1": "Il Giubileo è un'antica istituzione della Chiesa Cattolica, risalente al 1300 con Papa Bonifacio VIII.",
             "paragraph2": {
                 "before-quote": "Papa Francesco ricorda che l’indulgenza",
@@ -309,15 +308,13 @@
         },
         "body": {
             "intro": "Affidarsi a Medjugorje Service significa scegliere un partner locale esperto, con anni di esperienza, affidabile e trasparente nei servizi offerti. Siamo al tuo fianco per organizzare il tuo pellegrinaggio a Medjugorje in modo semplice, completo e sicuro.",
-            "pilgrimage": "Compila il form 'Richiesta informazioni' e ricevi una proposta personalizzata con un’offerta vantaggiosa. Medjugorje ti aspetta. E noi siamo qui per accompagnarti."
+            "pilgrimage": "Compila il form 'Richiesta informazioni' e ricevi una proposta personalizzata con un’offerta vantaggiosa.",
+            "end": "Medjugorje ti aspetta. E noi siamo qui per accompagnarti."
         },
         "steps": {
             "title": "Cosa fare?",
             "step1": "Compila il form \"Richiesta informazioni\"",
             "step2": "Ricevi una proposta personalizzata con un’offerta vantaggiosa"
-        },
-        "footer": {
-            "text": "Medjugorje ti aspetta. E noi siamo qui per accompagnarti."
         }
     },
     "offices": {

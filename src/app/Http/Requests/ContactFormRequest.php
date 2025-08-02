@@ -16,10 +16,10 @@ class ContactFormRequest extends FormRequest
         return [
             'firstName' => 'required|string|max:100',
             'lastName' => 'required|string|max:100',
-            'phone' => 'nullable|phone',
+            'phone' => 'required|phone',
             'email' => 'required|email|max:255',
             'country' => 'required|string|size:2', // codice ISO
-            'profileType' => 'nullable|string|max:50',
+            'profileType' => 'required|string|max:50',
             'message' => 'required|string',
             'acceptPrivacy' => 'accepted',
             'language' => 'nullable|string|size:2',

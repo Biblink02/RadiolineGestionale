@@ -27,8 +27,11 @@ const {t} = useI18n();
             <p class="text-gray-700 mb-4">
                 {{ t('proposals.body.intro') }}
             </p>
-            <p class="text-gray-700 mb-10">
+            <p class="text-gray-700 mb-4">
                 {{ t('proposals.body.pilgrimage') }}
+            </p>
+            <p class="text-gray-700 mb-10">
+                {{ t('proposals.body.end') }}
             </p>
 
             <!-- Cosa fare -->
@@ -46,11 +49,6 @@ const {t} = useI18n();
                     <li>{{ t('proposals.steps.step2') }}</li>
                 </ol>
             </div>
-
-            <!-- Footer -->
-            <p class="text-gray-700 mt-8">
-                {{ t('proposals.footer.text') }}
-            </p>
         </section>
     </AppLayout>
 </template>

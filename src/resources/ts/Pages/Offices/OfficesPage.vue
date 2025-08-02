@@ -10,12 +10,8 @@ const card: InspireCardData = {
     subtitle: t('offices.body.card.subtitle'),
     button: t('offices.body.card.button'),
     onClick: () => window.open('https://maps.app.goo.gl/sTaZTrP1WC7cu5y99', '_blank', 'noopener,noreferrer'),
-    images: [
-        {
-            src: img,
-            alt: t('offices.body.card.image-alt')
-        }
-    ]
+    imageSrc: img,
+    imageAlt: t('offices.body.card.image-alt')
 }
 </script>
 

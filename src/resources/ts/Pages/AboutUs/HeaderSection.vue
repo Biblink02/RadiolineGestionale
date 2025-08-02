@@ -8,7 +8,7 @@ const { t } = useI18n();
 <template>
     <section class="w-full my-8">
         <!-- Immagine banner con testo centrale -->
-        <ImageAndTitle text="Medjugorje SERVICE" :src="AboutUs5" :alt="t('about-us.header.image-alt')"/>
+        <ImageAndTitle text="Medjugorje Service" :src="AboutUs5" :alt="t('about-us.header.image-alt')"/>
 
 
 

@@ -137,7 +137,7 @@ const submit = () => {
             <!-- Telefono e Email -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                 <div>
-                    <label class="block mb-1 text-sm font-medium">{{ t("contact-us.phone") }}</label>
+                    <label class="block mb-1 text-sm font-medium">{{ t("contact-us.phone") }} *</label>
                     <InputNumber
                         v-model="contactForm.phone"
                         class="w-full"
@@ -170,7 +170,7 @@ const submit = () => {
             <!-- Nazione e Profilo -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                 <div>
-                    <label class="block mb-1 text-sm font-medium">{{ t("contact-us.country-label") }}</label>
+                    <label class="block mb-1 text-sm font-medium">{{ t("contact-us.country-label") }} *</label>
                     <Select
                         v-model="contactForm.country"
                         :options="countryOptions"
@@ -186,7 +186,7 @@ const submit = () => {
                     </small>
                 </div>
                 <div>
-                    <label class="block mb-1 text-sm font-medium">{{ t("contact-us.profile.label") }}</label>
+                    <label class="block mb-1 text-sm font-medium">{{ t("contact-us.profile.label") }} *</label>
                     <Select
                         v-model="contactForm.profileType"
                         :options="profileOptions"

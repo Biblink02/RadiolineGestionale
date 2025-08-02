@@ -38,8 +38,7 @@ const cards: InspireCardData[] = [
     <section class="section my-10">
         <h2 class="text-center text-3xl font-bold">{{ t('home.inspire.title') }}</h2>
         <div class="mx-auto gap-8 max-w-5xl flex flex-row flex-wrap justify-center place-content-center m-4 mt-6">
-            <InspireCard class="max-w-xs" v-for="card in cards" :card="card"
-                         v-animateonscroll="{ enterClass: 'animate-enter fade-in-10 zoom-in-75 animate-duration-1000' }"/>
+            <InspireCard class="max-w-xs" v-for="card in cards" :card="card"/>
         </div>
     </section>
 </template>
