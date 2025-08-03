@@ -1,7 +1,6 @@
 <script setup>
-import {Link} from '@inertiajs/vue3'
 import {route} from "../../../../vendor/tightenco/ziggy";
-
+const {t} = useI18n();
 const page = usePage()
 const showDropdown = ref(false)
 let hideTimeout = null
@@ -45,7 +44,7 @@ function toggleDropdown() {
         <!-- Lingua attuale -->
         <button
             type="button"
-            class="flex items-center cursor-pointer w-[1.1rem] h-[1.1rem] hover:scale-110"
+            class="flex items-center cursor-pointer w-[1.2rem] h-[1.2rem] hover:scale-110"
             :aria-label="t('LanguageSwitcher.current', { lang: selectedLocale.toUpperCase() })"
         >
             <img

@@ -81,13 +81,18 @@ const mobileMenuOpen = ref(false);
             <Link :href="route('page.home', { locale: page.props.locale }, false)">
                 <img :src="logo" alt="Logo" class="h-auto w-24 object-contain" loading="eager"/>
             </Link>
-            <Button
-                icon="pi pi-bars"
-                class="p-button-text p-button-rounded"
-                @click="mobileMenuOpen = true"
-                aria-label="Apri menu"
-            />
+
+            <div class="flex items-center gap-1">
+                <LanguageSwitcher class="flex items-center" />
+                <Button
+                    icon="pi pi-bars"
+                    class="p-button-text p-button-rounded"
+                    @click="mobileMenuOpen = true"
+                    aria-label="Apri menu"
+                />
+            </div>
         </div>
+
 
         <Drawer v-model:visible="mobileMenuOpen" position="right" class="w-64">
             <!-- HEADER TEMPLATE -->
