@@ -15,21 +15,32 @@ use App\Http\Controllers\PdfController;
 use App\Http\Controllers\ServicesPageController;
 use Illuminate\Support\Facades\Route;
 
+$languages = implode('|', array_keys(config('custom.lang.available')));
+
+Route::get('/', function () {
+    return redirect(config('custom.lang.fallback'));
+});
+
 
 Route::get('/pdf/{path}', [PdfController::class, 'getPdf'])->name('pdf');
 
-Route::name('page.')->group(function () {
-    Route::get('/', [HomePageController::class, 'index'])->name('home');
-    Route::get('/about-us', [AboutUsPageController::class, 'index'])->name('about-us');
-    Route::get('/proposals', [ProposalsPageController::class, 'index'])->name('proposals');
-    Route::get('/payments', [PaymentsPageController::class, 'index'])->name('payments');
-    Route::get('/jubilee-2025', [JubileePageController::class, 'index'])->name('jubilee');
-    Route::get('/privacy-policy', [PrivacyPageController::class, 'index'])->name('privacy');
-    Route::get('/radio-rent', [RadioRentPageController::class, 'index'])->name('radio-rent');
-    Route::get('/contact-us', [ContactUsPageController::class, 'index'])->name('contact-us');
-    Route::get('/services', [ServicesPageController::class, 'index'])->name('services');
-    Route::get('/offices', [OfficesPageController::class, 'index'])->name('offices');
-    Route::get('/gallery', [GalleryPageController::class, 'index'])->name('gallery');
+Route::group([
+    'prefix' => '{locale}',
+    'where' => ['locale' => $languages],
+], function () {
+    Route::name('page.')->group(function () {
+        Route::get('/', [HomePageController::class, 'index'])->name('home');
+        Route::get('/about-us', [AboutUsPageController::class, 'index'])->name('about-us');
+        Route::get('/proposals', [ProposalsPageController::class, 'index'])->name('proposals');
+        Route::get('/payments', [PaymentsPageController::class, 'index'])->name('payments');
+        Route::get('/jubilee-2025', [JubileePageController::class, 'index'])->name('jubilee');
+        Route::get('/privacy-policy', [PrivacyPageController::class, 'index'])->name('privacy');
+        Route::get('/radio-rent', [RadioRentPageController::class, 'index'])->name('radio-rent');
+        Route::get('/contact-us', [ContactUsPageController::class, 'index'])->name('contact-us');
+        Route::get('/services', [ServicesPageController::class, 'index'])->name('services');
+        Route::get('/offices', [OfficesPageController::class, 'index'])->name('offices');
+        Route::get('/gallery', [GalleryPageController::class, 'index'])->name('gallery');
+    });
 });
 
 Route::prefix('api')

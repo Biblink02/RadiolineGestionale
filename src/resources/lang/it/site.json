@@ -336,5 +336,10 @@
             "image-alt": "Immagine galleria",
             "preview-alt": "Anteprima immagine"
         }
+    },
+    "LanguageSwitcher": {
+        "current": "Lingua corrente: {lang}",
+        "select": "Seleziona la lingua",
+        "changeTo": "Cambia lingua in {lang}"
     }
 }

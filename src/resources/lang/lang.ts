@@ -1,34 +1,31 @@
-import en from './en/site-en.json'
-import it from './it/site-it.json'
-import es from './es/site-es.json'
-import de from './de/site-de.json'
-import fr from './fr/site-fr.json'
-import pt from './pt/site-pt.json'
-import {createI18n} from "vue-i18n";
-
-export const locale = navigator.language.split('-')[0];
-export const fallbackLocale = 'en';
-
-export const languages = {
-    en: {...en},
-    it: {...it},
-    es: {...es},
-    de: {...de},
-    fr: {...fr},
-    pt: {...pt},
-};
-
-export function getLanguageOrFallback() {
-    return Object.keys(languages).includes(locale) ? locale : fallbackLocale;
+import { createI18n } from 'vue-i18n';
+async function loadLocaleMessages(locale: string) {
+    return import(`../lang/${locale}/site.json`)
 }
 
-export function createI18nInstance(){
+export async function createI18nInstance(locale: string, fallbackLocale: string) {
+    const messages = await loadLocaleMessages(locale)
+
     return createI18n({
         globalInjection: true,
         locale: locale,
         fallbackLocale: fallbackLocale,
         formatFallbackMessages: true,
-        messages: Object.assign(languages),
+        messages: { [locale]: messages.default },
         legacy: false,
     })
+}
+
+export async function setLanguage(i18n, newLocale: string) {
+    if (!i18n.global.availableLocales.includes(newLocale)) {
+        const messages = await loadLocaleMessages(newLocale)
+        i18n.global.setLocaleMessage(newLocale, messages.default)
+    }
+    i18n.global.locale.value = newLocale
+    document.documentElement.setAttribute('lang', newLocale)
+}
+export function getLocaleFromUrl() {
+    const path = window.location.pathname
+    const match = path.match(/^\/([a-z]{2})(\/|$)/)
+    return match ? match[1] : 'en'
 }

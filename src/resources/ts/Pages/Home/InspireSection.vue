@@ -12,21 +12,21 @@ const cards: InspireCardData[] = [
     {
         title: t('home.inspire.cards.1.title'),
         button: t('home.inspire.cards.1.button'),
-        onClick: () => router.visit(route('page.radio-rent', undefined, false)),
+        onClick: () => router.visit(route('page.radio-rent', { locale: page.props.locale }, false)),
         imageSrc: Home2,
         imageAlt: t('home.inspire.cards.1.images.1.alt')
     },
     {
         title: t('home.inspire.cards.2.title'),
         button: t('home.inspire.cards.2.button'),
-        onClick: () => router.visit(route('page.proposals', undefined, false)),
+        onClick: () => router.visit(route('page.proposals', { locale: page.props.locale }, false)),
         imageSrc: Home3,
         imageAlt: t('home.inspire.cards.2.images.1.alt')
     },
     {
         title: t('home.inspire.cards.3.title'),
         button: t('home.inspire.cards.3.button'),
-        onClick: () => router.visit(route('page.jubilee', undefined, false)),
+        onClick: () => router.visit(route('page.jubilee', { locale: page.props.locale }, false)),
         imageSrc: Home4,
         imageAlt: t('home.inspire.cards.3.images.1.alt')
     }

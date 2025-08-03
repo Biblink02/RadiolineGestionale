@@ -1,22 +1,23 @@
 <script setup lang="ts">
 import AppLayout from "@/Layouts/AppLayout.vue";
 import Toast from "primevue/toast";
-import { useToast } from "primevue/usetoast";
+import {useToast} from "primevue/usetoast";
 import axios from "axios";
-import { route } from "../../../../vendor/tightenco/ziggy";
-import { getLanguageOrFallback } from "~/lang/lang";
+import {route} from "../../../../vendor/tightenco/ziggy";
+import {getLocaleFromUrl} from "~/lang/lang";
 
-const { t } = useI18n();
+const {t} = useI18n();
 const toast = useToast();
+const page = usePage();
 
 const fallbackCountries = [
-    { label: t("countries.italy"), value: "IT" },
-    { label: t("countries.spain"), value: "ES" },
-    { label: t("countries.portugal"), value: "PT" },
-    { label: t("countries.france"), value: "FR" },
-    { label: t("countries.germany"), value: "DE" },
-    { label: t("countries.united-kingdom"), value: "GB" },
-    { label: t("countries.bosnia-herzegovina"), value: "BA" } // Medjugorje
+    {label: t("countries.italy"), value: "IT"},
+    {label: t("countries.spain"), value: "ES"},
+    {label: t("countries.portugal"), value: "PT"},
+    {label: t("countries.france"), value: "FR"},
+    {label: t("countries.germany"), value: "DE"},
+    {label: t("countries.united-kingdom"), value: "GB"},
+    {label: t("countries.bosnia-herzegovina"), value: "BA"} // Medjugorje
 ];
 
 onMounted(async () => {
@@ -45,9 +46,9 @@ onMounted(async () => {
 
 // Dropdown profilo
 const profileOptions = [
-    { label: t("contact-us.profile.1"), value: "AGENCY" },
-    { label: t("contact-us.profile.2"), value: "ORGANIZATION" },
-    { label: t("contact-us.profile.3"), value: "GUIDE" },
+    {label: t("contact-us.profile.1"), value: "AGENCY"},
+    {label: t("contact-us.profile.2"), value: "ORGANIZATION"},
+    {label: t("contact-us.profile.3"), value: "GUIDE"},
 ];
 
 
@@ -61,7 +62,7 @@ const contactForm = useForm({
     profileType: null,
     message: "",
     acceptPrivacy: false,
-    language: getLanguageOrFallback(),
+    language: getLocaleFromUrl(),
 });
 const countryOptions = ref<{ label: string; value: string }[]>();
 
@@ -222,7 +223,8 @@ const submit = () => {
                 <Checkbox v-model="contactForm.acceptPrivacy" binary inputId="privacy"/>
                 <label for="privacy" class="text-sm">
                     {{ t("contact-us.privacy.accept") }}
-                    <a href="#" class="text-blue-600 underline">{{ t("contact-us.privacy.link") }}</a>
+                    <a :href="route('page.privacy', { locale: page.props.locale }, false)"
+                       class="text-blue-600 underline">{{ t("contact-us.privacy.link") }}</a>
                     *
                 </label>
                 <div v-if="contactForm.errors.acceptPrivacy" class="text-red-500 text-sm">

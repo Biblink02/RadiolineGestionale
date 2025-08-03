@@ -4,13 +4,14 @@ import {route} from "../../../vendor/tightenco/ziggy";
 import {Link} from "@inertiajs/vue3"
 
 const {t} = useI18n();
+const page = usePage();
 
 const links = [
-    {label: t("footer.links.label1"), href: route('page.about-us', undefined, false)},
-    {label: t("footer.links.label2"), href: route('page.contact-us', undefined, false)},
-    {label: t("footer.links.label3"), href: route('page.offices', undefined, false)},
-    {label: t("footer.links.label4"), href: route('page.privacy', undefined, false)},
-    {label: t("footer.links.label5"), href: route('page.payments', undefined, false)},
+    {label: t("footer.links.label1"), href: route('page.about-us', { locale: page.props.locale }, false)},
+    {label: t("footer.links.label2"), href: route('page.contact-us', { locale: page.props.locale }, false)},
+    {label: t("footer.links.label3"), href: route('page.offices', { locale: page.props.locale }, false)},
+    {label: t("footer.links.label4"), href: route('page.privacy', { locale: page.props.locale }, false)},
+    {label: t("footer.links.label5"), href: route('page.payments', { locale: page.props.locale }, false)},
 ];
 const phoneWhatsApp = ref("00387063144027");
 const email = ref("medjugorjeservice00@gmail.com");

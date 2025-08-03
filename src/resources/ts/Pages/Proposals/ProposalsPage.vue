@@ -7,6 +7,8 @@ import {route} from "../../../../vendor/tightenco/ziggy";
 import Proposals10 from "@/../media/10-proposals.jpeg";
 
 const {t} = useI18n();
+const page = usePage();
+
 </script>
 
 <template>
@@ -42,7 +44,7 @@ const {t} = useI18n();
                 </h3>
                 <ol class="list-decimal list-inside space-y-2">
                     <li>
-                        <Link :href="route('page.contact-us', undefined, false)" class="underline hover:text-blue-600">
+                        <Link :href="route('page.contact-us', { locale: page.props.locale }, false)" class="underline hover:text-blue-600">
                             {{ t('proposals.steps.step1') }}
                         </Link>
                     </li>

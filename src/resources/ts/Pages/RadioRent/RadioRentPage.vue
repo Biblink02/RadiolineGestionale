@@ -8,6 +8,8 @@ import {route} from "../../../../vendor/tightenco/ziggy";
 import RadioRent9 from "@/../media/9-radio-rent.jpg";
 
 const {t} = useI18n();
+const page = usePage();
+
 const features = [
     {text: t('radio-rent.body.features.audio'), icon: 'pi pi-volume-up'},
     {text: t('radio-rent.body.features.earphones'), icon: 'pi pi-headphones'},
@@ -67,7 +69,7 @@ const features = [
             <p class="text-left">
                 {{ t('radio-rent.body.closure-before-link') }}
                 <Link
-                    :href="route('page.contact-us', undefined, false)"
+                    :href="route('page.contact-us', { locale: page.props.locale }, false)"
                     class="underline hover:text-blue-600"
                 >
                     {{ t('radio-rent.body.closure-after-link') }}

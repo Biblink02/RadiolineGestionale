@@ -30,13 +30,19 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
-        // TODO vedi se puoi togliere o serve per le rotte
         return [
             ...parent::share($request),
+
             'ziggy' => fn () => [
                 ...(new Ziggy)->toArray(),
                 'location' => $request->url(),
             ],
+
+            'locale' => app()->getLocale(),
+
+            'languages' => config('custom.lang.available'),
+
+            'fallbackLocale' => config('custom.lang.fallback'),
         ];
     }
 }
