@@ -193,9 +193,10 @@
     "home": {
         "hero": {
             "aria": "Sección principal",
-            "title": "Medjugorje Service",
+            "title": "Medjugorje",
             "title_sr": "Medjugorje Service",
-            "subtitle": "está a tu lado"
+            "subtitle1": "vive la fe",
+            "subtitle2": "respira paz"
         },
         "social": {
             "title": "Síguenos en redes sociales",
