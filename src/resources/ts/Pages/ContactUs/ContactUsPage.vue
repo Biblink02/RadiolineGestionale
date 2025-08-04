@@ -246,13 +246,14 @@ const submit = () => {
 
 
             <!-- Privacy -->
+            <!-- Privacy -->
             <div class="text-center items-start mx-auto space-x-2 mb-4">
+                <Checkbox v-model="contactForm.acceptPrivacy" binary inputId="privacy"/>
                 <label for="privacy" class="text-sm">
                     {{ t("contact-us.privacy.accept") }}
                     <a :href="route('page.privacy', { locale: page.props.locale }, false)"
-                       class="text-blue-600 underline">{{ t("contact-us.privacy.link") }}
-                    </a> *
-                    <Checkbox v-model="contactForm.acceptPrivacy" binary inputId="privacy"/>
+                       class="text-blue-600 underline">{{ t("contact-us.privacy.link") }}</a>
+                    *
                 </label>
                 <div v-if="contactForm.errors.acceptPrivacy" class="text-red-500 text-sm">
                     {{ t(contactForm.errors.acceptPrivacy) }}
