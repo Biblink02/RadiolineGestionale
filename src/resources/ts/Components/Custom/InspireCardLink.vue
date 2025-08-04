@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import {InspireCardData} from "@/Types/InspireCardData";
+import {Link} from "@inertiajs/vue3";
 
 const props = defineProps<{
     card: InspireCardData;
@@ -30,7 +31,14 @@ const props = defineProps<{
                     {{ props.card.subtitle }}
                 </p>
             </div>
-            <slot/>
+
+            <Link v-if="props.card.buttonOrLink" target="_blank"
+                    class="group/button mt-auto mx-auto flex items-center gap-1 text-slate-500 hover:text-blue-600 transition-colors hover:cursor-pointer"
+                    :href="props.card.href"
+            >
+                {{ props.card.buttonOrLink }}
+                <i class="pi pi-arrow-right text-xs transition-transform duration-300 group-hover/button:translate-x-1"></i>
+            </Link>
         </div>
     </article>
 </template>

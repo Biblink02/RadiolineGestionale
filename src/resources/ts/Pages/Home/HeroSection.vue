@@ -6,12 +6,14 @@ import Home1 from "@/../media/1-home.jpg";
 
 <template>
     <section
-        class="relative flex min-h-[70vh] lg:min-h-[75vh] items-center justify-center bg-cover bg-fixed bg-[65%_60%] text-white"
+        class="relative flex min-h-[70vh] lg:min-h-[75vh] items-center justify-center bg-no-repeat bg-center text-white
+         bg-[length:auto_100%] sm:bg-cover sm:bg-fixed sm:bg-[53%_45%]"
         :aria-label="t('home.hero.aria')"
         role="region"
-        :style="{ backgroundImage: `url(${Home1})`}"
+        :style="{ backgroundImage: `url(${Home1})` }"
     >
-        <div class="container mx-auto px-6 text-center">
+
+    <div class="container mx-auto px-6 text-center">
             <h1 class="text-4xl font-bold md:text-6xl">
                 {{ t('home.hero.title') }}:
                 <span class="sr-only">{{ t('home.hero.title_sr') }}</span>

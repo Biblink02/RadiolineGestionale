@@ -30,7 +30,14 @@ const props = defineProps<{
                     {{ props.card.subtitle }}
                 </p>
             </div>
-            <slot/>
+
+            <button v-if="props.card.buttonOrLink"
+                    class="group/button mt-auto mx-auto flex items-center gap-1 text-slate-500 hover:text-blue-600 transition-colors hover:cursor-pointer"
+                    @click="props.card.onClick"
+            >
+                {{ props.card.buttonOrLink }}
+                <i class="pi pi-arrow-right text-xs transition-transform duration-300 group-hover/button:translate-x-1"></i>
+            </button>
         </div>
     </article>
 </template>
