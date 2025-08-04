@@ -110,122 +110,149 @@ const submit = () => {
             <!-- Nome e Cognome -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                 <div>
-                    <label class="block mb-1 text-sm font-medium">{{ t("contact-us.first-name") }} *</label>
-                    <InputText
-                        v-model="contactForm.firstName"
-                        class="w-full"
-                        :placeholder="t('contact-us.firstNamePlaceholder')"
-                        :class="{'p-invalid border-red-500': contactForm.errors.firstName}"
-                    />
+                    <label class="block mb-1 text-sm font-medium">
+                        {{ t("contact-us.first-name") }} *
+                        <InputText
+                            autocomplete="given-name"
+                            name="firstName"
+                            v-model="contactForm.firstName"
+                            class="w-full mt-1"
+                            :placeholder="t('contact-us.firstNamePlaceholder')"
+                            :class="{'p-invalid border-red-500': contactForm.errors.firstName}"
+                        />
+                    </label>
                     <small v-if="contactForm.errors.firstName" class="p-error">
                         {{ t(contactForm.errors.firstName) }}
                     </small>
                 </div>
+
                 <div>
-                    <label class="block mb-1 text-sm font-medium">{{ t("contact-us.last-name") }} *</label>
-                    <InputText
-                        v-model="contactForm.lastName"
-                        class="w-full"
-                        :placeholder="t('contact-us.last-name-placeholder')"
-                        :class="{'p-invalid border-red-500': contactForm.errors.lastName}"
-                    />
+                    <label class="block mb-1 text-sm font-medium">{{ t("contact-us.last-name") }} *
+                        <InputText
+                            autocomplete="family-name"
+                            name="lastName"
+                            v-model="contactForm.lastName"
+                            class="w-full"
+                            :placeholder="t('contact-us.last-name-placeholder')"
+                            :class="{'p-invalid border-red-500': contactForm.errors.lastName}"
+                        />
+                    </label>
                     <small v-if="contactForm.errors.lastName" class="p-error">
                         {{ t(contactForm.errors.lastName) }}
                     </small>
                 </div>
+
             </div>
 
             <!-- Telefono e Email -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                 <div>
-                    <label class="block mb-1 text-sm font-medium">{{ t("contact-us.phone") }} *</label>
-                    <InputNumber
-                        v-model="contactForm.phone"
-                        class="w-full"
-                        :mode="'decimal'"
-                        :useGrouping="false"
-                        :placeholder="t('contact-us.phone-placeholder')"
-                        decimalSeparator=""
-                        prefix="+"
-                        :class="{'p-invalid border-red-500': contactForm.errors.phone}"
-                    />
+                    <label class="block mb-1 text-sm font-medium">{{ t("contact-us.phone") }} *
+                        <InputNumber
+                            autocomplete="tel-national"
+                            name="phone"
+                            v-model="contactForm.phone"
+                            class="w-full"
+                            mode="decimal"
+                            :useGrouping="false"
+                            :placeholder="t('contact-us.phone-placeholder')"
+                            decimalSeparator=""
+                            prefix="+"
+                            :class="{'p-invalid border-red-500': contactForm.errors.phone}"
+                        />
+                    </label>
                     <small v-if="contactForm.errors.phone" class="p-error">
                         {{ t(contactForm.errors.phone) }}
                     </small>
                 </div>
                 <div>
-                    <label class="block mb-1 text-sm font-medium">{{ t("contact-us.email") }} *</label>
-                    <InputText
-                        v-model="contactForm.email"
-                        type="email"
-                        class="w-full"
-                        :placeholder="t('contact-us.email-placeholder')"
-                        :class="{'p-invalid border-red-500': contactForm.errors.email}"
-                    />
+                    <label class="block mb-1 text-sm font-medium">{{ t("contact-us.email") }} *
+                        <InputText
+                            autocomplete="email"
+                            name="email"
+                            v-model="contactForm.email"
+                            type="email"
+                            class="w-full"
+                            :placeholder="t('contact-us.email-placeholder')"
+                            :class="{'p-invalid border-red-500': contactForm.errors.email}"
+                        />
+                    </label>
                     <small v-if="contactForm.errors.email" class="p-error">
                         {{ t(contactForm.errors.email) }}
                     </small>
                 </div>
+
             </div>
 
             <!-- Nazione e Profilo -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                 <div>
-                    <label class="block mb-1 text-sm font-medium">{{ t("contact-us.country-label") }} *</label>
-                    <Select
-                        v-model="contactForm.country"
-                        :options="countryOptions"
-                        optionLabel="label"
-                        optionValue="value"
-                        filter
-                        :placeholder="t('contact-us.country-placeholder')"
-                        class="w-full"
-                        :class="{'p-invalid border-red-500': contactForm.errors.country}"
-                    />
-                    <small v-if="contactForm.errors.country" class="p-error">
-                        {{ t(contactForm.errors.country) }}
-                    </small>
+                    <label class="block mb-1 text-sm font-medium">
+                        {{ t("contact-us.country-label") }} *
+                        <Select
+                            name="country"
+                            v-model="contactForm.country"
+                            :options="countryOptions"
+                            optionLabel="label"
+                            optionValue="value"
+                            filter
+                            :placeholder="t('contact-us.country-placeholder')"
+                            class="w-full"
+                            :class="{'p-invalid border-red-500': contactForm.errors.country}"
+                        />
+                        <small v-if="contactForm.errors.country" class="p-error">
+                            {{ t(contactForm.errors.country) }}
+                        </small>
+                    </label>
                 </div>
                 <div>
-                    <label class="block mb-1 text-sm font-medium">{{ t("contact-us.profile.label") }} *</label>
-                    <Select
-                        v-model="contactForm.profileType"
-                        :options="profileOptions"
-                        optionLabel="label"
-                        optionValue="value"
-                        :placeholder="t('contact-us.profile.placeholder')"
-                        class="w-full"
-                        :class="{'p-invalid border-red-500': contactForm.errors.profileType}"
-                    />
-                    <small v-if="contactForm.errors.profileType" class="p-error">
-                        {{ t(contactForm.errors.profileType) }}
-                    </small>
+                    <label class="block mb-1 text-sm font-medium">
+                        {{ t("contact-us.profile.label") }} *
+                        <Select
+                            name="profileType"
+                            v-model="contactForm.profileType"
+                            :options="profileOptions"
+                            optionLabel="label"
+                            optionValue="value"
+                            :placeholder="t('contact-us.profile.placeholder')"
+                            class="w-full"
+                            :class="{'p-invalid border-red-500': contactForm.errors.profileType}"
+                        />
+                        <small v-if="contactForm.errors.profileType" class="p-error">
+                            {{ t(contactForm.errors.profileType) }}
+                        </small>
+                    </label>
                 </div>
+
             </div>
 
             <!-- Messaggio -->
             <div class="mb-4">
-                <label class="block mb-1 text-sm font-medium">{{ t("contact-us.message") }} *</label>
-                <Textarea
-                    v-model="contactForm.message"
-                    rows="4"
-                    class="w-full"
-                    :placeholder="t('contact-us.message-placeholder')"
-                    :class="{'p-invalid border-red-500': contactForm.errors.message}"
-                />
-                <small v-if="contactForm.errors.message" class="p-error">
-                    {{ t(contactForm.errors.message) }}
-                </small>
+                <label class="block mb-1 text-sm font-medium">
+                    {{ t("contact-us.message") }} *
+                    <Textarea
+                        name="message"
+                        v-model="contactForm.message"
+                        rows="4"
+                        class="w-full"
+                        :placeholder="t('contact-us.message-placeholder')"
+                        :class="{'p-invalid border-red-500': contactForm.errors.message}"
+                    />
+                    <small v-if="contactForm.errors.message" class="p-error">
+                        {{ t(contactForm.errors.message) }}
+                    </small>
+                </label>
             </div>
+
 
             <!-- Privacy -->
             <div class="text-center items-start mx-auto space-x-2 mb-4">
-                <Checkbox v-model="contactForm.acceptPrivacy" binary inputId="privacy"/>
                 <label for="privacy" class="text-sm">
                     {{ t("contact-us.privacy.accept") }}
                     <a :href="route('page.privacy', { locale: page.props.locale }, false)"
-                       class="text-blue-600 underline">{{ t("contact-us.privacy.link") }}</a>
-                    *
+                       class="text-blue-600 underline">{{ t("contact-us.privacy.link") }}
+                    </a> *
+                    <Checkbox v-model="contactForm.acceptPrivacy" binary inputId="privacy"/>
                 </label>
                 <div v-if="contactForm.errors.acceptPrivacy" class="text-red-500 text-sm">
                     {{ t(contactForm.errors.acceptPrivacy) }}
@@ -240,6 +267,7 @@ const submit = () => {
                     :disabled="!isValid"
                     @click="submit"
                     class="w-auto"
+                    type="button"
                 />
             </div>
         </div>
