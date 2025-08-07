@@ -25,7 +25,7 @@ $pageName = Str::after(Route::currentRouteName(), 'page.');
     {!! \App\Services\SchemaGenerator::for($pageName) !!}
 
     <!-- PRIORITY 40 -->
-    <link rel="canonical" href="{{ Str::replace('http', 'https', url()->current())  }}">
+    <link rel="canonical" href="{{ Str::startsWith(url()->current(), 'http://') ? Str::replaceFirst('http://', 'https://', url()->current()) : url()->current() }}">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="/favicons/favicon-96x96.png" sizes="96x96"/>
     <link rel="icon" type="image/svg+xml" href="/favicons/favicon.svg"/>
