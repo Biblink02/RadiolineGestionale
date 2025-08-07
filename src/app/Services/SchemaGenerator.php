@@ -2,106 +2,218 @@
 
 namespace App\Services;
 
+use DateTime;
+use Spatie\SchemaOrg\BaseType;
+use Spatie\SchemaOrg\Contracts\ThingContract;
 use Spatie\SchemaOrg\Schema;
 
 class SchemaGenerator
 {
     /**
-     * Generate JSON-LD schema based on page key
+     * Restituisce lo script JSON-LD (stringa) adatto alla pagina corrente.
      *
-     * @param string $page
-     * @return string
+     * @param string $page Slug della pagina (es. 'about-us', 'home', ecc.)
+     * @return string         Script <script type="application/ld+json">…</script>
      */
     public static function for(string $page): string
     {
-        switch ($page) {
-            case 'home':
-                Schema::
-                $schema = Schema::webSite()
-                    ->name(__('head.home.title'))
-                    ->description(__('head.home.description'))
-                    ->url(url(locale().'/'));
-                break;
+        $url = url()->current();
+        $locale = app()->getLocale();
 
-            case 'about':
-                $schema = Schema::aboutPage()
-                    ->name(__('head.about.title'))
-                    ->description(__('head.about.description'))
-                    ->url(url(locale().'/about-us'));
-                break;
+        $schema = match ($page) {
+            'home' => Schema::webPage(),
+            'about-us' => Schema::aboutPage(),
+            'contact-us' => Schema::contactPage(),
+            'privacy-policy' => Schema::webPage(),
+            'gallery' => Schema::imageGallery(),
+            'jubilee-2025' => Schema::webPage(),
+            'radio-rent' => Schema::service(),
+            'services' => Schema::service(),
+            'offices' => Schema::localBusiness(),
+            'payments' => Schema::webPage(),
+            'proposals' => Schema::webPage(),
+            default => Schema::webPage(),
+        };
 
-            case 'proposals':
-                $schema = Schema::webPage()
-                    ->name(__('head.proposals.title'))
-                    ->description(__('head.proposals.description'))
-                    ->url(url(locale().'/proposals'));
-                break;
+        $schema = $schema
+            ->name(__("schema-org.$page.title") ?: ucfirst(str_replace('-', ' ', $page)))
+            ->url($url)
+            ->inLanguage($locale);
 
-            case 'jubilee':
-                $schema = Schema::event()
-                    ->name(__('head.jubilee.title'))
-                    ->description(__('head.jubilee.description'))
-                    ->url(url(locale().'/jubilee-2025'))
-                    ->startDate('2025-01-01')
-                    ->endDate('2025-12-31');
-                break;
+        return match ($page) {
+            'home' => self::homePage($schema, $url, $locale),
+            'jubilee-2025' => self::jubileePage($schema, $url, $locale),
+            'about-us' => self::aboutPage($schema, $locale),
+            'radio-rent' => self::radioRentPage($schema, $locale),
+            'offices' => self::officesPage($schema, $locale),
+            default => self::defaultPage($schema, $page, $locale),
+        };
+    }
 
-            case 'radio-rent':
-                $schema = Schema::service()
-                    ->name(__('head.radio_rent.title'))
-                    ->description(__('head.radio_rent.description'))
-                    ->url(url(locale().'/radio-rent'));
-                break;
+    /** Home (/) */
+    private static function homePage(BaseType $schema, string $url, string $locale): string
+    {
+        return $schema
+            ->description(__('schema-org.home.hero.subtitle1') . ' – ' . __('schema-org.home.hero.subtitle2'))
+            ->isPartOf(self::webSiteEntity())
+            ->mainEntity(self::organizationEntity())
+            ->primaryImageOfPage(
+                Schema::imageObject()
+                    ->url(asset('images/logo.png'))
+                    ->caption(__('schema-org.home.hero.title'))
+                    ->inLanguage($locale)
+            )
+            ->breadcrumb(self::generateBreadcrumbs('home', $locale))
+            ->toScript();
+    }
 
-            case 'contact':
-                $schema = Schema::contactPage()
-                    ->name(__('head.contact.title'))
-                    ->description(__('head.contact.description'))
-                    ->url(url(locale().'/contact-us'));
-                break;
+    /** Jubilee 2025 */
+    private static function jubileePage(BaseType $schema, string $url, string $locale): string
+    {
+        return $schema
+            ->description(__('schema-org.jubilee.body.paragraph1'))
+            ->isPartOf(self::webSiteEntity())
+            ->mainEntity(
+                Schema::thing()
+                    ->name('Jubilee 2025')
+                    ->alternateName('Holy Year 2025')
+                    ->description(__('schema-org.jubilee.body.paragraph2.before-quote') . ' "' . __('schema-org.jubilee.body.paragraph2.quote') . '"')
+                    ->url($url)
+            )
+            ->primaryImageOfPage(
+                Schema::imageObject()
+                    ->url(asset('images/jubilee-logo.png'))
+                    ->caption(__('schema-org.jubilee.body.image-alt'))
+                    ->inLanguage($locale)
+            )
+            ->breadcrumb(self::generateBreadcrumbs('jubilee-2025', $locale))
+            ->toScript();
+    }
 
-            case 'services':
-                $schema = Schema::service()
-                    ->name(__('head.services.title'))
-                    ->description(__('head.services.description'))
-                    ->url(url(locale().'/services'));
-                break;
+    /** About Us */
+    private static function aboutPage(BaseType $schema, string $locale): string
+    {
+        return $schema
+            ->about(self::organizationEntity())
+            ->breadcrumb(self::generateBreadcrumbs('about-us', $locale))
+            ->toScript();
+    }
 
-            case 'offices':
-                $schema = Schema::webPage()
-                    ->name(__('head.offices.title'))
-                    ->description(__('head.offices.description'))
-                    ->url(url(locale().'/offices'));
-                break;
+    /** Radio-Rent (service) */
+    private static function radioRentPage(BaseType $schema, string $locale): string
+    {
+        return $schema
+            ->serviceType('Radio guide rental for pilgrimages')
+            ->provider(self::organizationEntity())
+            ->areaServed(Schema::place()->name('Medjugorje'))
+            ->offers(
+                Schema::offer()
+                    ->availability(Schema::itemAvailability()->url('https://schema.org/InStock'))
+            )
+            ->description(__('schema-org.radio-rent.body.intro'))
+            ->mainEntityOfPage(url()->current())
+            ->breadcrumb(self::generateBreadcrumbs('radio-rent', $locale))
+            ->toScript();
+    }
 
-            case 'gallery':
-                $schema = Schema::webPage()
-                    ->name(__('head.gallery.title'))
-                    ->description(__('head.gallery.description'))
-                    ->url(url(locale().'/gallery'));
-                break;
+    /** Offices (LocalBusiness) */
+    private static function officesPage(BaseType $schema, string $locale): string
+    {
+        return $schema
+            ->description(__('schema-org.offices.body.card.subtitle'))
+            ->address(
+                Schema::postalAddress()
+                    ->streetAddress('Pape Ivana Pavla II 14')
+                    ->addressLocality('Medjugorje')
+                    ->postalCode('88266')
+                    ->addressCountry('BA')
+            )
+            ->geo(
+                Schema::geoCoordinates()
+                    ->latitude(43.19106)
+                    ->longitude(17.67872)
+            )
+            ->breadcrumb(self::generateBreadcrumbs('offices', $locale))
+            ->toScript();
+    }
 
-            case 'payments':
-                $schema = Schema::webPage()
-                    ->name(__('head.payments.title'))
-                    ->description(__('head.payments.description'))
-                    ->url(url(locale().'/payments'));
-                break;
+    /** Pagine generiche che non richiedono altri campi */
+    private static function defaultPage(BaseType $schema, string $page, string $locale): string
+    {
+        return $schema
+            ->breadcrumb(self::generateBreadcrumbs($page, $locale))
+            ->toScript();
+    }
 
-            case 'privacy':
-                $schema = Schema::webPage()
-                    ->name(__('head.privacy.title'))
-                    ->description(__('head.privacy.description'))
-                    ->url(url(locale().'/privacy-policy'));
-                break;
 
-            default:
-                $schema = Schema::webPage()
-                    ->name(__('head.default.title'))
-                    ->description(__('head.default.description'))
-                    ->url(url()->current());
+    /** Organization da riutilizzare */
+    private static function organizationEntity(): ThingContract
+    {
+        return Schema::organization()
+            ->name('Medjugorje Service')
+            ->url(env('APP_URL'))
+            ->logo(asset('images/logo.png'))
+            ->foundingDate(new DateTime('2012-01-01'))
+            ->contactPoint(
+                Schema::contactPoint()
+                    ->telephone('+387 063 144 027')
+                    ->contactType('customer service')
+            );
+    }
+
+    /** WebSite entity (senza toScript) */
+    private static function webSiteEntity(): BaseType
+    {
+        return Schema::webSite()
+            ->name('Medjugorje Service')
+            ->url(env('APP_URL'));
+    }
+
+    /**
+     * Genera dinamicamente un BreadcrumbList a due livelli:
+     *  - Home
+     *  - Pagina corrente (se diversa da home)
+     */
+    private static function generateBreadcrumbs(string $page, string $locale): BaseType
+    {
+        $baseUrl = url('/' . $locale);
+        $elements = [];
+
+        // Home
+        $elements[] = Schema::listItem()
+            ->position(1)
+            ->name(__('schema-org.Home'))
+            ->item(Schema::thing()->url($baseUrl));
+
+        // Secondo livello (se non home)
+        if ($page !== 'home') {
+            $elements[] = Schema::listItem()
+                ->position(2)
+                ->name(__("schema-org.$page.title") ?: ucfirst(str_replace('-', ' ', $page)))
+                ->item(Schema::thing()->url($baseUrl . '/' . $page));
         }
 
-        return $schema->toScript();
+        return Schema::breadcrumbList()->itemListElement($elements);
+    }
+
+
+    /** JSON-LD per Organization (inseriscilo una sola volta nel layout) */
+    public static function organization(): string
+    {
+        return self::organizationEntity()->toScript();
+    }
+
+    /** JSON-LD per WebSite con SearchAction (inseriscilo nel layout) */
+    public static function website(): string
+    {
+        return Schema::webSite()
+            ->name('Medjugorje Service')
+            ->url(env('APP_URL'))
+            ->potentialAction(
+                Schema::searchAction()
+                    ->target(env('APP_URL') . '/search?q={search_term_string}')
+                    ->queryInput('required name=search_term_string')
+            )
+            ->toScript();
     }
 }

@@ -6,7 +6,7 @@ const props = defineProps<{
 }>();
 const socials = [
     {label: "Facebook", href: "https://www.facebook.com/medjugorjeservice", icon: "pi pi-facebook"},
-    {label: "Instagram", href: "https://www.instagram.com", icon: "pi pi-instagram"},
+    {label: "Instagram", href: "https://www.instagram.com/medjugorje_service", icon: "pi pi-instagram"},
 ];
 const fontSize = computed(() => (props.iconSize ?? 1.5) + 'rem');
 </script>
