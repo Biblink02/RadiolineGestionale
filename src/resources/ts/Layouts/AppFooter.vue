@@ -10,7 +10,7 @@ const links = [
     {label: t("footer.links.label1"), href: route('page.about-us', { locale: page.props.locale }, false)},
     {label: t("footer.links.label2"), href: route('page.contact-us', { locale: page.props.locale }, false)},
     {label: t("footer.links.label3"), href: route('page.offices', { locale: page.props.locale }, false)},
-    {label: t("footer.links.label4"), href: route('page.privacy', { locale: page.props.locale }, false)},
+    {label: t("footer.links.label4"), href: route('page.privacy-policy', { locale: page.props.locale }, false)},
     {label: t("footer.links.label5"), href: route('page.payments', { locale: page.props.locale }, false)},
 ];
 const phoneWhatsApp = ref("00387063144027");

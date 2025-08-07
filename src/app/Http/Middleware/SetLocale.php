@@ -16,7 +16,7 @@ class SetLocale
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $available = array_keys(config('custom.lang.available'));
+        $available = config('custom.lang.available');
 
         $fallback = config('custom.lang.fallback');
 

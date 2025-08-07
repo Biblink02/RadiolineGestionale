@@ -29,7 +29,7 @@ const cards = [
     {
         title: t('home.inspire.cards.3.title'),
         text: t('home.inspire.cards.3.button'),
-        href: route('page.jubilee', {locale: page.props.locale}, false),
+        href: route('page.jubilee-2025', {locale: page.props.locale}, false),
         imageSrc: Home4,
         imageAlt: t('home.inspire.cards.3.images.1.alt')
     }

@@ -1,16 +1,6 @@
 <?php
 
 return [
-
-    'available' => [
-        'en' => 'English',
-        'it' => 'Italiano',
-        'es' => 'Español',
-        'de' => 'Deutsch',
-        'fr' => 'Français',
-        'pt' => 'Português',
-    ],
-
+    'available' => ['en', 'it', 'es', 'de', 'fr', 'pt'],
     'fallback' => 'en',
-
 ];

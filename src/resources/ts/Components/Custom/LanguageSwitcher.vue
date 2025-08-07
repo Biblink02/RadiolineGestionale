@@ -24,10 +24,10 @@ function getFlagSrc(code) {
 }
 
 const otherLanguages = computed(() => {
-    return Object.keys(page.props.languages).filter(
+    return page.props.languages.filter(
         (code) => code !== selectedLocale.value
-    )
-})
+    );
+});
 
 function toggleDropdown() {
     showDropdown.value = !showDropdown.value
@@ -64,17 +64,17 @@ function toggleDropdown() {
         >
             <div class="py-1 flex flex-col items-center gap-1">
                 <a
-                    v-for="code in otherLanguages"
-                    :key="code"
+                    v-for="lang in otherLanguages"
+                    :key="lang"
                     class="hover:scale-110 transition-transform cursor-pointer"
-                    :href="route(route().current(), { locale: code })"
-                    :aria-label="t('LanguageSwitcher.changeTo', { lang: code.toUpperCase() })"
+                    :href="route(route().current(), { locale: lang })"
+                    :aria-label="t('LanguageSwitcher.changeTo', { lang: lang.toUpperCase() })"
                 >
                     <img
-                        :src="getFlagSrc(code)"
+                        :src="getFlagSrc(lang)"
                         class="w-6 h-6 rounded-sm"
-                        :alt="t('LanguageSwitcher.changeTo', { lang: code.toUpperCase() })"
-                        :title="t('LanguageSwitcher.changeTo', { lang: code.toUpperCase() })"
+                        :alt="t('LanguageSwitcher.changeTo', { lang: lang.toUpperCase() })"
+                        :title="t('LanguageSwitcher.changeTo', { lang: lang.toUpperCase() })"
                     />
                 </a>
             </div>

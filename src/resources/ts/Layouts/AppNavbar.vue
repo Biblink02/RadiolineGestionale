@@ -11,7 +11,7 @@ const page = usePage();
 const pages = ref([
     {name: t('navbar.links.who-are-we'), href: route('page.about-us', { locale: page.props.locale }, false)},
     {name: t('navbar.links.contact-us'), href: route('page.contact-us', { locale: page.props.locale }, false)},
-    {name: t('navbar.links.privacy'), href: route('page.privacy', { locale: page.props.locale }, false)},
+    {name: t('navbar.links.privacy'), href: route('page.privacy-policy', { locale: page.props.locale }, false)},
     {name: t('navbar.links.payments'), href: route('page.payments', { locale: page.props.locale }, false)},
     {name: t('navbar.links.gallery'), href: route('page.gallery', { locale: page.props.locale }, false)}
 ]);
@@ -20,7 +20,7 @@ const menu = ref([
     {name: t('navbar.links.radio-rent'), href: route('page.radio-rent', { locale: page.props.locale }, false)},
     {name: t('navbar.links.services'), href: route('page.services', { locale: page.props.locale }, false)},
     {name: t('navbar.links.proposals'), href: route('page.proposals', { locale: page.props.locale }, false)},
-    {name: t('navbar.links.jubilee-2025'), href: route('page.jubilee', { locale: page.props.locale }, false)}
+    {name: t('navbar.links.jubilee-2025'), href: route('page.jubilee-2025', { locale: page.props.locale }, false)}
 ]);
 
 const scrollY = ref(0);

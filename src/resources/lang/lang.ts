@@ -16,16 +16,17 @@ export async function createI18nInstance(locale: string, fallbackLocale: string)
     })
 }
 
-export async function setLanguage(i18n, newLocale: string) {
+export function getLocaleFromUrl() {
+    const path = window.location.pathname
+    const match = path.match(/^\/([a-z]{2})(\/|$)/)
+    return match ? match[1] : 'en'
+}
+
+/*export async function setLanguage(i18n, newLocale: string) {
     if (!i18n.global.availableLocales.includes(newLocale)) {
         const messages = await loadLocaleMessages(newLocale)
         i18n.global.setLocaleMessage(newLocale, messages.default)
     }
     i18n.global.locale.value = newLocale
     document.documentElement.setAttribute('lang', newLocale)
-}
-export function getLocaleFromUrl() {
-    const path = window.location.pathname
-    const match = path.match(/^\/([a-z]{2})(\/|$)/)
-    return match ? match[1] : 'en'
-}
+}*/

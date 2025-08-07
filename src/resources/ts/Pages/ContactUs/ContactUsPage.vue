@@ -251,7 +251,7 @@ const submit = () => {
                 <Checkbox v-model="contactForm.acceptPrivacy" binary inputId="privacy"/>
                 <label for="privacy" class="text-sm">
                     {{ t("contact-us.privacy.accept") }}
-                    <a :href="route('page.privacy', { locale: page.props.locale }, false)"
+                    <a :href="route('page.privacy-policy', { locale: page.props.locale }, false)"
                        class="text-blue-600 underline">{{ t("contact-us.privacy.link") }}</a>
                     *
                 </label>

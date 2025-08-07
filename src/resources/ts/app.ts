@@ -1,10 +1,10 @@
 import './bootstrap.ts';
 import '../css/app.css';
 import 'primeicons/primeicons.css'
-import { createInertiaApp, router } from '@inertiajs/vue3';
-import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
-import { createVueAppInstance } from "@/vue";
-import {createI18nInstance, getLocaleFromUrl, setLanguage} from "~/lang/lang";
+import {createInertiaApp} from '@inertiajs/vue3';
+import {resolvePageComponent} from 'laravel-vite-plugin/inertia-helpers';
+import {createVueAppInstance} from "@/vue";
+import {createI18nInstance} from "~/lang/lang";
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
@@ -20,11 +20,6 @@ createInertiaApp({
         const i18n = await createI18nInstance(locale, fallbackLocale)
 
         const vueApp = createVueAppInstance(App, props, plugin).use(i18n)
-
-        router.on('navigate', async () => {
-            const newLocale = getLocaleFromUrl()
-            await setLanguage(i18n, newLocale)
-        })
 
         return vueApp.mount(el)
     },
