@@ -1,9 +1,16 @@
 @php
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Route;
-$pageName = Str::after(Route::currentRouteName(), 'page.');
+    use App\Services\SchemaGenerator;
+    use Illuminate\Support\Str;
+    use Illuminate\Support\Facades\Route;
+
+    $availableLocales = config('custom.lang.available');
+    $fallbackLocale = config('app.fallback_locale', 'en');
+    $currentRouteName = Route::currentRouteName();
+    $pageName = Str::after($currentRouteName, 'page.');
+    $currentParams = Route::current()?->parameters() ?? [];
 @endphp
-<!DOCTYPE html>
+
+    <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <!-- PRIORITY 100 -->
@@ -12,7 +19,8 @@ $pageName = Str::after(Route::currentRouteName(), 'page.');
 
     <!-- PRIORITY 95 -->
     <title inertia>{{ config('app.name', 'Laravel') }}</title>
-    <meta name="description" content="{{__("schema-org.$pageName.description")}}">
+    <meta name="description" content="{{ __('schema-org.' . $pageName . '.description') }}">
+
     <!-- PRIORITY 90 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,12 +29,31 @@ $pageName = Str::after(Route::currentRouteName(), 'page.');
     @routes
     @vite(['resources/ts/app.ts', "resources/ts/Pages/{$page['component']}.vue"])
 
-    <!-- JSON-LD  -->
-    {!! \App\Services\SchemaGenerator::for($pageName) !!}
+    <!-- JSON-LD -->
+    {!! SchemaGenerator::for($pageName) !!}
 
-    <!-- PRIORITY 40 -->
-    <link rel="canonical" href="{{ Str::startsWith(url()->current(), 'http://') ? Str::replaceFirst('http://', 'https://', url()->current()) : url()->current() }}">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    <!-- CANONICAL -->
+    <link rel="canonical"
+          href="{{ Str::startsWith(url()->current(), 'http://')
+              ? Str::replaceFirst('http://', 'https://', url()->current())
+              : url()->current() }}"/>
+
+    <!-- HREFLANGS -->
+    @php
+        $defaultUrl = route("page.$pageName", ['locale' => $fallbackLocale] + $currentParams);
+    @endphp
+    <link rel="alternate" hreflang="x-default" href="{{ $defaultUrl }}"/>
+    @foreach ($availableLocales as $lang)
+        @php
+            $url = route("page.$pageName", ['locale' => $lang] + $currentParams);
+        @endphp
+        <link rel="alternate" hreflang="{{ $lang }}" href="{{ $url }}"/>
+    @endforeach
+
+
+    <!-- FONTS & ICONS -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+          rel="stylesheet">
     <link rel="icon" type="image/png" href="/favicons/favicon-96x96.png" sizes="96x96"/>
     <link rel="icon" type="image/svg+xml" href="/favicons/favicon.svg"/>
     <link rel="shortcut icon" href="/favicons/favicon.ico"/>
@@ -34,8 +61,6 @@ $pageName = Str::after(Route::currentRouteName(), 'page.');
     <link rel="manifest" href="/favicons/site.webmanifest"/>
     <meta name="apple-mobile-web-app-title" content="MdjService"/>
     <meta name="theme-color" content="#ffffff">
-
-
 
     @inertiaHead
 </head>
