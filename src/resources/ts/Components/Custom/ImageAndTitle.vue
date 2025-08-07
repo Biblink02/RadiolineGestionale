@@ -13,7 +13,7 @@ const props = defineProps<{
 <template>
     <div class="max-w-7xl mx-auto relative">
         <div class="px-2 mt-4">
-            <img
+            <img width="full" height="full" loading="eager" title="img"
                 :src="props.src"
                 :alt="props.alt"
                 class="w-full h-100 object-cover rounded-lg" :class="imageClass"

@@ -1,3 +1,8 @@
+@php
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Route;
+$pageName = Str::after(Route::currentRouteName(), 'page.');
+@endphp
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
@@ -7,7 +12,7 @@
 
     <!-- PRIORITY 95 -->
     <title inertia>{{ config('app.name', 'Laravel') }}</title>
-
+    <meta name="description" content="{{__("schema-org.$pageName.description")}}">
     <!-- PRIORITY 90 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,7 +21,11 @@
     @routes
     @vite(['resources/ts/app.ts', "resources/ts/Pages/{$page['component']}.vue"])
 
+    <!-- JSON-LD  -->
+    {!! \App\Services\SchemaGenerator::for($pageName) !!}
+
     <!-- PRIORITY 40 -->
+    <link rel="canonical" href="{{ Str::replace('http', 'https', url()->current())  }}">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="/favicons/favicon-96x96.png" sizes="96x96"/>
     <link rel="icon" type="image/svg+xml" href="/favicons/favicon.svg"/>
@@ -26,8 +35,7 @@
     <meta name="apple-mobile-web-app-title" content="MdjService"/>
     <meta name="theme-color" content="#ffffff">
 
-    <!-- JSON-LD  -->
-    {!! \App\Services\SchemaGenerator::for(Illuminate\Support\Str::after(Illuminate\Support\Facades\Route::currentRouteName(), 'page.')) !!}
+
 
     @inertiaHead
 </head>

@@ -9,9 +9,9 @@ const {t} = useI18n()
     <AppLayout :title="t('privacy.title')">
         <div class="max-w-4xl mx-auto p-6 w-fit">
             <!-- Titolo -->
-            <h2 class="text-xl font-bold mb-4">
+            <h1 class="text-xl font-bold mb-4">
                 {{ t('privacy.body.title') }}
-            </h2>
+            </h1>
 
             <p class="mb-4">
                 {{ t('privacy.body.paragraph1.beforeBold') }}

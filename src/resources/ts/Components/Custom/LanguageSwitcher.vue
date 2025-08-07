@@ -47,7 +47,7 @@ function toggleDropdown() {
             class="flex items-center cursor-pointer w-[1.2rem] h-[1.2rem] hover:scale-110"
             :aria-label="t('LanguageSwitcher.current', { lang: selectedLocale.toUpperCase() })"
         >
-            <img
+            <img loading="eager" width="24" height="24"
                 :src="getFlagSrc(selectedLocale)"
                 class="w-full h-full"
                 :alt="t('LanguageSwitcher.current', { lang: selectedLocale.toUpperCase() })"
@@ -70,7 +70,7 @@ function toggleDropdown() {
                     :href="route(route().current(), { locale: lang })"
                     :aria-label="t('LanguageSwitcher.changeTo', { lang: lang.toUpperCase() })"
                 >
-                    <img
+                    <img loading="eager" width="24" height="24"
                         :src="getFlagSrc(lang)"
                         class="w-6 h-6 rounded-sm"
                         :alt="t('LanguageSwitcher.changeTo', { lang: lang.toUpperCase() })"

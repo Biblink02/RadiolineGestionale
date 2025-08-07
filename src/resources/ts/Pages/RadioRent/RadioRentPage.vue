@@ -29,15 +29,15 @@ const features = [
         <ImageAndTitle :src="RadioRent9" :alt="t('radio-rent.header.image-alt')" image-class="object-[50%_75%]"/>
         <div class="max-w-4xl mx-auto p-6">
             <!-- Titolo principale -->
-            <h2 class="text-2xl font-bold text-center mb-6">
+            <h1 class="text-3xl font-bold text-center mb-6">
                 {{ t('radio-rent.body.title') }}
-            </h2>
+            </h1>
 
             <!-- Sottotitolo servizio -->
-            <h3 class="text-lg font-semibold mb-2">
+            <h2 class="text-lg font-semibold mb-2">
                 <HugeiconsIcon :icon="RadioIcon" class="w-6 h-6 inline-block mb-1 mr-2 text-blue-800"/>
                 {{ t('radio-rent.body.subtitle') }}
-            </h3>
+            </h2>
 
             <!-- Descrizione servizio -->
             <p class="mb-4">

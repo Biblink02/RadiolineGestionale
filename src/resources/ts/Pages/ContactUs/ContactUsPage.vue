@@ -105,7 +105,7 @@ const submit = () => {
     <AppLayout :title="t('contact-us.title')">
         <Toast/>
         <div class="max-w-3xl mx-auto p-6">
-            <h1 class="text-2xl font-bold mb-6 text-center">{{ t("contact-us.form-title") }}</h1>
+            <h1 class="text-3xl font-bold mb-8 text-center">{{ t("contact-us.form-title") }}</h1>
 
             <!-- Nome e Cognome -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
@@ -267,7 +267,7 @@ const submit = () => {
                     icon="pi pi-send"
                     :disabled="!isValid"
                     @click="submit"
-                    class="w-auto"
+                    class="w-auto mt-8"
                     type="button"
                 />
             </div>

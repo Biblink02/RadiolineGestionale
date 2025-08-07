@@ -13,7 +13,7 @@ const props = defineProps<{
     >
         <!-- Immagine -->
         <div class="w-full h-60 md:h-70 overflow-hidden">
-            <img
+            <img loading="eager" width="200" height="200" title="card-img"
                 :src="props.card.imageSrc"
                 :alt="props.card.imageAlt"
                 class="w-full h-full object-cover"

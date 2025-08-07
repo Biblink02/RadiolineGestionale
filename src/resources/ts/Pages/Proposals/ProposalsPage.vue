@@ -17,9 +17,9 @@ const page = usePage();
         <section class="max-w-4xl mx-auto py-12 px-4 text-left">
             <div class="text-center">
                 <!-- Titolo -->
-                <h2 class="text-3xl font-bold mb-4">
+                <h1 class="text-3xl font-bold mb-4">
                     {{ t('proposals.header.title') }}
-                </h2>
+                </h1>
                 <p class="text-lg text-gray-600 mb-8">
                     {{ t('proposals.header.subtitle') }}
                 </p>
@@ -38,10 +38,10 @@ const page = usePage();
 
             <!-- Cosa fare -->
             <div class="text-left max-w-lg">
-                <h3 class="text-xl font-semibold mb-4 items-center gap-2">
+                <h2 class="text-xl font-semibold mb-4 items-center gap-2">
                     <i class="pi pi-pencil"></i>
                     {{ t('proposals.steps.title') }}
-                </h3>
+                </h2>
                 <ol class="list-decimal list-inside space-y-2">
                     <li>
                         <Link :href="route('page.contact-us', { locale: page.props.locale }, false)" class="underline hover:text-blue-600">

@@ -16,7 +16,7 @@ const {t} = useI18n();
             <h1 class="text-2xl font-bold text-center mb-6">
                 {{ t('jubilee.body.title') }}
             </h1>
-            <img class="w-70 lg:w-90 mb-4 h-auto mx-auto rounded-lg" :alt="t('jubilee.body.image-alt')" :src="JubileeLogo">
+            <img width="50" height="50" class="w-70 lg:w-90 mb-4 h-auto mx-auto rounded-lg" :alt="t('jubilee.body.image-alt')" :src="JubileeLogo">
             <!-- Paragrafi -->
             <p class="mb-4">
                 {{ t('jubilee.body.paragraph1') }}

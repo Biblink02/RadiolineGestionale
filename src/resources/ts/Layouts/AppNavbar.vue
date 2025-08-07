@@ -40,7 +40,7 @@ const mobileMenuOpen = ref(false);
 
             <!-- LOGO -->
             <Link :href="route('page.home', { locale: page.props.locale }, false)" class="flex-shrink-0">
-                <img :src="logo" alt="Logo" class="h-auto w-28 object-contain" loading="eager"/>
+                <img width="50" height="50" title="Logo" :src="logo" alt="Logo" class="h-auto w-28 object-contain" loading="eager"/>
             </Link>
 
             <!-- CONTAINER CON DUE NAVBAR -->
@@ -79,7 +79,7 @@ const mobileMenuOpen = ref(false);
         <!-- MOBILE -->
         <div class="sm:hidden flex items-center justify-between px-4 py-1">
             <Link :href="route('page.home', { locale: page.props.locale }, false)">
-                <img :src="logo" alt="Logo" class="h-auto w-24 object-contain" loading="eager"/>
+                <img width="50" height="50" title="Logo" :src="logo" alt="Logo" class="h-auto w-24 object-contain" loading="eager"/>
             </Link>
 
             <div class="flex items-center gap-1">
@@ -99,7 +99,7 @@ const mobileMenuOpen = ref(false);
             <template #header>
                 <div class="flex justify-between items-center w-full">
                     <Link :href="route('page.home', { locale: page.props.locale }, false)">
-                        <img :src="logo" alt="Logo" class="h-auto w-24 object-contain"/>
+                        <img width="50" height="50" title="Logo" :src="logo" alt="Logo" class="h-auto w-24 object-contain" loading="eager"/>
                     </Link>
                 </div>
             </template>
