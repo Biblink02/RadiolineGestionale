@@ -51,15 +51,15 @@ const previewAlt = t('gallery.body.preview-alt')
         >
             <template #default="{ item, index }">
                 <div class="transition-transform duration-300 hover:scale-105 rounded shadow-md overflow-hidden">
-                    <Image width="full" height="full" :alt="imageAlt" preview class="w-full h-auto rounded-lg shadow-md">
+                    <Image :alt="imageAlt" preview class="w-full h-auto rounded-lg shadow-md">
                         <template #image>
-                            <img width="50" height="50"
+                            <img
                                 :src="item.src"
                                 :alt="imageAlt + ' ' + index"
                             />
                         </template>
                         <template #preview="slotProps">
-                            <img width="50" height="50"
+                            <img
                                 class="max-w-[70%]! max-h-[70%]! m-auto!"
                                 :src="item.src"
                                 :alt="previewAlt + ' ' + index"

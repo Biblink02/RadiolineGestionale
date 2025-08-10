@@ -1,7 +1,6 @@
 import 'primeicons/primeicons.css'
 import './bootstrap.ts';
 import '../css/app.css';
-import 'primeicons/primeicons.css'
 import {createApp, h} from 'vue';
 import {ZiggyVue} from "../../vendor/tightenco/ziggy";
 import PrimeVue from 'primevue/config';
