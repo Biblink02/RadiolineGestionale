@@ -38,7 +38,7 @@ const cards = [
 </script>
 
 <template>
-    <section class="section mt-2 my-10">
+    <section class="section mt-2 mb-10 sm:my-10">
         <h2 class="text-center text-3xl font-bold">{{ t('home.inspire.title') }}</h2>
         <div class="mx-auto gap-8 max-w-5xl flex flex-row flex-wrap justify-center place-content-center m-4 mt-6">
             <InspireCard class="max-w-xs" v-for="card in cards" :card="card">
