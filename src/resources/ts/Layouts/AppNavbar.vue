@@ -34,7 +34,7 @@ const mobileMenuOpen = ref(false);
 </script>
 
 <template>
-    <header class="sticky top-0 z-50 bg-white shadow">
+    <header class="sticky top-0 z-50 bg-white shadow-xl">
 
         <div class="container mx-auto hidden sm:flex items-center justify-between px-6 py-2 gap-6">
 

@@ -1,29 +1,29 @@
 <script setup lang="ts">
 const {t} = useI18n()
-import Home1 from "@/../media/1-home.jpg";
+import Home1 from "@/../media/1-home-temp.jpg";
+import Home_mobile from "@/../media/1-home-mobile.jpg";
 
 </script>
 
 <template>
-    <section
-        class="relative flex min-h-[70vh] lg:min-h-[75vh] items-center justify-center bg-no-repeat bg-center text-white
-         bg-[length:auto_100%] sm:bg-cover sm:bg-fixed"
-        :aria-label="t('home.hero.aria')"
-        role="region"
-        :style="{ backgroundImage: `url(${Home1})` }"
-    >
-
-    <div class="container mx-auto px-6 text-center">
-            <h1 class="text-4xl font-bold md:text-6xl">
+    <div class="relative text-white sm:block hidden">
+        <img :src="Home1" class="mb-20 aspect-auto max-w-3xl mx-auto w-full"/>
+        <div class="container absolute top-0 left-30 mx-auto px-6">
+            <h1 class="text-3xl font-bold md:text-4xl max-w-2xl mt-8 mx-auto">
                 {{ t('home.hero.title') }}:
                 <span class="sr-only">{{ t('home.hero.title_sr') }}</span>
             </h1>
 
-            <p class="mt-12 max-w-2xl mx-auto text-lg mt-6 text-xl">
+            <p class="max-w-2xl mx-auto text-lg mt-2 text-xl">
                 {{ t('home.hero.subtitle1') }}, <br> {{ t('home.hero.subtitle2') }}.
             </p>
         </div>
-    </section>
+    </div>
+    <div class="relative text-white sm:hidden">
+        <img :src="Home_mobile" class="mb-20 aspect-auto max-w-3xl mx-auto h-[60vh] w-full"/>
+
+    </div>
+
 </template>
 
 
