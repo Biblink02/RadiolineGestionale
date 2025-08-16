@@ -6,6 +6,7 @@ import Components from 'unplugin-vue-components/vite';
 import {PrimeVueResolver} from '@primevue/auto-import-resolver';
 import { imagetools } from 'vite-imagetools'
 import AutoImport from 'unplugin-auto-import/vite'
+import legacy from '@vitejs/plugin-legacy'
 interface Params {
     mode: string
 }
@@ -16,6 +17,9 @@ export default ({ mode }: Params) => {
 
     return defineConfig({
         plugins: [
+            legacy({
+                targets: ['defaults', 'not IE 11'],
+            }),
             AutoImport({
                 imports: [
                     'vue',
