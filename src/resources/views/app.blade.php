@@ -4,10 +4,11 @@
     use Illuminate\Support\Facades\Route;
 
     $availableLocales = config('custom.lang.available');
-    $fallbackLocale = config('app.fallback_locale', 'en');
+    $fallbackLocale = config('custom.lang.fallback', 'en');
     $currentRouteName = Route::currentRouteName();
     $pageName = Str::after($currentRouteName, 'page.');
     $currentParams = Route::current()?->parameters() ?? [];
+    \Illuminate\Support\Facades\Log::info($currentParams)
 @endphp
 
     <!DOCTYPE html>
@@ -20,6 +21,7 @@
     <!-- PRIORITY 95 -->
     <title inertia>{{ config('app.name', 'Laravel') }}</title>
     <meta name="description" content="{{ __('schema-org.' . $pageName . '.description') }}">
+    <meta http-equiv="Content-Language" content="{{ $currentParams['locale'] ?? app()->getLocale() }}">
 
     <!-- PRIORITY 90 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -40,15 +42,16 @@
 
     <!-- HREFLANGS -->
     @php
-        $defaultUrl = route("page.$pageName", ['locale' => $fallbackLocale] + $currentParams);
+        $defaultUrl = route("page.$pageName", ['locale' => $fallbackLocale]);
     @endphp
     <link rel="alternate" hreflang="x-default" href="{{ $defaultUrl }}"/>
     @foreach ($availableLocales as $lang)
         @php
-            $url = route("page.$pageName", ['locale' => $lang] + $currentParams);
+            $url = route("page.$pageName", array_replace($currentParams, ['locale' => $lang]));
         @endphp
         <link rel="alternate" hreflang="{{ $lang }}" href="{{ $url }}"/>
     @endforeach
+
 
 
     <!-- FONTS & ICONS -->
