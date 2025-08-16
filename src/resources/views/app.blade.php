@@ -5,8 +5,7 @@
 
     $availableLocales = config('custom.lang.available');
     $fallbackLocale = config('custom.lang.fallback', 'en');
-    $currentRouteName = Route::currentRouteName();
-    $pageName = Str::after($currentRouteName, 'page.');
+    $pageName = Str::after(Route::currentRouteName(), 'page.');
     $currentParams = Route::current()?->parameters() ?? [];
 @endphp
 
@@ -20,7 +19,7 @@
     <!-- PRIORITY 95 -->
     <title inertia>{{ config('app.name', 'Laravel') }}</title>
     <meta name="description" content="{{ __('schema-org.' . $pageName . '.description') }}">
-    <meta http-equiv="Content-Language" content="{{ $currentParams['locale'] ?? app()->getLocale() }}">
+    <meta http-equiv="Content-Language" content="{{ app()->getLocale() }}">
 
     <!-- PRIORITY 90 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -34,22 +33,29 @@
     {!! SchemaGenerator::for($pageName) !!}
 
     <!-- CANONICAL -->
-    <link rel="canonical"
-          href="{{ Str::startsWith(url()->current(), 'http://')
-              ? Str::replaceFirst('http://', 'https://', url()->current())
-              : url()->current() }}"/>
+    @php
+        $currentUrl = url()->current();
+        $canonicalUrl = Str::startsWith($currentUrl, 'http://')
+            ? Str::replaceFirst('http://', 'https://', $currentUrl)
+            : $currentUrl;
+    @endphp
+    <link rel="canonical" href="{{ $canonicalUrl }}"/>
 
     <!-- HREFLANGS -->
     @php
         $defaultUrl = route("page.$pageName", ['locale' => $fallbackLocale]);
+        $defaultUrl = Str::replaceFirst('http://', 'https://', $defaultUrl);
     @endphp
     <link rel="alternate" hreflang="x-default" href="{{ $defaultUrl }}"/>
+
     @foreach ($availableLocales as $lang)
         @php
-            $url = route("page.$pageName", array_replace($currentParams, ['locale' => $lang]));
+            $url = route("page.$pageName", ['locale' => $lang]);
+            $url = Str::replaceFirst('http://', 'https://', $url);
         @endphp
         <link rel="alternate" hreflang="{{ $lang }}" href="{{ $url }}"/>
     @endforeach
+
 
 
 
