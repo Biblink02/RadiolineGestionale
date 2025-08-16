@@ -8,7 +8,6 @@
     $currentRouteName = Route::currentRouteName();
     $pageName = Str::after($currentRouteName, 'page.');
     $currentParams = Route::current()?->parameters() ?? [];
-    \Illuminate\Support\Facades\Log::info($currentParams)
 @endphp
 
     <!DOCTYPE html>
