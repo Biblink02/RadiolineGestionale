@@ -9,7 +9,7 @@
     $currentParams = Route::current()?->parameters() ?? [];
 @endphp
 
-    <!DOCTYPE html>
+        <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <!-- PRIORITY 100 -->
@@ -30,7 +30,7 @@
     @vite(['resources/ts/app.ts', "resources/ts/Pages/{$page['component']}.vue"])
 
     <!-- JSON-LD -->
-    {!! SchemaGenerator::for($pageName) !!}
+    {!! Str::replace('http://','https://',SchemaGenerator::for($pageName))  !!}
 
     <!-- CANONICAL -->
     @php
