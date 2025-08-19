@@ -182,17 +182,19 @@ class SchemaGenerator
         // Home
         $elements[] = Schema::listItem()
             ->position(1)
-            ->identifier('Medjugorje#Home')
+            ->identifier('Medjugorje-list')
             ->name(__('schema-org.Home'))
-            ->item(Schema::thing()->url($baseUrl));
+            ->item(Schema::thing()->url($baseUrl)
+                    ->identifier('Medjugorje#Home')
+            );
 
         // Secondo livello (se non home)
         if ($page !== 'home') {
             $elements[] = Schema::listItem()
                 ->position(2)
-                ->identifier("Medjugorje#$page")
+                ->identifier("Medjugorje-list2")
                 ->name(__("schema-org.$page.title") ?: ucfirst(str_replace('-', ' ', $page)))
-                ->item(Schema::thing()->url($baseUrl . '/' . $page));
+                ->item(Schema::thing()->url($baseUrl . '/' . $page)->identifier("Medjugorje#$page"));
         }
 
         return Schema::breadcrumbList()->itemListElement($elements);
