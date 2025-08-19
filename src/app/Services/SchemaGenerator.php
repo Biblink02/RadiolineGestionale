@@ -17,7 +17,7 @@ class SchemaGenerator
      */
     public static function for(string $page): string
     {
-        $url = url()->current();
+        $url = url(secure: true)->current();
         $locale = app()->getLocale();
 
         $schema = match ($page) {
@@ -59,7 +59,7 @@ class SchemaGenerator
             ->mainEntity(self::organizationEntity())
             ->primaryImageOfPage(
                 Schema::imageObject()
-                    ->url(asset('images/logo.png'))
+                    ->url(asset('images/logo.png', secure: true))
                     ->caption(__('schema-org.home.hero.title'))
                     ->inLanguage($locale)
             )
@@ -82,7 +82,7 @@ class SchemaGenerator
             )
             ->primaryImageOfPage(
                 Schema::imageObject()
-                    ->url(asset('images/jubilee-logo.png'))
+                    ->url(asset('images/jubilee-logo.png', secure: true))
                     ->caption(__('schema-org.jubilee.body.image-alt'))
                     ->inLanguage($locale)
             )
@@ -152,7 +152,7 @@ class SchemaGenerator
         return Schema::organization()
             ->name('Medjugorje Service')
             ->url(env('APP_URL'))
-            ->logo(asset('images/logo.png'))
+            ->logo(asset('images/logo.png', secure: true))
             ->foundingDate(new DateTime('2012-01-01'))
             ->contactPoint(
                 Schema::contactPoint()
@@ -176,12 +176,13 @@ class SchemaGenerator
      */
     private static function generateBreadcrumbs(string $page, string $locale): BaseType
     {
-        $baseUrl = url('/' . $locale);
+        $baseUrl = url('/' . $locale, secure: true);
         $elements = [];
 
         // Home
         $elements[] = Schema::listItem()
             ->position(1)
+            ->identifier('Medjugorje#Home')
             ->name(__('schema-org.Home'))
             ->item(Schema::thing()->url($baseUrl));
 
@@ -189,6 +190,7 @@ class SchemaGenerator
         if ($page !== 'home') {
             $elements[] = Schema::listItem()
                 ->position(2)
+                ->identifier("Medjugorje#$page")
                 ->name(__("schema-org.$page.title") ?: ucfirst(str_replace('-', ' ', $page)))
                 ->item(Schema::thing()->url($baseUrl . '/' . $page));
         }
