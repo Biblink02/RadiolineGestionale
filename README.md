@@ -45,7 +45,8 @@ MedjugorjeService is a full-stack Laravel 12 application designed for travel age
 git clone https://github.com/your-handle/medjugorje-service.git
 cd medjugorje-service
 
-cp .env.example .env    # edit DB creds, mail, SEO configs
+cp .env.example .env    # edit DB creds, ips
+cp src/.env.example src/.env    # edit DB creds, mail
 
 # Build and start containers
 docker compose up -d
