@@ -14,7 +14,7 @@ const links = [
     {label: t("footer.links.label5"), href: route('page.payments', { locale: page.props.locale }, false)},
 ];
 const phoneWhatsApp = ref("00387063144027");
-const email = ref("medjugorjeservice00@gmail.com");
+const email = ref("mdjservice00@gmail.com");
 
 function formattedPhone(raw: string) {
     const match = raw.match(/^00(\d{3})(\d{3})(\d{3})(\d{3})$/);
