@@ -9,18 +9,15 @@ const props = defineProps<{
 </script>
 
 <template>
-    <!-- Isolated fixed background: renders once, zero paint overhead on scroll in Firefox WebRender -->
-    <div class="fixed inset-0 -z-10 pointer-events-none bg-gradient-to-br from-stone-100 to-slate-200" aria-hidden="true"></div>
-
     <ScrollTop/>
 
     <Head :title="title"/>
 
-    <!-- Page Heading: sticky header in normal flow, NOT a flex item (avoids Gecko Bug 1488080) -->
+    <!-- Page Heading: sticky header in normal flow, NOT a flex item -->
     <AppHeader/>
 
-    <!-- Page Content & Footer -->
-    <div class="min-h-screen flex flex-col justify-between">
+    <!-- Ripristinato lo sfondo nel flusso naturale del documento -->
+    <div class="min-h-screen flex flex-col justify-between bg-gradient-to-br from-stone-100 to-slate-200">
         <main class="flex-1">
             <slot/>
         </main>

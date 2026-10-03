@@ -24,37 +24,41 @@ const menu = ref([
 ]);
 
 const isScrolled = ref(false);
-const sentinelRef = ref<HTMLElement | null>(null);
-let observer: IntersectionObserver | null = null;
+let ticking = false;
 
-onMounted(async () => {
-    await nextTick();
-    if (sentinelRef.value) {
-        observer = new IntersectionObserver(
-            ([entry]) => {
-                isScrolled.value = !entry.isIntersecting;
-            },
-            { threshold: 0 }
-        );
-        observer.observe(sentinelRef.value);
+const updateScrollState = () => {
+    const top = window.scrollY || document.documentElement.scrollTop || 0;
+
+    if (!isScrolled.value && top > 30) {
+        isScrolled.value = true;
+    } else if (isScrolled.value && top < 10) {
+        isScrolled.value = false;
     }
-});
+};
 
-onUnmounted(() => {
-    observer?.disconnect();
-    observer = null;
-});
+const onScroll = () => {
+    if (ticking) return;
+
+    ticking = true;
+
+    requestAnimationFrame(() => {
+        updateScrollState();
+        ticking = false;
+    });
+};
+
+useEventListener(window, 'scroll', onScroll, { passive: true });
+
+onMounted(updateScrollState);
 
 const mobileMenuOpen = ref(false);
 </script>
 
 <template>
-    <div ref="sentinelRef" class="absolute top-0 left-0 w-full h-8 pointer-events-none -z-50" aria-hidden="true"></div>
-
     <header class="sticky top-0 z-50 bg-white border-b border-slate-200/80 shadow-xs">
 
         <div
-            class="container mx-auto hidden sm:flex items-center justify-between px-6 transition-[padding] duration-300 ease-in-out gap-6"
+            class="container mx-auto hidden sm:flex items-center justify-between px-6 transition-all duration-300 ease-in-out gap-6"
             :class="isScrolled ? 'py-1' : 'py-2.5'"
         >
 
@@ -66,7 +70,7 @@ const mobileMenuOpen = ref(false);
                     title="Logo"
                     :src="logo"
                     alt="Logo"
-                    class="h-auto object-contain transition-[width] duration-300 ease-in-out"
+                    class="h-auto object-contain transition-all duration-300 ease-in-out"
                     :class="isScrolled ? 'w-20' : 'w-28'"
                     loading="eager"
                 />
@@ -74,23 +78,26 @@ const mobileMenuOpen = ref(false);
 
             <!-- CONTAINER CON DUE NAVBAR -->
             <div class="flex-1 flex flex-col items-end">
-                <!-- Top links with smooth height collapse -->
-                <div class="nav-collapsible" :class="{ collapsed: isScrolled }">
-                    <div class="nav-collapsible-inner">
-                        <nav class="flex gap-6 text-sm text-gray-600 pb-1 items-center">
-                            <Link
-                                v-for="link in pages"
-                                :key="link.href"
-                                :href="link.href"
-                                :class="['hover:text-blue-600 transition-colors', link.href === page.url ? 'text-blue-700 underline' : '']"
-                            >
-                                {{ link.name }}
-                            </Link>
-                            <SocialPart container-class="space-x-3" :icon-size="1.1"/>
-                            <LanguageSwitcher/>
-                        </nav>
-                    </div>
-                </div>
+                <!-- Top links -->
+                <Transition
+                    enter-active-class="transition-opacity duration-200"
+                    leave-active-class="transition-opacity duration-150"
+                    enter-from-class="opacity-0"
+                    leave-to-class="opacity-0"
+                >
+                    <nav v-show="!isScrolled" class="flex gap-6 text-sm text-gray-600 pb-1 items-center">
+                        <Link
+                            v-for="link in pages"
+                            :key="link.href"
+                            :href="link.href"
+                            :class="['hover:text-blue-600 transition-colors', link.href === page.url ? 'text-blue-700 underline' : '']"
+                        >
+                            {{ link.name }}
+                        </Link>
+                        <SocialPart container-class="space-x-3" :icon-size="1.1"/>
+                        <LanguageSwitcher/>
+                    </nav>
+                </Transition>
 
                 <!-- Main menu -->
                 <nav class="flex gap-8 text-base font-medium">
@@ -109,7 +116,7 @@ const mobileMenuOpen = ref(false);
         </div>
         <!-- MOBILE -->
         <div
-            class="sm:hidden flex items-center justify-between px-4 transition-[padding] duration-300"
+            class="sm:hidden flex items-center justify-between px-4 transition-all duration-300"
             :class="isScrolled ? 'py-0.5' : 'py-1.5'"
         >
             <Link :href="route('page.home', { locale: page.props.locale }, false)">
@@ -119,7 +126,7 @@ const mobileMenuOpen = ref(false);
                     title="Logo"
                     :src="logo"
                     alt="Logo"
-                    class="h-auto object-contain transition-[width] duration-300"
+                    class="h-auto object-contain transition-all duration-300"
                     :class="isScrolled ? 'w-20' : 'w-24'"
                     loading="eager"
                 />
@@ -184,20 +191,4 @@ const mobileMenuOpen = ref(false);
 </template>
 
 <style scoped>
-.nav-collapsible {
-    display: grid;
-    grid-template-rows: 1fr;
-    opacity: 1;
-    transition: grid-template-rows 300ms cubic-bezier(0.4, 0, 0.2, 1),
-                opacity 250ms ease-in-out;
-}
-.nav-collapsible.collapsed {
-    grid-template-rows: 0fr;
-    opacity: 0;
-    pointer-events: none;
-}
-.nav-collapsible-inner {
-    overflow: hidden;
-    min-height: 0;
-}
 </style>
