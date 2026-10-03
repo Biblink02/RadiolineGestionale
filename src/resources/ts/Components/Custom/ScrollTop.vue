@@ -48,7 +48,7 @@ function scrollToTop() {
             v-show="visible"
             type="button"
             class="fixed bottom-6 right-6 z-50 flex items-center justify-center w-10 h-10 rounded-full shadow-lg text-white cursor-pointer focus:outline-none transition-transform active:scale-95"
-            style="background: var(--color-primary); will-change: transform, opacity;"
+            style="background: var(--color-primary);"
             aria-label="Scroll to top"
             @click="scrollToTop"
         >

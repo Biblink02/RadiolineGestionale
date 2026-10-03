@@ -9,20 +9,22 @@ const props = defineProps<{
 </script>
 
 <template>
+    <!-- Isolated fixed background: renders once, zero paint overhead on scroll in Firefox WebRender -->
+    <div class="fixed inset-0 -z-10 pointer-events-none bg-gradient-to-br from-stone-100 to-slate-200" aria-hidden="true"></div>
+
     <ScrollTop/>
-    <div class="bg-gradient-to-br from-stone-100 to-slate-200">
-        <Head :title="title"/>
 
-        <div class="min-h-screen">
+    <Head :title="title"/>
 
-            <!-- Page Heading -->
-            <AppHeader/>
+    <div class="min-h-screen flex flex-col">
+        <!-- Page Heading -->
+        <AppHeader/>
 
-            <!-- Page Content -->
-            <main>
-                <slot/>
-            </main>
-        </div>
+        <!-- Page Content -->
+        <main class="flex-1">
+            <slot/>
+        </main>
+
         <Footer/>
     </div>
 </template>

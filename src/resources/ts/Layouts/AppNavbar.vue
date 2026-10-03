@@ -23,34 +23,79 @@ const menu = ref([
     {name: t('navbar.links.jubilee-2025'), href: route('page.jubilee-2025', { locale: page.props.locale }, false)}
 ]);
 
+const isScrolled = ref(false);
+let ticking = false;
+
+const onScroll = () => {
+    if (!ticking) {
+        window.requestAnimationFrame(() => {
+            const y = window.scrollY;
+            if (!isScrolled.value && y > 30) {
+                isScrolled.value = true;
+            } else if (isScrolled.value && y < 10) {
+                isScrolled.value = false;
+            }
+            ticking = false;
+        });
+        ticking = true;
+    }
+};
+
+useEventListener(window, 'scroll', onScroll, { passive: true });
+
+onMounted(() => {
+    if (window.scrollY > 30) {
+        isScrolled.value = true;
+    }
+});
+
 const mobileMenuOpen = ref(false);
 </script>
 
 <template>
-    <header class="sticky top-0 z-50 bg-white border-b border-slate-200/80 shadow-xs" style="transform: translateZ(0); will-change: transform;">
+    <header
+        class="sticky top-0 z-50 bg-white border-b border-slate-200/80 transition-shadow duration-300"
+        :class="isScrolled ? 'shadow-md' : 'shadow-xs'"
+    >
 
-        <div class="container mx-auto hidden sm:flex items-center justify-between px-6 py-2 gap-6">
+        <div
+            class="container mx-auto hidden sm:flex items-center justify-between px-6 transition-all duration-300 ease-in-out gap-6"
+            :class="isScrolled ? 'py-1' : 'py-2.5'"
+        >
 
             <!-- LOGO -->
             <Link :href="route('page.home', { locale: page.props.locale }, false)" class="flex-shrink-0">
-                <img width="1536" height="1024" title="Logo" :src="logo" alt="Logo" class="h-auto w-28 object-contain" loading="eager"/>
+                <img
+                    width="1536"
+                    height="1024"
+                    title="Logo"
+                    :src="logo"
+                    alt="Logo"
+                    class="h-auto object-contain transition-all duration-300 ease-in-out"
+                    :class="isScrolled ? 'w-20' : 'w-28'"
+                    loading="eager"
+                />
             </Link>
 
             <!-- CONTAINER CON DUE NAVBAR -->
             <div class="flex-1 flex flex-col items-end">
-                <!-- Top links -->
-                <nav class="flex gap-6 text-sm text-gray-600 pb-1 items-center">
-                    <Link
-                        v-for="link in pages"
-                        :key="link.href"
-                        :href="link.href"
-                        :class="['hover:text-blue-600 transition-colors', link.href === page.url ? 'text-blue-700 underline' : '']"
-                    >
-                        {{ link.name }}
-                    </Link>
-                    <SocialPart container-class="space-x-3" :icon-size="1.1"/>
-                    <LanguageSwitcher/>
-                </nav>
+                <!-- Top links with smooth height collapse -->
+                <div class="nav-collapsible" :class="{ collapsed: isScrolled }">
+                    <div class="nav-collapsible-inner">
+                        <nav class="flex gap-6 text-sm text-gray-600 pb-1 items-center">
+                            <Link
+                                v-for="link in pages"
+                                :key="link.href"
+                                :href="link.href"
+                                :class="['hover:text-blue-600 transition-colors', link.href === page.url ? 'text-blue-700 underline' : '']"
+                            >
+                                {{ link.name }}
+                            </Link>
+                            <SocialPart container-class="space-x-3" :icon-size="1.1"/>
+                            <LanguageSwitcher/>
+                        </nav>
+                    </div>
+                </div>
 
                 <!-- Main menu -->
                 <nav class="flex gap-8 text-base font-medium">
@@ -68,9 +113,21 @@ const mobileMenuOpen = ref(false);
 
         </div>
         <!-- MOBILE -->
-        <div class="sm:hidden flex items-center justify-between px-4 py-1">
+        <div
+            class="sm:hidden flex items-center justify-between px-4 transition-all duration-300"
+            :class="isScrolled ? 'py-0.5' : 'py-1.5'"
+        >
             <Link :href="route('page.home', { locale: page.props.locale }, false)">
-                <img width="1536" height="1024" title="Logo" :src="logo" alt="Logo" class="h-auto w-24 object-contain" loading="eager"/>
+                <img
+                    width="1536"
+                    height="1024"
+                    title="Logo"
+                    :src="logo"
+                    alt="Logo"
+                    class="h-auto object-contain transition-all duration-300"
+                    :class="isScrolled ? 'w-20' : 'w-24'"
+                    loading="eager"
+                />
             </Link>
 
             <div class="flex items-center gap-1">
@@ -132,4 +189,20 @@ const mobileMenuOpen = ref(false);
 </template>
 
 <style scoped>
+.nav-collapsible {
+    display: grid;
+    grid-template-rows: 1fr;
+    opacity: 1;
+    transition: grid-template-rows 300ms cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 250ms ease-in-out;
+}
+.nav-collapsible.collapsed {
+    grid-template-rows: 0fr;
+    opacity: 0;
+    pointer-events: none;
+}
+.nav-collapsible-inner {
+    overflow: hidden;
+    min-height: 0;
+}
 </style>
