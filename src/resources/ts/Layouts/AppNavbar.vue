@@ -58,7 +58,7 @@ const mobileMenuOpen = ref(false);
     <header class="sticky top-0 z-50 bg-white border-b border-slate-200/80 shadow-xs">
 
         <div
-            class="container mx-auto hidden sm:flex items-center justify-between px-6 transition-all duration-300 ease-in-out gap-6"
+            class="container mx-auto hidden sm:flex items-center justify-between px-6 gap-6"
             :class="isScrolled ? 'py-1' : 'py-2.5'"
         >
 
@@ -70,7 +70,7 @@ const mobileMenuOpen = ref(false);
                     title="Logo"
                     :src="logo"
                     alt="Logo"
-                    class="h-auto object-contain transition-all duration-300 ease-in-out"
+                    class="h-auto object-contain"
                     :class="isScrolled ? 'w-20' : 'w-28'"
                     loading="eager"
                 />
@@ -116,7 +116,7 @@ const mobileMenuOpen = ref(false);
         </div>
         <!-- MOBILE -->
         <div
-            class="sm:hidden flex items-center justify-between px-4 transition-all duration-300"
+            class="sm:hidden flex items-center justify-between px-4"
             :class="isScrolled ? 'py-0.5' : 'py-1.5'"
         >
             <Link :href="route('page.home', { locale: page.props.locale }, false)">
@@ -126,7 +126,7 @@ const mobileMenuOpen = ref(false);
                     title="Logo"
                     :src="logo"
                     alt="Logo"
-                    class="h-auto object-contain transition-all duration-300"
+                    class="h-auto object-contain"
                     :class="isScrolled ? 'w-20' : 'w-24'"
                     loading="eager"
                 />
