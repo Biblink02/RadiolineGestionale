@@ -24,42 +24,37 @@ const menu = ref([
 ]);
 
 const isScrolled = ref(false);
-let ticking = false;
+const sentinelRef = ref<HTMLElement | null>(null);
+let observer: IntersectionObserver | null = null;
 
-const onScroll = () => {
-    if (!ticking) {
-        window.requestAnimationFrame(() => {
-            const y = window.scrollY;
-            if (!isScrolled.value && y > 30) {
-                isScrolled.value = true;
-            } else if (isScrolled.value && y < 10) {
-                isScrolled.value = false;
-            }
-            ticking = false;
-        });
-        ticking = true;
+onMounted(async () => {
+    await nextTick();
+    if (sentinelRef.value) {
+        observer = new IntersectionObserver(
+            ([entry]) => {
+                isScrolled.value = !entry.isIntersecting;
+            },
+            { threshold: 0 }
+        );
+        observer.observe(sentinelRef.value);
     }
-};
+});
 
-useEventListener(window, 'scroll', onScroll, { passive: true });
-
-onMounted(() => {
-    if (window.scrollY > 30) {
-        isScrolled.value = true;
-    }
+onUnmounted(() => {
+    observer?.disconnect();
+    observer = null;
 });
 
 const mobileMenuOpen = ref(false);
 </script>
 
 <template>
-    <header
-        class="sticky top-0 z-50 bg-white border-b border-slate-200/80 transition-shadow duration-300"
-        :class="isScrolled ? 'shadow-md' : 'shadow-xs'"
-    >
+    <div ref="sentinelRef" class="absolute top-0 left-0 w-full h-8 pointer-events-none -z-50" aria-hidden="true"></div>
+
+    <header class="sticky top-0 z-50 bg-white border-b border-slate-200/80 shadow-xs">
 
         <div
-            class="container mx-auto hidden sm:flex items-center justify-between px-6 transition-all duration-300 ease-in-out gap-6"
+            class="container mx-auto hidden sm:flex items-center justify-between px-6 transition-[padding] duration-300 ease-in-out gap-6"
             :class="isScrolled ? 'py-1' : 'py-2.5'"
         >
 
@@ -71,7 +66,7 @@ const mobileMenuOpen = ref(false);
                     title="Logo"
                     :src="logo"
                     alt="Logo"
-                    class="h-auto object-contain transition-all duration-300 ease-in-out"
+                    class="h-auto object-contain transition-[width] duration-300 ease-in-out"
                     :class="isScrolled ? 'w-20' : 'w-28'"
                     loading="eager"
                 />
@@ -114,7 +109,7 @@ const mobileMenuOpen = ref(false);
         </div>
         <!-- MOBILE -->
         <div
-            class="sm:hidden flex items-center justify-between px-4 transition-all duration-300"
+            class="sm:hidden flex items-center justify-between px-4 transition-[padding] duration-300"
             :class="isScrolled ? 'py-0.5' : 'py-1.5'"
         >
             <Link :href="route('page.home', { locale: page.props.locale }, false)">
@@ -124,7 +119,7 @@ const mobileMenuOpen = ref(false);
                     title="Logo"
                     :src="logo"
                     alt="Logo"
-                    class="h-auto object-contain transition-all duration-300"
+                    class="h-auto object-contain transition-[width] duration-300"
                     :class="isScrolled ? 'w-20' : 'w-24'"
                     loading="eager"
                 />

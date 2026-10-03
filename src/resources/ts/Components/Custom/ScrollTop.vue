@@ -10,22 +10,26 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const visible = ref(false);
-let ticking = false;
+const sentinelRef = ref<HTMLElement | null>(null);
+let observer: IntersectionObserver | null = null;
 
-const onScroll = () => {
-    if (!ticking) {
-        window.requestAnimationFrame(() => {
-            const isPastThreshold = window.scrollY > props.threshold;
-            if (visible.value !== isPastThreshold) {
-                visible.value = isPastThreshold;
-            }
-            ticking = false;
-        });
-        ticking = true;
+onMounted(async () => {
+    await nextTick();
+    if (sentinelRef.value) {
+        observer = new IntersectionObserver(
+            ([entry]) => {
+                visible.value = !entry.isIntersecting;
+            },
+            { threshold: 0 }
+        );
+        observer.observe(sentinelRef.value);
     }
-};
+});
 
-useEventListener(window, 'scroll', onScroll, { passive: true });
+onUnmounted(() => {
+    observer?.disconnect();
+    observer = null;
+});
 
 function scrollToTop() {
     window.scrollTo({
@@ -36,6 +40,12 @@ function scrollToTop() {
 </script>
 
 <template>
+    <div
+        ref="sentinelRef"
+        class="absolute top-0 left-0 w-full pointer-events-none -z-50"
+        :style="{ height: `${props.threshold}px` }"
+        aria-hidden="true"
+    ></div>
     <Transition
         enter-active-class="transition duration-200 ease-out"
         enter-from-class="opacity-0 translate-y-4 scale-90"

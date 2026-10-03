@@ -16,11 +16,11 @@ const props = defineProps<{
 
     <Head :title="title"/>
 
-    <div class="min-h-screen flex flex-col">
-        <!-- Page Heading -->
-        <AppHeader/>
+    <!-- Page Heading: sticky header in normal flow, NOT a flex item (avoids Gecko Bug 1488080) -->
+    <AppHeader/>
 
-        <!-- Page Content -->
+    <!-- Page Content & Footer -->
+    <div class="min-h-screen flex flex-col justify-between">
         <main class="flex-1">
             <slot/>
         </main>
