@@ -20,11 +20,11 @@ const { t } = useI18n()
     <article
         @mouseover="hovering = true"
         @mouseleave="hovering = false"
-        class="transition-all duration-300 p-6 rounded-xl border border-white bg-white shadow-sm hover:shadow-xl hover:-translate-y-1 group max-w-sm"
+        class="transition-[transform,box-shadow] duration-300 p-6 rounded-xl border border-white bg-white shadow-sm hover:shadow-xl hover:-translate-y-1 group max-w-sm"
         :aria-label="props.title"
     >
         <div
-            class="mx-auto mb-4 w-14 h-14 rounded-full flex items-center justify-center transition-all duration-300"
+            class="mx-auto mb-4 w-14 h-14 rounded-full flex items-center justify-center transition-colors duration-300"
             :class="hovering ? 'bg-blue-600' : 'bg-blue-100'"
         >
             <i
@@ -60,7 +60,7 @@ const { t } = useI18n()
 
         <button
             type="button"
-            class="group/button hover:cursor-pointer inline-flex justify-center items-center w-full px-5 py-2 border border-blue-800 text-blue-800 font-medium rounded-lg transition-all duration-300 hover:bg-blue-600 hover:text-white"
+            class="group/button hover:cursor-pointer inline-flex justify-center items-center w-full px-5 py-2 border border-blue-800 text-blue-800 font-medium rounded-lg transition-colors duration-300 hover:bg-blue-600 hover:text-white"
             @click="props.onLearnMore"
             :aria-label="t('service_card.aria_learn')"
         >

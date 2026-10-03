@@ -8,7 +8,7 @@ const props = defineProps<{
 
 <template>
     <article
-        class="transition-all duration-300 rounded-xl border border-white bg-white shadow-sm hover:shadow-xl hover:-translate-y-1 group overflow-hidden flex flex-col"
+        class="transition-[transform,box-shadow] duration-300 rounded-xl border border-white bg-white shadow-sm hover:shadow-xl hover:-translate-y-1 group overflow-hidden flex flex-col"
         :aria-label="props.card.title"
     >
         <!-- Immagine -->

@@ -2,6 +2,7 @@
 import {Head} from '@inertiajs/vue3';
 import Footer from './AppFooter.vue'
 import AppHeader from "./AppNavbar.vue";
+import ScrollTop from "@/Components/Custom/ScrollTop.vue";
 const props = defineProps<{
     title: string
 }>()

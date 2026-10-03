@@ -14,14 +14,43 @@ const allImages = Array.from({length: props.imgNumber}, (_, i) => ({
 const batch = ref(1);
 const loadedImages = computed(() => allImages.slice(0, props.batchSize * batch.value))
 
-const stopScroll = useEventListener(window, 'scroll', () => {
-    const threshold = Math.min(0.4 + (batch.value - 1) * 0.1, 0.7);
+const hasMoreImages = computed(() => props.imgNumber > props.batchSize * batch.value);
+const sentinelRef = ref<HTMLElement | null>(null);
+let observer: IntersectionObserver | null = null;
 
-    if (props.imgNumber <= props.batchSize * batch.value) {
-        stopScroll();
-    } else if (window.innerHeight + window.scrollY >= document.body.offsetHeight * threshold) {
-        batch.value++;
+const initObserver = () => {
+    if (!sentinelRef.value || observer || !hasMoreImages.value) return;
+
+    observer = new IntersectionObserver(
+        (entries) => {
+            const [entry] = entries;
+            if (entry.isIntersecting && hasMoreImages.value) {
+                batch.value++;
+            }
+        },
+        {
+            rootMargin: '300px',
+        }
+    );
+
+    observer.observe(sentinelRef.value);
+};
+
+onMounted(async () => {
+    await nextTick();
+    initObserver();
+});
+
+watch(hasMoreImages, (hasMore) => {
+    if (!hasMore && observer) {
+        observer.disconnect();
+        observer = null;
     }
+});
+
+onUnmounted(() => {
+    observer?.disconnect();
+    observer = null;
 });
 const breakpoints = useBreakpoints(breakpointsTailwind);
 const gap = computed(() => {
@@ -70,5 +99,6 @@ const previewAlt = t('gallery.body.preview-alt')
                 </div>
             </template>
         </masonry-wall>
+        <div ref="sentinelRef" class="h-4 w-full pointer-events-none" aria-hidden="true"></div>
     </AppLayout>
 </template>

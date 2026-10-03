@@ -23,43 +23,34 @@ const menu = ref([
     {name: t('navbar.links.jubilee-2025'), href: route('page.jubilee-2025', { locale: page.props.locale }, false)}
 ]);
 
-const scrollY = ref(0);
-
-useEventListener(window, 'scroll', () => {
-    scrollY.value = window.scrollY
-})
-
-const pagesVisible = computed(() => scrollY.value < 10);
 const mobileMenuOpen = ref(false);
 </script>
 
 <template>
-    <header class="sticky top-0 z-50 bg-white shadow-xl">
+    <header class="sticky top-0 z-50 bg-white border-b border-slate-200/80 shadow-xs" style="transform: translateZ(0); will-change: transform;">
 
         <div class="container mx-auto hidden sm:flex items-center justify-between px-6 py-2 gap-6">
 
             <!-- LOGO -->
             <Link :href="route('page.home', { locale: page.props.locale }, false)" class="flex-shrink-0">
-                <img width="50" height="50" title="Logo" :src="logo" alt="Logo" class="h-auto w-28 object-contain" loading="eager"/>
+                <img width="1536" height="1024" title="Logo" :src="logo" alt="Logo" class="h-auto w-28 object-contain" loading="eager"/>
             </Link>
 
             <!-- CONTAINER CON DUE NAVBAR -->
             <div class="flex-1 flex flex-col items-end">
                 <!-- Top links -->
-                <Transition name="fade">
-                    <nav v-show="pagesVisible" class="flex gap-6 text-sm text-gray-600 pb-1">
-                        <Link
-                            v-for="link in pages"
-                            :key="link.href"
-                            :href="link.href"
-                            :class="['hover:text-blue-600 transition-colors', link.href === page.url ? 'text-blue-700 underline' : '']"
-                        >
-                            {{ link.name }}
-                        </Link>
-                        <SocialPart container-class="space-x-3" :icon-size="1.1"/>
-                        <LanguageSwitcher/>
-                    </nav>
-                </Transition>
+                <nav class="flex gap-6 text-sm text-gray-600 pb-1 items-center">
+                    <Link
+                        v-for="link in pages"
+                        :key="link.href"
+                        :href="link.href"
+                        :class="['hover:text-blue-600 transition-colors', link.href === page.url ? 'text-blue-700 underline' : '']"
+                    >
+                        {{ link.name }}
+                    </Link>
+                    <SocialPart container-class="space-x-3" :icon-size="1.1"/>
+                    <LanguageSwitcher/>
+                </nav>
 
                 <!-- Main menu -->
                 <nav class="flex gap-8 text-base font-medium">
@@ -79,7 +70,7 @@ const mobileMenuOpen = ref(false);
         <!-- MOBILE -->
         <div class="sm:hidden flex items-center justify-between px-4 py-1">
             <Link :href="route('page.home', { locale: page.props.locale }, false)">
-                <img width="50" height="50" title="Logo" :src="logo" alt="Logo" class="h-auto w-24 object-contain" loading="eager"/>
+                <img width="1536" height="1024" title="Logo" :src="logo" alt="Logo" class="h-auto w-24 object-contain" loading="eager"/>
             </Link>
 
             <div class="flex items-center gap-1">
@@ -99,7 +90,7 @@ const mobileMenuOpen = ref(false);
             <template #header>
                 <div class="flex justify-between items-center w-full">
                     <Link :href="route('page.home', { locale: page.props.locale }, false)">
-                        <img width="50" height="50" title="Logo" :src="logo" alt="Logo" class="h-auto w-24 object-contain" loading="eager"/>
+                        <img width="1536" height="1024" title="Logo" :src="logo" alt="Logo" class="h-auto w-24 object-contain" loading="eager"/>
                     </Link>
                 </div>
             </template>
@@ -141,5 +132,4 @@ const mobileMenuOpen = ref(false);
 </template>
 
 <style scoped>
-
 </style>
