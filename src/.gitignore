@@ -25,7 +25,6 @@ yarn-error.log
 /public/css/
 /public/js/
 /components.d.ts
-package-lock.json
 composer.lock
 /storage/framework/views/
 /auto-imports.d.ts

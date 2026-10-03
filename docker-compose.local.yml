@@ -24,21 +24,25 @@ services:
     command: "bash /scripts/startup-wrapper_local.sh"
 
   frontend:
-    image: "node:24"
+    image: "oven/bun:1"
     depends_on:
       - "app"
     working_dir: "/var/www/docker"
+    environment:
+      BUN_INSTALL_CACHE_DIR: "/bun-cache"
     volumes:
       - "./src:/var/www/docker"
+      - "frontend_node_modules:/var/www/docker/node_modules"
+      - "bun_cache:/bun-cache"
     ports:
       - "3100:3100" # vite hot reload
     command: >
-      bash -c "npm install
-      && npm run dev"
+      sh -c "bun install && bun run dev"
     networks:
       default:
         ipv4_address: "${CONTAINER_SERVICE_FRONTEND_IP_ADDRESS}"
         aliases:
+          - "${CONTAINER_NAME}-bun.local"
           - "${CONTAINER_NAME}-nodejs.local"
 
   database:
@@ -69,3 +73,5 @@ networks:
 volumes:
   database:
   app_storage:
+  frontend_node_modules:
+  bun_cache:
