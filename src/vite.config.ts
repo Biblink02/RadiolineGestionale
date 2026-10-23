@@ -21,6 +21,7 @@ export default ({ mode }: Params) => {
                 targets: ['defaults', 'not IE 11'],
             }),
             AutoImport({
+                exclude: [/node_modules/, /vendor/, /\.git/],
                 imports: [
                     'vue',
                     'vue-router',

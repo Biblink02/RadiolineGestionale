@@ -2,7 +2,6 @@
 
 namespace App\Filament\Resources\LoanResource\RelationManagers;
 
-use App\Enums\LoanStatusEnum;
 use App\Enums\RadioStatusEnum;
 use App\Filament\Resources\RadioResource\RadioResourceViewBuilder;
 use App\Models\Radio;
@@ -18,7 +17,6 @@ use Filament\Tables\Actions\CreateAction;
 use Filament\Tables\Actions\DetachAction;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Table;
-use Illuminate\Support\Facades\Log;
 
 class RadiosRelationManager extends RelationManager
 {
@@ -37,9 +35,9 @@ class RadiosRelationManager extends RelationManager
                 CreateAction::make(),
                 AttachAction::make()
                     ->recordTitleAttribute('identifier')
-                    ->recordSelectOptionsQuery(fn($query) => $query->where('status', RadioStatusEnum::AVAILABLE))
+                    ->recordSelectOptionsQuery(fn ($query) => $query->where('status', RadioStatusEnum::AVAILABLE))
                     ->preloadRecordSelect()
-                    ->form(fn(AttachAction $action): array => [
+                    ->form(fn (AttachAction $action): array => [
                         Wizard::make([
                             Step::make('Attach multiple')
                                 ->schema([
@@ -65,8 +63,8 @@ class RadiosRelationManager extends RelationManager
                                                 ->placeholder('Inserisci id radio e vai a capo')
                                                 ->reactive()
                                                 ->afterStateUpdated(function (callable $set, $state) {
-                                                    $lines = explode("\n", $state);
-                                                    $filtered = array_unique(array_filter(array_map('trim', $lines)));
+                                                    $lines = preg_split('/\R/', $state ?? '');
+                                                    $filtered = array_unique(array_filter(array_map('trim', $lines), fn ($line) => $line !== ''));
                                                     $set('number2', count($filtered)); // <- nota: "number2" era sbagliato prima
                                                 })
                                                 ->rows(10)
@@ -77,11 +75,13 @@ class RadiosRelationManager extends RelationManager
                             Step::make('Attach on interval')
                                 ->schema([
                                     TextInput::make('from')
+                                        ->requiredWith('to')
                                         ->label('Noleggia "Available" da')
                                         // Nota: questi campi non sono colonne reali del model,
                                         // li usi solo per filtrare la query.
                                         ->placeholder('Inserisci valore di partenza'),
                                     TextInput::make('to')
+                                        ->requiredWith('from')
                                         ->label('Noleggia "Available" a')
                                         ->placeholder('Inserisci valore di fine'),
                                 ]),
@@ -96,96 +96,29 @@ class RadiosRelationManager extends RelationManager
                         ])
                             ->skippable()
                             ->previousAction(fn ($action) => $action->extraAttributes(['x-show' => 'false']))
-                            ->nextAction(fn ($action) => $action->extraAttributes(['x-show' => 'false']))
+                            ->nextAction(fn ($action) => $action->extraAttributes(['x-show' => 'false'])),
                     ])
                     ->modalWidth('3xl')
-                    ->after(function (AttachAction $action, array $data): void {
+                    ->action(function (AttachAction $action, array $data): void {
+                        $identifiers = array_filter(
+                            array_map('trim', preg_split('/\R/', $data['multiple'] ?? '')),
+                            fn ($identifier) => $identifier !== '',
+                        );
 
-                        // --- 1. Aggiungo le radio dalla textarea
-                        $selectMultipleRadios = explode("\n", $data['multiple'] ?? "");
-                        if (!empty($selectMultipleRadios)) {
-                            $this->attachRadios($selectMultipleRadios);
-                        }
+                        $radioIds = Radio::query()
+                            ->whereIn('identifier', $identifiers)
+                            ->orWhereIn('id', $data['recordId'] ?? [])
+                            ->when(filled($data['from'] ?? null) && filled($data['to'] ?? null),
+                                fn ($query) => $query->orWhereBetween('identifier', [$data['from'], $data['to']]))
+                            ->pluck('id')
+                            ->all();
 
-                        // --- 2. Processa l'intervallo da/to ---
-                        if (!empty($data['from']) && !empty($data['to'])) {
-                            $this->attachRadiosByRange($data['from'], $data['to']);
-                        }
-
-                        // --- 3. Aggiungi radio singole ---
-                        if (!empty($data['recordId'])) {
-                            $this->attachSingleRadio($data['recordId']);
-                        }
-                    })
+                        $this->getOwnerRecord()->attachAvailableRadios($radioIds);
+                        $action->success();
+                    }),
 
             ],
             actions: [EditAction::make(), DetachAction::make()],
         );
-    }
-
-    /**
-     * Attacca le radio non già attaccate e le mantiene come AVAILABLE.
-     *
-     * @param array $radiosId
-     */
-    private function attachRadios(array $radiosId): void
-    {
-        // Pre-carica gli ID delle radio già attachate in un'unica query
-        $attachedRadioIds = $this->ownerRecord->radios()->pluck('radio_id')->toArray();
-        $radios = Radio::query()
-            ->whereIn("identifier", $radiosId)
-            ->get();
-
-        foreach ($radios as $radio) {
-            // Controlla in memoria se la radio non è già presente
-            if (!in_array($radio->id, $attachedRadioIds)) {
-                $this->ownerRecord->radios()->attach($radio->id);
-                // Aggiorna l'array per evitare duplicazioni nel ciclo
-                $attachedRadioIds[] = $radio->id;
-            }
-        }
-    }
-
-    /**
-     * Attacca le radio non già attaccate nell'intervallo e le mantiene come AVAILABLE.
-     *
-     * @param string $from
-     * @param string $to
-     */
-    private function attachRadiosByRange(string $from, string $to): void
-    {
-        // Pre-carica gli ID delle radio già attachate in un'unica query
-        $attachedRadioIds = $this->ownerRecord->radios()->pluck('radio_id')->toArray();
-
-        $radios = Radio::query()
-            ->whereBetween('identifier', [$from, $to])
-            ->where('status', RadioStatusEnum::AVAILABLE)
-            ->get();
-
-        foreach ($radios as $radio) {
-            // Controlla in memoria se la radio non è già presente
-            if (!in_array($radio->id, $attachedRadioIds)) {
-                $this->ownerRecord->radios()->attach($radio->id);
-                // Aggiorna l'array per evitare duplicazioni nel ciclo
-                $attachedRadioIds[] = $radio->id;
-            }
-        }
-    }
-
-    /**
-     * Attacca una singola radio e la mantiene come AVAILABLE.
-     *
-     * @param array $radioId
-     */
-    private function attachSingleRadio(array $radioId): void
-    {
-        // Pre-carica gli ID delle radio già attachate in un'unica query
-        $attachedRadioIds = $this->ownerRecord->radios()->pluck('radio_id')->toArray();
-
-        $radio = Radio::find($radioId);
-
-        if ($radio && !in_array($radio->id, $attachedRadioIds)) {
-            $this->ownerRecord->radios()->attach($radio->id);
-        }
     }
 }

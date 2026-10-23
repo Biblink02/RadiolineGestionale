@@ -71,6 +71,8 @@ const isValid = computed(() => {
         contactForm.firstName &&
         contactForm.lastName &&
         contactForm.email &&
+        contactForm.phone &&
+        contactForm.profileType &&
         contactForm.country &&
         contactForm.message &&
         contactForm.acceptPrivacy
@@ -78,8 +80,10 @@ const isValid = computed(() => {
 });
 
 const submit = () => {
-    contactForm.phone = '+'.concat(contactForm.phone);
-    contactForm.post(route("api.request.contact-form", undefined, false), {
+    contactForm.transform(data => ({
+        ...data,
+        phone: data.phone.trim().startsWith('+') ? data.phone.trim() : `+${data.phone.trim()}`,
+    })).post(route("api.request.contact-form", undefined, false), {
         onSuccess: () => {
             toast.add({
                 severity: "success",
@@ -97,7 +101,6 @@ const submit = () => {
             });
         },
     });
-    contactForm.phone = contactForm.phone.replace('+', '');
 };
 </script>
 
@@ -148,16 +151,13 @@ const submit = () => {
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                 <div>
                     <label class="block mb-1 text-sm font-medium">{{ t("contact-us.phone") }} *
-                        <InputNumber
-                            autocomplete="tel-national"
+                        <InputText
+                            type="tel"
+                            autocomplete="tel"
                             name="phone"
                             v-model="contactForm.phone"
                             class="w-full"
-                            mode="decimal"
-                            :useGrouping="false"
                             :placeholder="t('contact-us.phone-placeholder')"
-                            decimalSeparator=""
-                            prefix="+"
                             :class="{'p-invalid border-red-500': contactForm.errors.phone}"
                         />
                     </label>
@@ -265,7 +265,8 @@ const submit = () => {
                 <Button
                     :label="t('contact-us.submit')"
                     icon="pi pi-send"
-                    :disabled="!isValid"
+                    :disabled="!isValid || contactForm.processing"
+                    :loading="contactForm.processing"
                     @click="submit"
                     class="w-auto mt-8"
                     type="button"

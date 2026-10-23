@@ -13,7 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('clients', function (Blueprint $table) {
-            $table->id()->primary();
+            $table->id();
             $table->enum('profile_type', ClientProfileTypeEnum::toArray());
             $table->text('message')->nullable();
             $table->boolean('accept_privacy');

@@ -2,10 +2,9 @@
 
 namespace App\Filament\Resources\LoanResource;
 
-use App\Enums\LoanStatusEnum;
 use App\Enums\ClientProfileTypeEnum;
+use App\Enums\LoanStatusEnum;
 use Carbon\Carbon;
-use Carbon\Traits\Date;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -70,7 +69,7 @@ class LoanResourceViewBuilder
                         $deliveryDate = $state ? Carbon::parse($state) : null;
                         $returnDate = $get('radio_return_date') ? Carbon::parse($get('radio_return_date')) : null;
 
-                        if ($deliveryDate && $returnDate && $returnDate->gt($deliveryDate)) {
+                        if ($deliveryDate && $returnDate && $returnDate->gte($deliveryDate)) {
                             $days = $deliveryDate->diffInDays($returnDate) + 1;
                             $set('rental_days', $days);
                         } else {
@@ -86,7 +85,7 @@ class LoanResourceViewBuilder
                         $returnDate = $state ? Carbon::parse($state) : null;
                         $deliveryDate = $get('delivery_date') ? Carbon::parse($get('delivery_date')) : null;
 
-                        if ($deliveryDate && $returnDate && $returnDate->gt($deliveryDate)) {
+                        if ($deliveryDate && $returnDate && $returnDate->gte($deliveryDate)) {
                             $days = $deliveryDate->diffInDays($returnDate) + 1;
                             $set('rental_days', $days);
                         } else {
@@ -119,14 +118,13 @@ class LoanResourceViewBuilder
     }
 
     public static function getTable(
-        Table  $table,
+        Table $table,
         ?array $columns = null,
         ?array $headerActions = null,
         ?array $actions = null,
         ?array $bulkActions = null,
         ?array $filters = null
-    ): Table
-    {
+    ): Table {
         return $table
             ->columns([
                 TextColumn::make('id')
@@ -136,18 +134,18 @@ class LoanResourceViewBuilder
                 TextColumn::make('pdf_url')
                     ->searchable()
                     ->formatStateUsing(function ($state, $record) {
-                        if (!$record->pdf_url || !Storage::disk('public')->exists($record->pdf_url)) {
+                        if (! $record->pdf_url || ! Storage::disk('public')->exists($record->pdf_url)) {
                             return null;
                         }
 
                         return 'View PDF';
                     })
                     ->url(function ($record) {
-                        if (!$record->pdf_url || !Storage::disk('public')->exists($record->pdf_url)) {
+                        if (! $record->pdf_url || ! Storage::disk('public')->exists($record->pdf_url)) {
                             return null;
                         }
 
-                        return url('/pdf/' . $record->pdf_url);
+                        return url('/pdf/'.$record->pdf_url);
                     }, true),
 
                 TextColumn::make('status')

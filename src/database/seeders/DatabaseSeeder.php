@@ -5,48 +5,42 @@ namespace Database\Seeders;
 use App\Enums\RadioStatusEnum;
 use App\Models\Radio;
 use App\Models\User;
-
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
-
-        if (env('APP_ENV') === 'local' && empty(User::find(1))) {
-            User::factory()->create([
-                'name' => 'a',
-                'email' => 'alby.bot.24@gmail.com',
-                'password' => '$2y$12$HP/jLvByNzguB4wJr9YgBurD1zm0TA8v9YDv8XdF14bFwp/bPGCdu',
-            ]);
-            User::factory()->create([
-                'name' => 'a',
-                'email' => 'a@a',
-                'password' => '$2y$12$HP/jLvByNzguB4wJr9YgBurD1zm0TA8v9YDv8XdF14bFwp/bPGCdu',
-            ]);
+        if (app()->environment('local')) {
+            foreach (['alby.bot.24@gmail.com', 'a@a'] as $email) {
+                User::firstOrCreate(['email' => $email], [
+                    'name' => 'a',
+                    'email_verified_at' => now(),
+                    'password' => '$2y$12$HP/jLvByNzguB4wJr9YgBurD1zm0TA8v9YDv8XdF14bFwp/bPGCdu',
+                ]);
+            }
         }
 
-        if(empty(Radio::find(1000))){
-            // Crea le radio con identifier da 1001 a 9999
-            $data = [];
-            $now = now(); // oppure Carbon::now();
+        $existing = array_fill_keys(Radio::pluck('identifier')->all(), true);
+        $data = [];
+        $now = now();
 
-            for ($i = 1000; $i <= 9999; $i++) {
-                $data[] = [
-                    'identifier' => $i,
-                    'status'     => ($i <= 2999) ? RadioStatusEnum::AVAILABLE : RadioStatusEnum::UNLOANABLE,
-                    'created_at' => $now,
-                    'updated_at' => $now,
-                ];
+        for ($identifier = 1000; $identifier <= 9999; $identifier++) {
+            if (isset($existing[$identifier])) {
+                continue;
             }
 
-            Radio::insert($data);
+            $data[] = [
+                'identifier' => $identifier,
+                'status' => ($identifier <= 2999 ? RadioStatusEnum::AVAILABLE : RadioStatusEnum::UNLOANABLE)->value,
+                'created_at' => $now,
+                'updated_at' => $now,
+            ];
+        }
 
+        foreach (array_chunk($data, 500) as $radios) {
+            // The unique identifier also protects concurrent startup attempts.
+            Radio::insertOrIgnore($radios);
         }
     }
 }

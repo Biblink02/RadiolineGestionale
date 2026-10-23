@@ -25,11 +25,12 @@ class DocumentResourceViewBuilder
                     ->label('Client')
                     ->searchable()
                     ->preload()
-                    ->relationship(name: 'client', titleAttribute: 'name'),
+                    ->relationship(name: 'client', titleAttribute: 'id'),
                 Select::make('type')
                     ->options(DocumentTypeEnum::class),
                 TextInput::make('number')
                     ->required()
+                    ->unique(ignoreRecord: true)
                     ->maxLength(255),
                 DatePicker::make('expires_at'),
                 DateTimePicker::make('issued_at'),
@@ -38,14 +39,13 @@ class DocumentResourceViewBuilder
     }
 
     public static function getTable(
-        Table  $table,
+        Table $table,
         ?array $columns = null,
         ?array $headerActions = null,
         ?array $actions = null,
         ?array $bulkActions = null,
         ?array $filters = null
-    ): Table
-    {
+    ): Table {
         return $table
             ->columns([
                 TextColumn::make('client_id')

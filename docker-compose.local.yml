@@ -1,77 +1,57 @@
 services:
   app:
-    image: "sindriainc/nginx-php:6.0.0-local-8.2"
-    depends_on:
-      - "database"
+    extends:
+      file: docker-compose.yml
+      service: app
     restart: "no"
     extra_hosts:
-      - "host.docker.internal:host-gateway"
-    environment:
-      - "HOST_USER_UID=${HOST_USER_UID}"
-      - "NGINX_PHP_PM_MAX_CHILDREN=${NGINX_PHP_PM_MAX_CHILDREN}"
-    volumes:
-      - "./src:/var/www/app"
-      - "./docker:/scripts"
-      - "./config/php.ini:/etc/php82/php.ini"  # Mount custom php.ini
-    hostname: "${CONTAINER_NAME}-docker.local"
+      - host.docker.internal:host-gateway
+    command: sh -c "php artisan migrate --force && php artisan db:seed --force && exec php-fpm"
+
+  caddy:
+    image: caddy:2.11.4-alpine
+    restart: "no"
     ports:
       - "8100:80"
-    networks:
-      default:
-        ipv4_address: "${CONTAINER_SERVICE_APP_IP_ADDRESS}"
-        aliases:
-          - "${CONTAINER_NAME}-docker.local"
-    command: "bash /scripts/startup-wrapper_local.sh"
+    environment:
+      CADDY_SITE: ":80"
+    volumes:
+      - ./config/Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./src/public:/var/www/app/public:ro
+      - ./src/storage/app/public:/var/www/app/storage/app/public:ro
+    depends_on:
+      - app
+
+  scheduler:
+    extends:
+      file: docker-compose.yml
+      service: scheduler
+    restart: "no"
 
   frontend:
-    image: "oven/bun:1"
-    depends_on:
-      - "app"
-    working_dir: "/var/www/docker"
-    environment:
-      BUN_INSTALL_CACHE_DIR: "/bun-cache"
-    volumes:
-      - "./src:/var/www/docker"
-      - "frontend_node_modules:/var/www/docker/node_modules"
-      - "bun_cache:/bun-cache"
+    extends:
+      file: docker-compose.yml
+      service: frontend
+    profiles: [dev]
     ports:
-      - "3100:3100" # vite hot reload
-    command: >
-      sh -c "bun install && bun run dev"
-    networks:
-      default:
-        ipv4_address: "${CONTAINER_SERVICE_FRONTEND_IP_ADDRESS}"
-        aliases:
-          - "${CONTAINER_NAME}-bun.local"
-          - "${CONTAINER_NAME}-nodejs.local"
+      - "3100:3100"
+    command: sh -c "bun install --frozen-lockfile && bun run dev"
 
   database:
-    image: "mariadb:11.1"
+    extends:
+      file: docker-compose.yml
+      service: database
+    restart: "no"
     ports:
-      - "${DATABASE_BIND_PORT}:3306"
-    environment:
-      MARIADB_ROOT_PASSWORD: ${DATABASE_ROOT_PASSWORD}
-      MARIADB_USER: ${DATABASE_USER}
-      MARIADB_PASSWORD: ${DATABASE_PASSWORD}
-      MARIADB_DATABASE: ${DATABASE_NAME}
-    volumes:
-      - "database:/var/lib/mysql"
-    networks:
-      default:
-        ipv4_address: "${CONTAINER_SERVICE_DATABASE_IP_ADDRESS}"
-        aliases:
-          - "${CONTAINER_NAME}-database.local"
+      - "127.0.0.1:${DATABASE_BIND_PORT}:3306"
 
 networks:
   default:
     name: "vpc_${CONTAINER_NAME}"
-    driver: "bridge"
+    driver: bridge
     ipam:
       config:
         - subnet: "${CONTAINER_NETWORK_SUBNET}"
 
 volumes:
   database:
-  app_storage:
-  frontend_node_modules:
-  bun_cache:

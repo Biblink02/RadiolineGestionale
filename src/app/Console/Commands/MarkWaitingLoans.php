@@ -5,7 +5,6 @@ namespace App\Console\Commands;
 use App\Enums\LoanStatusEnum;
 use App\Models\Loan;
 use Illuminate\Console\Command;
-use Illuminate\Support\Carbon;
 
 class MarkWaitingLoans extends Command
 {
@@ -26,24 +25,14 @@ class MarkWaitingLoans extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): int
     {
-        // Imposta la data odierna
-        $today = Carbon::today();
+        $count = Loan::where('status', LoanStatusEnum::SCHEDULED)
+            ->whereDate('delivery_date', '<=', today())
+            ->update(['status' => LoanStatusEnum::WAITING]);
 
-        // Recupera i prestiti con status 'scheduled' e loan_date uguale a oggi
-        $scheduledLoans = Loan::where('status', LoanStatusEnum::SCHEDULED)
-            ->whereDate('delivery_date', $today)
-            ->get();
+        $this->info("Loans marked as waiting: {$count}.");
 
-        // Aggiorna ogni prestito a 'active'
-        foreach ($scheduledLoans as $loan) {
-            $loan->status = LoanStatusEnum::WAITING;
-            $loan->save();
-            $this->info("Loan ID " . $loan->id . " marked as SCHEDULED.");
-        }
-
-        // Mostra un messaggio di conferma in console
-        $this->info("Scheduled loans due today (" . $scheduledLoans->count() . ") set to 'WAITING'.");
+        return self::SUCCESS;
     }
 }

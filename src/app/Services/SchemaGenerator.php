@@ -12,8 +12,8 @@ class SchemaGenerator
     /**
      * Restituisce lo script JSON-LD (stringa) adatto alla pagina corrente.
      *
-     * @param string $page Slug della pagina (es. 'about-us', 'home', ecc.)
-     * @return string         Script <script type="application/ld+json">…</script>
+     * @param  string  $page  Slug della pagina (es. 'about-us', 'home', ecc.)
+     * @return string Script <script type="application/ld+json">…</script>
      */
     public static function for(string $page): string
     {
@@ -54,7 +54,7 @@ class SchemaGenerator
     private static function homePage(BaseType $schema, string $url, string $locale): string
     {
         return $schema
-            ->description(__('schema-org.home.hero.subtitle1') . ' – ' . __('schema-org.home.hero.subtitle2'))
+            ->description(__('schema-org.home.hero.subtitle1').' – '.__('schema-org.home.hero.subtitle2'))
             ->isPartOf(self::webSiteEntity())
             ->mainEntity(self::organizationEntity())
             ->primaryImageOfPage(
@@ -77,7 +77,7 @@ class SchemaGenerator
                 Schema::thing()
                     ->name('Jubilee 2025')
                     ->alternateName('Holy Year 2025')
-                    ->description(__('schema-org.jubilee.body.paragraph2.before-quote') . ' "' . __('schema-org.jubilee.body.paragraph2.quote') . '"')
+                    ->description(__('schema-org.jubilee.body.paragraph2.before-quote').' "'.__('schema-org.jubilee.body.paragraph2.quote').'"')
                     ->url($url)
             )
             ->primaryImageOfPage(
@@ -145,13 +145,12 @@ class SchemaGenerator
             ->toScript();
     }
 
-
     /** Organization da riutilizzare */
     private static function organizationEntity(): ThingContract
     {
         return Schema::organization()
             ->name('Medjugorje Service')
-            ->url(env('APP_URL'))
+            ->url(config('app.url'))
             ->logo(asset('images/logo.png', secure: true))
             ->foundingDate(new DateTime('2012-01-01'))
             ->contactPoint(
@@ -166,7 +165,7 @@ class SchemaGenerator
     {
         return Schema::webSite()
             ->name('Medjugorje Service')
-            ->url(env('APP_URL'));
+            ->url(config('app.url'));
     }
 
     /**
@@ -176,7 +175,7 @@ class SchemaGenerator
      */
     private static function generateBreadcrumbs(string $page, string $locale): BaseType
     {
-        $baseUrl = url('/' . $locale, secure: true);
+        $baseUrl = url('/'.$locale, secure: true);
         $elements = [];
 
         // Home
@@ -185,21 +184,20 @@ class SchemaGenerator
             ->identifier('Medjugorje-list')
             ->name(__('schema-org.Home'))
             ->item(Schema::thing()->url($baseUrl)
-                    ->identifier('Medjugorje#Home')
+                ->identifier('Medjugorje#Home')
             );
 
         // Secondo livello (se non home)
         if ($page !== 'home') {
             $elements[] = Schema::listItem()
                 ->position(2)
-                ->identifier("Medjugorje-list2")
+                ->identifier('Medjugorje-list2')
                 ->name(__("schema-org.$page.title") ?: ucfirst(str_replace('-', ' ', $page)))
-                ->item(Schema::thing()->url($baseUrl . '/' . $page)->identifier("Medjugorje#$page"));
+                ->item(Schema::thing()->url($baseUrl.'/'.$page)->identifier("Medjugorje#$page"));
         }
 
         return Schema::breadcrumbList()->itemListElement($elements);
     }
-
 
     /** JSON-LD per Organization (inseriscilo una sola volta nel layout) */
     public static function organization(): string
@@ -212,10 +210,10 @@ class SchemaGenerator
     {
         return Schema::webSite()
             ->name('Medjugorje Service')
-            ->url(env('APP_URL'))
+            ->url(config('app.url'))
             ->potentialAction(
                 Schema::searchAction()
-                    ->target(env('APP_URL') . '/search?q={search_term_string}')
+                    ->target(config('app.url').'/search?q={search_term_string}')
                     ->queryInput('required name=search_term_string')
             )
             ->toScript();

@@ -1,82 +1,59 @@
+# RadiolineGestionale
 
-# MedjugorjeService  
-_A multilingual travel & services website built with Laravel 12 and advanced SEO architecture_  
+Gestionale per clienti, radio, noleggi e PDF, con sito in sei lingue.
+Laravel + Filament, Vue + Inertia, MariaDB. **Caddy** serve i file statici direttamente e passa le richieste dell'app a PHP-FPM. Bun compila il frontend.
 
-## ✨ Why this project matters
-MedjugorjeService is a full-stack Laravel 12 application designed for travel agencies and service providers, with a strong emphasis on **multilingual SEO optimization**, accessibility, and robust back-office operations.  
+## Locale
 
-* **Per-language SEO** – Dynamic JSON-LD generated per locale with schema.org entities (Organization, LocalBusiness, FAQ).  
-* **Google-first directives** – Automatic `<link rel="alternate" hreflang="xx">` tags for every route, canonical URLs, and coherent meta descriptions.  
-* **Accessible & indexable** – Semantic HTML, ARIA roles, language-specific sitemaps for maximum search engine visibility.  
-* **Modern PHP 8.3** – Enums, readonly properties, and attributes power robust validation and type-safety.  
-* **CMS-like backend** – Admin panel for localized content management (texts, pages, media).  
-* **Order management** – Full order lifecycle with PDF invoice/shipping note (“bolla”) generation directly from the dashboard.  
-* **Hard-won extras** – Image optimization, lazy loading, multilingual sitemap.xml, structured data.  
+Serve Docker Compose. Configurazione Docker in `.env.LOCAL`, configurazione Laravel in `src/.env`: per una nuova installazione copiali dai rispettivi `.env.example`, allinea le credenziali e usa `DB_HOST=database`. Se esistono già, conservali, inclusa `APP_KEY`.
 
----
+Preparazione iniziale, dalla radice del progetto:
 
-## 🏗️ Tech stack  
-
-| Layer         | Technology                                         | Highlight                                                                 |
-|---------------|----------------------------------------------------|---------------------------------------------------------------------------|
-| **Backend**   | Laravel 12, PHP 8.3                                | Multilingual routing, SEO middleware, order management with PDF export    |
-| **Frontend**  | Blade, Alpine.js, TailwindCSS                      | SSR-ready, responsive and WCAG-compliant rendering                        |
-| **SEO**       | JSON-LD per language, hreflang, canonical, sitemap | Fully aligned with Google’s multilingual SEO directives                   |
-| **Data**      | MySQL/MariaDB, Eloquent with UUIDs                 | Localized tables with automatic fallback                                  |
-| **Tooling**   | Docker, Composer, npm, Pint, ESLint, Prettier      | Unified development and deployment setup                                  |
-| **Ops**       | Artisan CLI, CI friendly                           | Automated builds and SEO validation tasks                                 |  
-
----
-
-## 🌍 Internationalisation & SEO  
-
-* **Full i18n** – English (default) and additional locales powered by JSON translation catalogs.  
-* **SEO-ready markup** – Structured data injected at runtime per language, ensuring Google interprets the right locale.  
-* **Google directives compliance** – `hreflang` and `canonical` automatically included on every page for correct indexation.  
-* **Multilingual sitemap** – Dynamic XML sitemap, segmented by language, refreshed on deployment.  
-
----
-
-## ⚙️ Local setup  
-
-```bash
-# Prerequisites: Docker installed and running
-
-git clone https://github.com/your-handle/medjugorje-service.git
-cd medjugorje-service
-
-cp .env.example .env    # edit DB creds, ips
-cp src/.env.example src/.env    # edit DB creds, mail
-
-# Build and start containers
-docker compose up -d
-````
-
----
-
-## 🛠️ Useful artisan commands
-
-| Command                   | Purpose                                                              |
-| ------------------------- | -------------------------------------------------------------------- |
-| `seo:generate-sitemap`    | Builds multilingual `sitemap.xml` with alternate language references |
-| `seo:validate-hreflang`   | Ensures all localized routes include proper `<hreflang>` directives  |
-| `orders:generate-bolla`   | Creates a PDF shipping note/invoice for completed orders             |
-| `optimize`/`config:cache` | Zero-downtime cache warm-ups                                         |
-
----
-
-## 📁 High-level folder map
-
-```text
-app/        Domain logic, SEO middleware, Models, Orders, PDF services
-resources/  Blade templates, Alpine.js components, Tailwind, i18n JSON
-database/   Migrations, Seeders, Factories
-routes/     Web, API & CLI routes with locale grouping
-tests/      Feature & Unit test suites, SEO and order flow tests
+```sh
+dc() { docker compose --env-file .env.LOCAL -f docker-compose.local.yml "$@"; }
+dc build app
+dc run --rm --no-deps app composer install
+dc run --rm --no-deps app php artisan storage:link
 ```
 
----
+Solo su una nuova installazione, genera la chiave se vuota:
 
-## 📜 License
+```sh
+dc run --rm --no-deps app php artisan key:generate
+```
 
-Released under the **MIT license** — free to adapt for educational or commercial use (attribution appreciated).
+Da quel momento basta:
+
+```sh
+./run.local.sh
+```
+
+Sito: http://localhost:8100 — Gestionale: http://localhost:8100/admin. Vite e scheduler partono insieme all'app. In locale, l'avvio applica le migrazioni mancanti e il seed: crea gli utenti di sviluppo e le radio 1000–9999 mancanti, conservando i dati già presenti.
+
+## Produzione
+
+Se `.env` non esiste, copialo da `.env.PROD`. Configura `.env` e `src/.env`: `CADDY_SITE=tuo-dominio.it`, `APP_URL=https://tuo-dominio.it`, `APP_ENV=production`, `APP_DEBUG=false`. Con DNS corretto e porte 80/443 disponibili, Caddy gestisce HTTPS automaticamente. Mantieni chiave e database esistenti.
+
+MariaDB è inclusa, con volume persistente `database`: usa `DB_HOST=database` e credenziali coerenti nei due file. Il servizio `frontend` viene eseguito solo per compilare gli asset e poi termina; non parte con l'avvio normale.
+
+```sh
+dp() { docker compose "$@"; }
+dp build app
+dp run --rm --no-deps app composer install --no-dev --optimize-autoloader
+dp run --rm --no-deps frontend
+rm -f src/public/hot
+dp run --rm --no-deps app php artisan storage:link
+dp run --rm --no-deps app php artisan optimize
+sh run.sh
+```
+
+## Test
+
+Con le dipendenze di sviluppo installate e la funzione `dc` definita sopra:
+
+```sh
+dc run --rm --no-deps app php artisan test
+sh docker/test-static.sh
+```
+
+I test PHP usano SQLite in memoria, senza toccare il database dell'app.

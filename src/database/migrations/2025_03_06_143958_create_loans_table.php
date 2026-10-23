@@ -8,7 +8,8 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      */
@@ -36,7 +37,9 @@ return new class extends Migration {
             $table->timestamps();
         });
 
-        DB::statement('ALTER TABLE loans AUTO_INCREMENT = 1000');
+        if (in_array(DB::getDriverName(), ['mysql', 'mariadb'], true)) {
+            DB::statement('ALTER TABLE loans AUTO_INCREMENT = 1000');
+        }
     }
 
     /**

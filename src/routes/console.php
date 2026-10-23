@@ -10,5 +10,5 @@ Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote');
 
-Schedule::command(MarkOverdueLoans::class)->daily();
-Schedule::command(MarkWaitingLoans::class)->daily();
+Schedule::command(MarkOverdueLoans::class)->daily()->withoutOverlapping();
+Schedule::command(MarkWaitingLoans::class)->daily()->withoutOverlapping();

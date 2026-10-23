@@ -9,9 +9,10 @@ class PdfRequest extends FormRequest
     public function prepareForValidation(): void
     {
         $this->merge([
-            'path' => $this->route('path')
+            'path' => $this->route('path'),
         ]);
     }
+
     public function authorize(): true
     {
         return true;
@@ -20,7 +21,7 @@ class PdfRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'path' => 'required|string'
+            'path' => ['required', 'string', 'regex:/\A[^\\\\\/\x00-\x1F]+\.pdf\z/i'],
         ];
     }
 }

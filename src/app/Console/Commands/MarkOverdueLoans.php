@@ -25,24 +25,14 @@ class MarkOverdueLoans extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): int
     {
-        $overdueLoans = Loan::where('status', LoanStatusEnum::ACTIVE->value)
-            ->whereNotNull('radio_return_date')
-            ->whereNowOrPast('radio_return_date')
-            ->get();
+        $count = Loan::where('status', LoanStatusEnum::ACTIVE)
+            ->whereDate('radio_return_date', '<', today())
+            ->update(['status' => LoanStatusEnum::OVERDUE]);
 
-        if ($overdueLoans->isEmpty()) {
-            $this->info('No overdue loans found.');
-            return;
-        }
+        $this->info("Loans marked as overdue: {$count}.");
 
-        foreach ($overdueLoans as $loan) {
-            $loan->status = LoanStatusEnum::OVERDUE->value;
-            $loan->save();
-            $this->info("Loan ID " . $loan->id . " marked as overdue.");
-        }
-
-        $this->info("All overdue loans (" . count($overdueLoans) . ") have been updated.");
+        return self::SUCCESS;
     }
 }

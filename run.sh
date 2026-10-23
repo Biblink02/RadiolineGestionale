@@ -1,5 +1,5 @@
 #!/bin/sh
-
-# NOTE: The production server is started by the pipeline, not by this script
-docker compose down
-docker compose up -d
+set -eu
+cd "$(dirname "$0")"
+# Dependencies, assets and Laravel caches are prepared before restarting services.
+exec docker compose up -d --build "$@"

@@ -20,6 +20,7 @@ class RadioResourceViewBuilder
             ->schema([
                 TextInput::make('identifier')
                     ->required()
+                    ->unique(ignoreRecord: true)
                     ->maxLength(255),
                 Select::make('status')
                     ->options(RadioStatusEnum::class)
@@ -29,14 +30,13 @@ class RadioResourceViewBuilder
     }
 
     public static function getTable(
-        Table  $table,
+        Table $table,
         ?array $columns = null,
         ?array $headerActions = null,
         ?array $actions = null,
         ?array $bulkActions = null,
         ?array $filters = null
-    ): Table
-    {
+    ): Table {
         return $table
             ->columns([
                 TextColumn::make('identifier')

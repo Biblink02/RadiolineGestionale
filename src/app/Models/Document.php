@@ -4,12 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class Document extends Model
 {
-
     protected $primaryKey = 'id';
+
     protected $guarded = [
         'id',
         'created_at',
@@ -23,11 +22,6 @@ class Document extends Model
         'expires_at',
         'issued_at',
     ];
-
-    public function info(): MorphTo
-    {
-        return $this->morphTo('info');
-    }
 
     public function client(): BelongsTo
     {

@@ -3,12 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class ContactForm extends Model
 {
-
     protected $primaryKey = 'id';
+
     protected $guarded = [
         'id',
         'created_at',
@@ -24,9 +23,4 @@ class ContactForm extends Model
         'profileType',
         'message',
     ];
-
-    public function info(): MorphTo
-    {
-        return $this->morphTo('info');
-    }
 }

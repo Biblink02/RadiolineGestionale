@@ -8,15 +8,13 @@ use App\Http\Requests\ContactFormRequest;
 use App\Models\ContactForm;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Mail;
-use Inertia\Inertia;
-use Inertia\Response;
 
 class ContactFormController extends Controller
 {
-    public function handleContactFormRequest(ContactFormRequest $request): Response
+    public function handleContactFormRequest(ContactFormRequest $request): RedirectResponse
     {
         $parameters = $request->validated();
-        $country = config('countries.' . $parameters['country']);
+        $country = config('countries.'.$parameters['country']);
         $form = ContactForm::create([
             'firstName' => $parameters['firstName'],
             'lastName' => $parameters['lastName'],
@@ -32,7 +30,9 @@ class ContactFormController extends Controller
             $parameters['lastName'],
             $parameters['language'] ?? null,
             $form));
-        return Inertia::render('ContactUs/ContactUsPage');
-    }
 
+        return to_route('page.contact-us', [
+            'locale' => $parameters['language'] ?? config('custom.lang.fallback'),
+        ], 303);
+    }
 }

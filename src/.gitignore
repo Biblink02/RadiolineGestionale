@@ -25,7 +25,5 @@ yarn-error.log
 /public/css/
 /public/js/
 /components.d.ts
-composer.lock
-/storage/framework/views/
 /auto-imports.d.ts
 /.eslintrc-auto-import.json

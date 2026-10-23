@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Database\Factories\UserFactory;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -13,8 +14,9 @@ class User extends Authenticatable implements FilamentUser
 {
     use HasApiTokens;
 
-    /** @use HasFactory<\Database\Factories\UserFactory> */
+    /** @use HasFactory<UserFactory> */
     use HasFactory;
+
     use Notifiable;
 
     /**
@@ -38,15 +40,6 @@ class User extends Authenticatable implements FilamentUser
         'remember_token',
         'two_factor_recovery_codes',
         'two_factor_secret',
-    ];
-
-    /**
-     * The accessors to append to the model's array form.
-     *
-     * @var array<int, string>
-     */
-    protected $appends = [
-        'profile_photo_url',
     ];
 
     /**

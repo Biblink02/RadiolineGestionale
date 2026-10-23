@@ -2,8 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\ContactFormProfileTypeEnum;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\Rule;
 
 class ContactFormRequest extends FormRequest
 {
@@ -11,6 +12,7 @@ class ContactFormRequest extends FormRequest
     {
         return true;
     }
+
     public function rules(): array
     {
         return [
@@ -18,11 +20,11 @@ class ContactFormRequest extends FormRequest
             'lastName' => 'required|string|max:100',
             'phone' => 'required|phone',
             'email' => 'required|email|max:255',
-            'country' => 'required|string|size:2', // ISO
-            'profileType' => 'required|string|max:50',
-            'message' => 'required|string',
+            'country' => ['required', 'string', Rule::in(array_keys(config('countries')))],
+            'profileType' => ['required', Rule::enum(ContactFormProfileTypeEnum::class)],
+            'message' => 'required|string|max:10000',
             'acceptPrivacy' => 'accepted',
-            'language' => 'nullable|string|size:2',
+            'language' => ['nullable', Rule::in(config('custom.lang.available'))],
         ];
     }
 }

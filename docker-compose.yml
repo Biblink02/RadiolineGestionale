@@ -1,59 +1,92 @@
+x-php: &php
+  build:
+    context: .
+    dockerfile: docker/php.Dockerfile
+  image: radioline-php:8.3
+  restart: unless-stopped
+  user: "${HOST_USER_UID:-1000}:${HOST_USER_GID:-1000}"
+  environment:
+    NGINX_PHP_PM_MAX_CHILDREN: "${NGINX_PHP_PM_MAX_CHILDREN:-10}"
+  volumes:
+    - ./src:/var/www/app
+
 services:
-  nginx:
-    image: 'jc21/nginx-proxy-manager:latest'
+  caddy:
+    image: caddy:2.11.4-alpine
     restart: unless-stopped
     ports:
-      - '80:80'
-      - '81:81'
-      - '443:443'
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    environment:
+      CADDY_SITE: "${CADDY_SITE:-:80}"
     volumes:
-      - ./data:/data
-      - ./letsencrypt:/etc/letsencrypt
-    networks:
-      default:
-        ipv4_address: "${CONTAINER_SERVICE_PROXY_IP_ADDRESS}"
-        aliases:
-          - "${CONTAINER_NAME}-docker.local"
-    deploy:
-      resources:
-        limits:
-          memory: 500M
-    memswap_limit: 4G
-
+      - ./config/Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./src/public:/var/www/app/public:ro
+      - ./src/storage/app/public:/var/www/app/storage/app/public:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - app
 
   app:
-    image: "sindriainc/nginx-php:6.0.0-8.2"
-    restart: "always"
-    expose:
-      - "80"
-    environment:
-      - "HOST_USER_UID=${HOST_USER_UID}"
-      - "NGINX_PHP_PM_MAX_CHILDREN=${NGINX_PHP_PM_MAX_CHILDREN}"
-    volumes:
-      - "./src:/var/www/app"
-      - "./docker:/scripts"
-      - "./config/php.ini:/etc/php82/php.ini"  # Mount custom php.ini
+    <<: *php
+    depends_on:
+      database:
+        condition: service_healthy
     networks:
       default:
         ipv4_address: "${CONTAINER_SERVICE_APP_IP_ADDRESS}"
         aliases:
           - "${CONTAINER_NAME}-docker.local"
-    command: "bash /scripts/startup-wrapper.sh"
-    # Resource limits for app service
-    deploy:
-      resources:
-        limits:
-          memory: 1250M
-    memswap_limit: 6G
+
+  scheduler:
+    <<: *php
+    command: php artisan schedule:work
+    init: true
+    depends_on:
+      database:
+        condition: service_healthy
+
+  database:
+    image: mariadb:11.1
+    restart: unless-stopped
+    environment:
+      MARIADB_ROOT_PASSWORD: ${DATABASE_ROOT_PASSWORD}
+      MARIADB_USER: ${DATABASE_USER}
+      MARIADB_PASSWORD: ${DATABASE_PASSWORD}
+      MARIADB_DATABASE: ${DATABASE_NAME}
+    volumes:
+      - database:/var/lib/mysql
+    healthcheck:
+      test: [CMD, healthcheck.sh, --connect, --innodb_initialized]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    networks:
+      default:
+        ipv4_address: "${CONTAINER_SERVICE_DATABASE_IP_ADDRESS}"
+        aliases:
+          - "${CONTAINER_NAME}-database.local"
+
+  frontend:
+    image: oven/bun:1
+    profiles: [tools]
+    user: "${HOST_USER_UID:-1000}:${HOST_USER_GID:-1000}"
+    working_dir: /var/www/app
+    volumes:
+      - ./src:/var/www/app
+    command: sh -c "bun install --frozen-lockfile && bun run build"
 
 networks:
   default:
     name: "vpc_${CONTAINER_NAME}"
-    driver: "bridge"
+    driver: bridge
     ipam:
       config:
         - subnet: "${CONTAINER_NETWORK_SUBNET}"
 
 volumes:
   database:
-  app_storage:
+  caddy_data:
+  caddy_config:

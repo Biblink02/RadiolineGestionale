@@ -3,13 +3,13 @@
 namespace App\Filament\Resources\RadioResource\RelationManagers;
 
 use App\Filament\Resources\LoanResource\LoanResourceViewBuilder;
+use App\Models\Loan;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables\Actions\AttachAction;
 use Filament\Tables\Actions\CreateAction;
 use Filament\Tables\Actions\DetachAction;
 use Filament\Tables\Actions\EditAction;
-use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
 class LoansRelationManager extends RelationManager
@@ -35,6 +35,10 @@ class LoansRelationManager extends RelationManager
                             ->getRecordSelect()
                             ->required(),
                     ])
+                    ->action(function (AttachAction $action, array $data): void {
+                        Loan::findOrFail($data['recordId'])->attachAvailableRadios([$this->getOwnerRecord()->getKey()]);
+                        $action->success();
+                    }),
             ],
             actions: [EditAction::make(), DetachAction::make()],
         );

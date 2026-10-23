@@ -1,5 +1,4 @@
 #!/bin/sh
-
-docker compose -f docker-compose.local.yml down --remove-orphans
-docker compose -f docker-compose.local.yml up
-docker compose -f docker-compose.local.yml down
+set -eu
+cd "$(dirname "$0")"
+exec docker compose --env-file .env.LOCAL -f docker-compose.local.yml --profile dev up --build "$@"
